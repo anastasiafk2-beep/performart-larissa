@@ -72,14 +72,14 @@ const isHomePage = pathname === "/";
   Αρχική
 </a>
 
-<a href="/about" chref="/"
+<a href="/about" 
   className="group flex items-center gap-4 text-4xl font-bold tracking-[0.2em] uppercase text-white transition-all duration-300 hover:text-red-500"
 >
   <span className="h-[2px] w-0 bg-red-600 transition-all duration-300 group-hover:w-10"></span>
         Η Φιλοσοφία μας
       </a>
 
-      <a href="/events" chref="/"
+      <a href="/events" 
   className="group flex items-center gap-4 text-4xl font-bold tracking-[0.2em] uppercase text-white transition-all duration-300 hover:text-red-500"
 >
   <span className="h-[2px] w-0 bg-red-600 transition-all duration-300 group-hover:w-10"></span>
@@ -93,7 +93,7 @@ const isHomePage = pathname === "/";
         Συνεντεύξεις
       </a>
 
-      <a href="/books" chref="/"
+      <a href="/books" 
   className="group flex items-center gap-4 text-4xl font-bold tracking-[0.2em] uppercase text-white transition-all duration-300 hover:text-red-500"
 >
   <span className="h-[2px] w-0 bg-red-600 transition-all duration-300 group-hover:w-10"></span>

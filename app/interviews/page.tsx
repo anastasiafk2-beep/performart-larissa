@@ -8,12 +8,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 const spectral = Spectral({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
   weight: ["300", "400"],
 });
 
 const alegreya = Alegreya({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
   weight: ["400"],
 });
 

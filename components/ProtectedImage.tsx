@@ -11,7 +11,6 @@ export default function ProtectedImage(props: ImageProps) {
       onDragStart={(e) => e.preventDefault()}
       style={{
         userSelect: "none",
-        WebkitUserDrag: "none",
         ...(props.style || {}),
       }}
     />

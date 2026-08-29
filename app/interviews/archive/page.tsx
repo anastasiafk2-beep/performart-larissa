@@ -6,12 +6,12 @@ import { interviews } from "@/components/content/interviews";
 import { Spectral, Alegreya } from "next/font/google";
 
 const spectral = Spectral({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
   weight: ["300", "400"],
 });
 
 const alegreya = Alegreya({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
   weight: ["400"],
 });
 

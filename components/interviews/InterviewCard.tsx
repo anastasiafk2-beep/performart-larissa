@@ -3,12 +3,12 @@ import { Spectral, Alegreya } from "next/font/google";
 import ProtectedImage from "@/components/ProtectedImage";
 
 const spectral = Spectral({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
   weight: ["300", "400"],
 });
 
 const alegreya = Alegreya({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
   weight: ["400"],
 });
 

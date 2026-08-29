@@ -13,36 +13,36 @@ import {
 } from "next/font/google";
 
 const dm = DM_Serif_Display({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
   weight: "400",
 });
 
 const prata = Prata({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
   weight: "400",
 });
 
 const cormorant = Cormorant_Garamond({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
   weight: ["400", "500"],
 });
 
 const libre = Libre_Caslon_Display({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
   weight: "400",
 });
 
 const lora = Lora({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
 });
 
 const crimson = Crimson_Text({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
   weight: ["400", "600"],
 });
 
 const spectral = Spectral({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
   weight: ["400", "500"],
 });
 
@@ -51,7 +51,7 @@ const source = Source_Serif_4({
 });
 
 const alegreya = Alegreya({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
 });
 
 const eb = EB_Garamond({

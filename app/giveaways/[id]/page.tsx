@@ -121,7 +121,7 @@ export default async function GiveawayPage({ params }: Props) {
 <br></br>
             <div className="space-y-6">
 
-              {giveaway.steps.map((step, index) => (
+              {giveaway.participation.map((step, index) => (
                 <div
                   key={index}
                   className="flex gap-4 items-start"
@@ -157,7 +157,7 @@ export default async function GiveawayPage({ params }: Props) {
             Ο ΔΙΑΓΩΝΙΣΜΟΣ ΛΗΓΕΙ ΣΤΙΣ
             <br />
             <span className="text-[#d92f2f]">
-              {giveaway.deadline}
+              {giveaway.endDate}
             </span>
           </p>
 

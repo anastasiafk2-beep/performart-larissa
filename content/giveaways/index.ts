@@ -44,7 +44,7 @@ export const giveaways: Giveaway[] = [
 
     time: "21:00",
 
-    deadline: "22 ΑΥΓΟΥΣΤΟΥ 2026, 23:59",
+    endDate: "22 ΑΥΓΟΥΣΤΟΥ 2026, 23:59",
 
     description:
       "Κερδίστε 3 διπλές προσκλήσεις για την παράσταση «Ρωμαίος και Ιουλιέτα του Μποστ»!",
@@ -61,14 +61,10 @@ export const giveaways: Giveaway[] = [
 
     instagramUrl: "https://www.instagram.com/p/DcQltnSgRuk/",
 
-    endDate: "22 ΑΥΓΟΥΣΤΟΥ 2026",
+  
 
     active: true,
 
-    steps: [
-  "Κάνε like στη δημοσίευση",
-  "Κάνε tag ένα άτομο που θα ήθελες να έρθει μαζί σου",
-  "Ακολούθησε τη σελίδα @performart_larissa",
-],
+   
   },
 ];

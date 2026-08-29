@@ -7,6 +7,7 @@ interface HomeCardProps {
   href: string;
   icon: LucideIcon;
   image: string;
+  onClick?: () => void;
 }
 
 export default function HomeCard({
@@ -15,10 +16,12 @@ export default function HomeCard({
   href,
   icon: Icon,
   image,
+  onClick,
 }: HomeCardProps) {
   return (
     <Link
       href={href}
+      onClick={onClick}
       className="
         group
         relative

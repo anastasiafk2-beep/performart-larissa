@@ -3,12 +3,12 @@ import Link from "next/link";
 import { Alegreya, Spectral } from "next/font/google";
 
 const alegreya = Alegreya({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
   weight: ["400", "500"],
 });
 
 const spectral = Spectral({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
   weight: ["300", "400"],
 });
 

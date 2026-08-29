@@ -35,7 +35,7 @@ const forum = Forum({
 });
 
 const geist = Geist({
-  subsets: ["latin", "greek"],
+  subsets: ["latin"],
   variable: "--font-geist",
 });
 
@@ -72,7 +72,7 @@ export default function RootLayout({
     >
      <body className="relative min-h-screen bg-black text-white">
 
-  <BackgroundPattern variant="cinema" />
+  <BackgroundPattern />
 
   <div className="relative z-10">
     <Header />

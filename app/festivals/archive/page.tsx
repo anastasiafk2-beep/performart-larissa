@@ -50,14 +50,8 @@ export default function FestivalsArchivePage() {
    */
   const dateOptions = useMemo(() => {
     return festivals.map((festival) => ({
-      value:
-        festival.startDate && festival.endDate
-          ? `${festival.startDate}_${festival.endDate}`
-          : festival.year,
-      label:
-        festival.startDate && festival.endDate
-          ? festival.dates
-          : festival.year,
+      value: festival.year,
+label: festival.year,
     }));
   }, []);
 
@@ -70,10 +64,7 @@ export default function FestivalsArchivePage() {
     }
 
     return festivals.filter((festival) => {
-      const value =
-        festival.startDate && festival.endDate
-          ? `${festival.startDate}_${festival.endDate}`
-          : festival.year;
+     const value = festival.year;
 
       return value === selectedDate;
     });
@@ -106,20 +97,10 @@ export default function FestivalsArchivePage() {
    * Έλεγχος αν μία συγκεκριμένη ημέρα
    * ανήκει σε κάποιο φεστιβάλ.
    */
-  const festivalsOnDay = (day: number) => {
-    const current = new Date(year, month, day);
-
-    return festivals.filter((festival) => {
-      if (!festival.startDate || !festival.endDate) {
-        return false;
-      }
-
-      const start = new Date(`${festival.startDate}T00:00:00`);
-      const end = new Date(`${festival.endDate}T23:59:59`);
-
-      return current >= start && current <= end;
-    });
-  };
+ 
+ const festivalsOnDay = (day: number) => {
+  return festivals.filter(() => false);
+};
 
   const previousMonth = () => {
     setCalendarDate(new Date(year, month - 1, 1));
@@ -268,19 +249,15 @@ export default function FestivalsArchivePage() {
 
                 {/* ΗΜΕΡΟΜΗΝΙΑ */}
                 <div>
-                  <p className="text-xl text-[#B51F29]">
-                    {festival.startDate
-                      ? new Date(
-                          `${festival.startDate}T00:00:00`
-                        ).getDate()
-                      : festival.year}
-                  </p>
+              <p className="text-xl text-[#B51F29]">
+  {festival.year}
+</p>
 
-                  {festival.startDate && (
-                    <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-[#777]">
-                      {festival.dates}
-                    </p>
-                  )}
+{festival.dates && (
+  <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-[#777]">
+    {festival.dates}
+  </p>
+)}
                 </div>
 
                 {/* ΦΕΣΤΙΒΑΛ */}
@@ -437,19 +414,8 @@ export default function FestivalsArchivePage() {
 
               <div className="space-y-5">
 
-                {festivals
-                  .filter((festival) => {
-                    if (!festival.startDate) return false;
-
-                    const date = new Date(
-                      `${festival.startDate}T00:00:00`
-                    );
-
-                    return (
-                      date.getFullYear() === year &&
-                      date.getMonth() === month
-                    );
-                  })
+               {festivals
+  .filter((festival) => festival.year === String(year))
                   .map((festival) => (
                     <Link
                       key={festival.id}

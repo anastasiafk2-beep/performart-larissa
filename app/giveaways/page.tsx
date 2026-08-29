@@ -82,14 +82,14 @@ export default function GiveawaysPage() {
     <p>◷ {giveaway.time}</p>
   )}
 <br></br>
-  {giveaway.deadline && (
+ {giveaway.endDate && (
     <div className="mt-5 inline-block border border-red-600 px-4 py-3">
       <p className="text-[10px] tracking-[0.18em] text-red-600 uppercase mb-1">
         Ο ΔΙΑΓΩΝΙΣΜΟΣ ΛΗΓΕΙ ΣΤΙΣ
       </p>
 
       <p className="text-[13px] tracking-[0.08em]">
-        {giveaway.deadline}
+        {giveaway.endDate}
       </p>
     </div>
   )}
