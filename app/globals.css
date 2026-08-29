@@ -1,26 +1,282 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html{
+  scroll-behavior:smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html,
+body {
+  background: #000;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+img{
+  display:block;
+  max-width:100%;
+}
+
+button{
+  font:inherit;
+}
+
+.font-editorial {
+  font-family: var(--font-cormorant);
+
+  .font-forum {
+  font-family: var(--font-forum), serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-title{
+    font-family:var(--font-instrument),serif;
+}
+
+.font-body{
+    font-family:var(--font-source-serif),serif;
+}
+
+.noise{
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.12) 0 1px, transparent 1px),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,.08) 0 1px, transparent 1px);
+    background-size:180px 180px;
+    mix-blend-mode:soft-light;
+}
+
+@keyframes floatSlow{
+    0%{
+        transform:translateY(0px) rotate(0deg);
+    }
+
+    50%{
+        transform:translateY(-20px) rotate(2deg);
+    }
+
+    100%{
+        transform:translateY(0px) rotate(0deg);
+    }
+}
+
+/* ===========================
+   PERFORMART CINEMA CALENDAR
+=========================== */
+
+.performart-calendar {
+  color: #2b2b2b;
+}
+
+.performart-calendar .rdp-month_caption {
+  color: #2b2b2b;
+  font-size: 26px;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+}
+
+.performart-calendar .rdp-weekday {
+  color: #7b746c;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+}
+
+.performart-calendar .rdp-day {
+  color: #262626;
+  font-size: 16px;
+  transition: .25s;
+}
+
+.performart-calendar .rdp-day:hover {
+  background: #F5E8E3;
+  color: #B61F24;
+}
+
+.performart-calendar .rdp-button_next svg,
+.performart-calendar .rdp-button_previous svg{
+  stroke:#C2272D;
+}
+
+.performart-calendar .rdp-chevron{
+  fill:#C2272D;
+}
+
+.performart-calendar .rdp-day_today{
+  font-weight:700;
+  color:#C2272D;
+}
+
+.performart-calendar .rdp-day_selected{
+  background:#C2272D !important;
+  color:white !important;
+  border-radius:999px;
+}
+
+.performart-calendar .rdp-outside{
+  color:#d0c8bf;
+}
+
+.event-day{
+    position:relative;
+}
+.event-day::after{
+    content:"";
+    position:absolute;
+
+    bottom:5px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:6px;
+    height:6px;
+
+    border-radius:9999px;
+
+    background:#C2272D;
+}
+
+}
+/* =========================================
+   COMMON PAGE LAYOUT
+========================================= */
+
+.page-shell {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 140px 60px 100px;
+}
+
+@media (max-width: 1024px) {
+  .page-shell {
+    padding: 120px 40px 80px;
   }
 }
 
+@media (max-width: 640px) {
+  .page-shell {
+    padding: 110px 24px 60px;
+  }
+}
+
+/* EVENTS PAGE - κεντράρισμα όλου του περιεχομένου */
+.events-page {
+  padding-left: 17vw !important;
+  padding-right: 3vw !important;
+  box-sizing: border-box;
+}
+
+.events-page > section,
+.events-page > div {
+  width: 87%;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   RESPONSIVE FOUNDATION
+   ========================================================= */
+
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Κανένα section να μην προκαλεί οριζόντιο scroll */
+section,
+main,
+header,
+footer {
+  max-width: 100%;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1024px) {
+
+  h1 {
+    max-width: 100%;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Αποφεύγουμε τεράστιες αποστάσεις που έχουμε στο desktop */
+  section {
+    max-width: 100%;
+  }
+
+  /* Οι τίτλοι του site */
+  h1 {
+    font-size: clamp(38px, 11vw, 58px);
+    line-height: 1;
+    letter-spacing: 0.12em;
+  }
+
+  h2 {
+    font-size: clamp(28px, 8vw, 42px);
+    line-height: 1.1;
+  }
+
+  h3 {
+    font-size: clamp(22px, 6vw, 32px);
+    line-height: 1.15;
+  }
+
+  /* Κείμενα */
+  p {
+    max-width: 100%;
+  }
+
+  /* Prevent accidental fixed-width elements */
+  [style*="width: 70%"],
+  [style*="width: 80%"],
+  [style*="width: 90%"] {
+    width: auto !important;
+    max-width: 100% !important;
+  }
+
+  [style*="margin-left: 15%"],
+  [style*="marginLeft"] {
+    margin-left: 0 !important;
+  }
+
 }
