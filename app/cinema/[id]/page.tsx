@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { movies } from "@/content/cinema/movies";
 import BackButton from "@/components/cinema/BackButton";
+import { getCinemaMovies } from "@/lib/cinema-data";
 
 type MoviePageProps = {
   params: Promise<{
@@ -13,6 +13,7 @@ export default async function MoviePage({
 }: MoviePageProps) {
   const { id } = await params;
 
+  const movies = await getCinemaMovies();
   const movie = movies.find((movie) => movie.id === id);
 
   if (!movie) {
@@ -21,10 +22,10 @@ export default async function MoviePage({
 
   return (
     <main
-  className="min-h-screen overflow-hidden bg-[#707BD4]/80"
+  className="min-h-screen overflow-hidden bg-white"
 >
   {/* Light overlay */}
-  <div className="absolute inset-0 bg-white/70 pointer-events-none" />
+  <div className="absolute inset-0 bg-white pointer-events-none" />
 
   <div className="relative z-10">
 

@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 
+import { getCinemaReviews } from "@/lib/cinema-reviews-data";
+
 const reviews = [
   {
     id: "the-devil-wears-prada",
@@ -20,7 +22,25 @@ type Props = {
 export default async function ReviewPage({ params }: Props) {
   const { id } = await params;
 
-  const review = reviews.find((item) => item.id === id);
+  const localReview = reviews.find((item) => item.id === id);
+
+  const sanityReviews = await getCinemaReviews();
+
+  const sanityReview = sanityReviews.find(
+    (item) => item.id === id
+  );
+
+  const review = localReview
+    ? localReview
+    : sanityReview
+    ? {
+        id: sanityReview.id,
+        title: sanityReview.title,
+        excerpt: sanityReview.excerpt,
+        rating: sanityReview.rating,
+        image: sanityReview.image || "",
+      }
+    : null;
 
   if (!review) {
     notFound();
@@ -31,7 +51,7 @@ export default async function ReviewPage({ params }: Props) {
   className="relative min-h-screen text-black"
   style={{
     padding: "120px 6vw 100px",
-    backgroundColor: "#DEE0F4",
+    backgroundColor: "#fdfdfd",
    
     backgroundSize: "cover",
     backgroundPosition: "center",

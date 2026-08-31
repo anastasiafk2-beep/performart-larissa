@@ -3,9 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { events, type Event } from "@/content/events";
+import type { Event } from "@/content/events";
+import useEvents from "@/hooks/useEvents";
 
 export default function AgendaPage() {
+  const { events } = useEvents();
     const [filtersOpen, setFiltersOpen] = useState(false);
 const [selectedCategory, setSelectedCategory] = useState("Όλες");
 const categoryMap: Record<string, Event["category"] | "all"> = {
@@ -79,7 +81,7 @@ const weekEvents = events.filter((event) => {
 });
 
   return (
-    <main className="min-h-screen events-page bg-[#F0DFDE] text-black">
+    <main className="min-h-screen events-page bg-white text-black">
 <br></br>
 <br></br>
       {/* HERO */}
@@ -98,7 +100,7 @@ const weekEvents = events.filter((event) => {
 
         <Link
   href="/events"
-  className="absolute left-8 top-32 z-30 text-white inline-flex border border-black/30 bg-[#F0DFDE]/70 px-4 py-2 text-[14px] uppercase tracking-[0.2em] transition-all duration-300 hover:bg-white hover:text-white lg:left-[1050px] lg:top-25"
+  className="absolute left-8 top-32 z-30 text-white inline-flex border border-black/30 bg-white px-4 py-2 text-[14px] uppercase tracking-[0.2em] transition-all duration-300 hover:bg-white hover:text-white lg:left-[1050px] lg:top-25"
 >
   ← ΠΙΣΩ ΣΤΙΣ ΕΚΔΗΛΩΣΕΙΣ
 </Link>
@@ -340,6 +342,189 @@ const weekEvents = events.filter((event) => {
       </section>
 <br></br>
 <br></br>
+
+  
+
+    <style>{`
+      @media (max-width: 767px) {
+
+        /* =========================
+           MOBILE — AGENDA PAGE
+           ========================= */
+
+        /* HERO */
+        .events-page section:first-of-type {
+          padding-left: 24px !important;
+          padding-right: 24px !important;
+          padding-top: 35px !important;
+          padding-bottom: 20px !important;
+        }
+
+        .events-page section:first-of-type > div {
+          width: 100% !important;
+          max-width: none !important;
+          margin: 0 !important;
+        }
+
+        /* ΕΚΔΗΛΩΣΕΙΣ */
+        .events-page section:first-of-type p {
+          font-size: 9px !important;
+          letter-spacing: 0.3em !important;
+          margin-bottom: 14px !important;
+        }
+
+        /* AGENDA ΤΗΣ ΕΒΔΟΜΑΔΑΣ */
+        .events-page section:first-of-type h1 {
+          font-size: 38px !important;
+          line-height: 1.05 !important;
+          letter-spacing: 0 !important;
+          white-space: normal !important;
+          max-width: 100% !important;
+        }
+
+        /* BACK BUTTON */
+        .events-page section:first-of-type a {
+          position: static !important;
+          display: inline-block !important;
+          margin-top: 22px !important;
+          font-size: 9px !important;
+          padding: 8px 10px !important;
+        }
+
+
+        /* =========================
+           CONTROLS
+           ========================= */
+
+        .events-page section:nth-of-type(2) {
+          width: 100% !important;
+          max-width: none !important;
+          padding-left: 24px !important;
+          padding-right: 24px !important;
+          padding-bottom: 25px !important;
+        }
+
+        /* προηγούμενη / ημερομηνία / επόμενη */
+        .events-page section:nth-of-type(2) > div:first-child {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          gap: 14px !important;
+          margin-bottom: 20px !important;
+        }
+
+        .events-page section:nth-of-type(2) > div:first-child button {
+          font-size: 9px !important;
+          padding: 8px 12px !important;
+          width: auto !important;
+        }
+
+        .events-page section:nth-of-type(2) > div:first-child > div {
+          font-size: 13px !important;
+          order: -1 !important;
+        }
+
+        /* FILTER */
+        .events-page section:nth-of-type(2) > div:nth-child(2) {
+          display: block !important;
+          padding-bottom: 12px !important;
+        }
+
+        .events-page section:nth-of-type(2) > div:nth-child(2) button {
+          font-size: 9px !important;
+          padding: 8px 12px !important;
+        }
+
+
+        /* =========================
+           WEEK CALENDAR
+           ========================= */
+
+        .events-page section:nth-of-type(3) {
+          width: 100% !important;
+          max-width: none !important;
+          padding-left: 24px !important;
+          padding-right: 24px !important;
+        }
+
+        /* 7 στήλες → 1 στήλη */
+        .events-page section:nth-of-type(3) > div {
+          display: grid !important;
+          grid-template-columns: 1fr !important;
+          width: 100% !important;
+        }
+
+        /* Κάθε ημέρα */
+        .events-page section:nth-of-type(3) > div > div {
+          min-height: 180px !important;
+          border-right: 0 !important;
+          border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+        }
+
+        /* Ημέρα */
+        .events-page section:nth-of-type(3) > div > div > div:first-child {
+          padding: 14px 16px !important;
+        }
+
+        .events-page section:nth-of-type(3) > div > div > div:first-child p {
+          font-size: 10px !important;
+        }
+
+        /* Events μέσα στην ημέρα */
+        .events-page section:nth-of-type(3) > div > div > div:nth-child(3) {
+          padding: 16px !important;
+        }
+
+        /* Ώρα */
+        .events-page section:nth-of-type(3) a p:first-child {
+          font-size: 9px !important;
+        }
+
+        /* Τίτλος event */
+        .events-page section:nth-of-type(3) a h3 {
+          font-size: 13px !important;
+          line-height: 1.15 !important;
+        }
+
+        /* Χώρος */
+        .events-page section:nth-of-type(3) a p:last-child {
+          font-size: 9px !important;
+        }
+
+
+        /* =========================
+           EVENTS LIST
+           ========================= */
+
+        .events-page section:nth-of-type(4) {
+          width: 100% !important;
+          max-width: none !important;
+          padding-left: 24px !important;
+          padding-right: 24px !important;
+          padding-top: 45px !important;
+        }
+
+        .events-page section:nth-of-type(4) > div:first-child p {
+          font-size: 11px !important;
+          letter-spacing: 0.2em !important;
+        }
+
+        .events-page section:nth-of-type(4) > div:last-child {
+          grid-template-columns: 1fr !important;
+        }
+
+        .events-page section:nth-of-type(4) h2 {
+          font-size: 18px !important;
+        }
+
+        .events-page section:nth-of-type(4) .p-5 {
+          padding: 16px !important;
+        }
+
+      }
+    `}</style>
+  
+
     </main>
   );
 }

@@ -34,7 +34,7 @@ const isHomePage = pathname === "/";
         <button
   onClick={() => setMenuOpen(true)}
   aria-label="Άνοιγμα μενού"
-  className="text-red-700 transition hover:text-red-600"
+  className="text-red-600 transition hover:text-red-700"
 >
           <Menu size={42} strokeWidth={1.5} />
         </button>
@@ -154,7 +154,124 @@ const isHomePage = pathname === "/";
   isOpen={contactOpen}
   onClose={() => setContactOpen(false)}
 />
+<style jsx global>{`
+   /* =========================
+     MOBILE HEADER
+     ========================= */
+  @media (max-width: 767px) {
 
+    header > div {
+      padding-left: 0 !important;
+    }
+
+ header > div {
+    position: relative !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+    /* LOGO — τέρμα αριστερά */
+  header > div > a {
+    position: absolute !important;
+    left: 0 !important;
+    margin-left: 0 !important;
+    transform: none !important;
+  }
+
+      /* MENU — τέρμα δεξιά */
+  header button {
+    position: absolute !important;
+    right: 0 !important;
+    left: auto !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    transform: none !important;
+  }
+
+    /* =========================
+       FULL SCREEN MENU
+       ========================= */
+
+    /* Menu logo */
+    header ~ div > a img {
+      width: 180px !important;
+      height: auto !important;
+      max-width: 180px !important;
+    }
+
+    /* Menu close button */
+    header ~ div > button svg {
+      width: 38px !important;
+      height: 38px !important;
+    }
+
+    /* Menu links */
+    header ~ div nav a {
+      font-size: 22px !important;
+      line-height: 1.15 !important;
+      letter-spacing: 0.18em !important;
+      gap: 12px !important;
+    }
+
+    /* Space between menu items */
+    header ~ div nav {
+      gap: 20px !important;
+    }
+
+  }
+
+
+  /* =========================
+     VERY SMALL PHONES
+     ========================= */
+  @media (max-width: 480px) {
+
+  header > div {
+    height: 82px !important;
+    padding-left: 0 !important;
+    padding-right: 14px !important;
+  }
+
+  header > div > a {
+    margin-left: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+  }
+
+  header > div > a img {
+  width: 155px !important;
+  max-width: 155px !important;
+  height: auto !important;
+  margin-left: 0 !important;
+}
+  
+    header button svg {
+      width: 31px !important;
+      height: 31px !important;
+    }
+
+    header ~ div > a img {
+      width: 155px !important;
+      max-width: 155px !important;
+    }
+
+    header ~ div > button svg {
+      width: 34px !important;
+      height: 34px !important;
+    }
+
+    header ~ div nav a {
+      font-size: 19px !important;
+      letter-spacing: 0.16em !important;
+    }
+
+    header ~ div nav {
+      gap: 17px !important;
+    }
+  }
+`}</style>
 </>
 );
+
 }

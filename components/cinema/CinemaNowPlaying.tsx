@@ -1,9 +1,11 @@
 "use client";
 
+import type { Screening } from "@/content/cinema/movies";
+import useCinemaMovies from "@/hooks/useCinemaMovies";
 import CinemaNowPlayingCard from "./CinemaNowPlayingCard";
-import { movies } from "@/content/cinema/movies";
 
 export default function CinemaNowPlaying() {
+  const movies = useCinemaMovies();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -12,7 +14,7 @@ export default function CinemaNowPlaying() {
 
   const upcomingMovies = movies
     .map((movie) => {
-      const upcomingScreenings = movie.screenings.filter((screening) => {
+      const upcomingScreenings = movie.screenings.filter((screening: Screening) => {
         const screeningDate = new Date(`${screening.date}T00:00:00`);
 
         return screeningDate >= today && screeningDate < nextWeek;
@@ -26,15 +28,16 @@ export default function CinemaNowPlaying() {
     .filter((movie) => movie.screenings.length > 0);
 
   return (
-    <section className="w-full">
-
-      <div className="mb-4">
-        <h2 className="font-serif text-[17px] tracking-[6.2] text-[#B32025]">
+    <section className="cinema-now-playing w-full">
+      {/* TITLE */}
+      <div className="cinema-now-playing-title mb-4">
+        <h2 className="font-serif text-[17px] tracking-[6.2px] text-black">
           ΤΙ ΠΑΙΖΕΙ
         </h2>
       </div>
 
-      <div>
+      {/* MOVIES */}
+      <div className="cinema-now-playing-list w-full">
         {upcomingMovies.map((movie) => (
           <CinemaNowPlayingCard
             key={movie.id}
@@ -42,54 +45,131 @@ export default function CinemaNowPlaying() {
             poster={movie.poster}
             genre={movie.genre}
             dates={movie.screenings
-              .map((screening) =>
-                new Date(`${screening.date}T00:00:00`).toLocaleDateString(
-                  "el-GR",
-                  {
-                    day: "numeric",
-                    month: "long",
-                  }
-                )
+              .map((screening: Screening) =>
+                new Date(
+                  `${screening.date}T00:00:00`
+                ).toLocaleDateString("el-GR", {
+                  day: "numeric",
+                  month: "long",
+                })
               )
               .join(" • ")}
-            venue={movie.location}
+            venue={movie.screenings[0]?.venue || movie.location}
             targetId={movie.id}
           />
         ))}
       </div>
 
-      <div
-        className="mt-10 flex justify-center"
-        style={{ marginTop: "270px" }}
-      >
+      {/* ALL SCREENINGS BUTTON */}
+      <div className="cinema-all-screenings mt-10 flex justify-center lg:mt-[270px]">
         <a
           href="/cinema/screenings"
-          style={{
-            padding: "6px 60px",
-            minWidth: "0",
-            textAlign: "center",
-            color: "#252321",
-          }}
           className="
             inline-block
             border
             border-[#B32025]
+            px-[60px]
+            py-[6px]
+            text-center
             text-[13px]
             uppercase
             tracking-[0.14em]
-            text-[#B32025]
+            !text-black
             transition
             hover:bg-[#B32025]
-            hover:!text-white
+            hover:!text-black
           "
         >
           ΔΕΙΤΕ ΟΛΕΣ ΤΙΣ ΠΡΟΒΟΛΕΣ
         </a>
       </div>
 
-      <br></br>
-<br></br>
+      <style>{`
+        /* =========================================================
+           MOBILE
+           ========================================================= */
+        @media (max-width: 767px) {
 
+          .cinema-now-playing {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 24px !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+          }
+
+          .cinema-now-playing-title {
+            width: 100% !important;
+            margin: 0 0 22px !important;
+            padding: 0 !important;
+            text-align: center !important;
+          }
+
+          .cinema-now-playing-title h2 {
+            margin: 0 !important;
+            font-size: 15px !important;
+            line-height: 1 !important;
+            letter-spacing: 0.28em !important;
+            text-align: center !important;
+          }
+
+          .cinema-now-playing-list {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            box-sizing: border-box !important;
+          }
+
+          .cinema-all-screenings {
+            width: 100% !important;
+            margin: 32px 0 0 !important;
+            padding: 0 !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+          }
+
+          .cinema-all-screenings a {
+            max-width: 100% !important;
+            padding: 9px 18px !important;
+            font-size: 8px !important;
+            line-height: 1.2 !important;
+            letter-spacing: 0.14em !important;
+            white-space: nowrap !important;
+            box-sizing: border-box !important;
+          }
+        }
+
+        /* =========================================================
+           SMALL MOBILE
+           ========================================================= */
+        @media (max-width: 480px) {
+
+          .cinema-now-playing {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+          }
+
+          .cinema-now-playing-title {
+            margin-bottom: 20px !important;
+          }
+
+          .cinema-now-playing-title h2 {
+            font-size: 14px !important;
+            letter-spacing: 0.25em !important;
+          }
+
+          .cinema-all-screenings {
+            margin-top: 28px !important;
+          }
+
+          .cinema-all-screenings a {
+            padding: 8px 15px !important;
+            font-size: 7.5px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { events } from "@/content/events";
+import useEvents from "@/hooks/useEvents";
 
 const categoryNames: Record<string, string> = {
   theatre: "ΘΕΑΤΡΟ",
@@ -16,6 +16,7 @@ const categoryNames: Record<string, string> = {
 
 export default function EventPage() {
   const params = useParams();
+  const { events, isLoading } = useEvents();
 
   const eventId = Array.isArray(params.id)
     ? params.id[0]
@@ -23,9 +24,19 @@ export default function EventPage() {
 
   const event = events.find((item) => item.id === eventId);
 
+  if (!event && isLoading) {
+    return (
+      <main className="min-h-screen bg-white text-black flex items-center justify-center px-8">
+        <p className="text-xs uppercase tracking-[0.3em] text-red-700">
+          ΦΟΡΤΩΣΗ ΕΚΔΗΛΩΣΗΣ…
+        </p>
+      </main>
+    );
+  }
+
   if (!event) {
     return (
-      <main className="min-h-screen bg-[#F0DFDE] text-white flex items-center justify-center px-8">
+      <main className="min-h-screen bg-white text-white flex items-center justify-center px-8">
         <div className="text-center ">
           <p className="text-red-700 text-xs uppercase tracking-[0.3em] mb-4">
             ΕΚΔΗΛΩΣΕΙΣ
@@ -66,7 +77,7 @@ const relatedEvents = events
   .slice(0, 3);
 
   return (
-    <main className="min-h-screen events-page bg-[#F0DFDE] text-white">
+    <main className="min-h-screen events-page bg-white text-white">
 
       {/* HEADER / BACK */}
 
@@ -299,7 +310,203 @@ const relatedEvents = events
 
         </section>
       )}
+<style>{`
+  @media (max-width: 767px) {
 
+    /* =========================
+       MOBILE — EVENT PAGE
+       ========================= */
+
+    /* ΚΡΥΒΟΥΜΕ ΤΑ ΠΟΛΛΑ <br> ΜΟΝΟ ΣΤΟ ΚΙΝΗΤΟ */
+    .events-page br {
+      display: none !important;
+    }
+
+    /* ΓΕΝΙΚΑ ΠΕΡΙΘΩΡΙΑ */
+    .events-page section {
+      padding-left: 24px !important;
+      padding-right: 24px !important;
+    }
+
+    /* =========================
+       ΠΙΣΩ ΣΤΙΣ ΕΚΔΗΛΩΣΕΙΣ
+       ========================= */
+
+    .events-page section:first-of-type {
+      position: relative !important;
+      height: 70px !important;
+      padding: 0 24px !important;
+    }
+
+    .events-page section:first-of-type a {
+      position: absolute !important;
+
+      top: 80px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+
+      display: inline-flex !important;
+      align-items: center !important;
+
+      width: auto !important;
+      height: auto !important;
+
+      padding: 6px 10px !important;
+      margin: 0 !important;
+
+      font-size: 8px !important;
+      line-height: 1 !important;
+      letter-spacing: 0.15em !important;
+
+      white-space: nowrap !important;
+    }
+
+
+    /* =========================
+       ΚΥΡΙΟ EVENT
+       ========================= */
+
+    .events-page section:nth-of-type(2) {
+      padding-top: 85px !important;
+      padding-bottom: 20px !important;
+    }
+
+    .events-page section:nth-of-type(2) > div {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 18px !important;
+    }
+
+
+    /* =========================
+       POSTER
+       ========================= */
+
+    .events-page section:nth-of-type(2) > div > div:first-child {
+      width: 100% !important;
+      margin: 0 !important;
+    }
+
+    .events-page section:nth-of-type(2) > div > div:first-child img {
+      width: 72% !important;
+      height: auto !important;
+      margin: 0 auto !important;
+      display: block !important;
+    }
+
+
+    /* =========================
+       INFORMATION
+       ========================= */
+
+    .events-page section:nth-of-type(2) > div > div:last-child {
+      width: 100% !important;
+      margin: 0 !important;
+    }
+
+    /* ΚΑΤΗΓΟΡΙΑ */
+    .events-page section:nth-of-type(2) p.text-red-700 {
+      font-size: 8px !important;
+      line-height: 1.2 !important;
+      letter-spacing: 0.25em !important;
+      margin: 0 0 7px 0 !important;
+    }
+
+
+    /* ΤΙΤΛΟΣ */
+    .events-page section:nth-of-type(2) h1 {
+      font-size: 28px !important;
+      line-height: 1.02 !important;
+      letter-spacing: 0 !important;
+
+      margin: 0 !important;
+    }
+
+
+    /* =========================
+       DATE / TIME / VENUE
+       ========================= */
+
+    .events-page section:nth-of-type(2) > div > div:last-child > div {
+      margin-top: 18px !important;
+    }
+
+    .events-page section:nth-of-type(2) > div > div:last-child > div > div {
+      padding-top: 9px !important;
+      padding-bottom: 9px !important;
+      margin: 0 !important;
+    }
+
+    .events-page section:nth-of-type(2) p.text-\[10px\] {
+      font-size: 8px !important;
+      line-height: 1.2 !important;
+      letter-spacing: 0.18em !important;
+      margin-bottom: 3px !important;
+    }
+
+    .events-page section:nth-of-type(2) p.text-black {
+      font-size: 13px !important;
+      line-height: 1.3 !important;
+    }
+
+
+    /* =========================
+       ΠΕΡΙΓΡΑΦΗ
+       ========================= */
+
+    .events-page section:nth-of-type(2) > div > div:last-child > div:last-child {
+      margin-top: 18px !important;
+    }
+
+    .events-page section:nth-of-type(2) > div > div:last-child > div:last-child p:first-child {
+      font-size: 8px !important;
+      line-height: 1.2 !important;
+      letter-spacing: 0.2em !important;
+      margin-bottom: 8px !important;
+    }
+
+    .events-page section:nth-of-type(2) > div > div:last-child > div:last-child p:last-of-type {
+      font-size: 14px !important;
+      line-height: 1.5 !important;
+      margin: 0 !important;
+    }
+
+
+    /* =========================
+       RELATED EVENTS
+       ========================= */
+
+    .events-page section:nth-of-type(3) {
+      padding-left: 24px !important;
+      padding-right: 24px !important;
+
+      padding-top: 30px !important;
+      padding-bottom: 40px !important;
+    }
+
+    .events-page section:nth-of-type(3) h2 {
+      font-size: 27px !important;
+      line-height: 1.05 !important;
+      margin-top: 4px !important;
+    }
+
+    .events-page section:nth-of-type(3) > div:last-child {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 25px !important;
+    }
+
+    .events-page section:nth-of-type(3) h3 {
+      font-size: 18px !important;
+      line-height: 1.1 !important;
+    }
+
+    .events-page section:nth-of-type(3) .p-5 {
+      padding: 14px !important;
+    }
+
+  }
+`}</style>
     </main>
   );
 }

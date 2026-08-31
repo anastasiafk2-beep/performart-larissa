@@ -1,8 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { festivals } from "@/content/festivals/festivals";
 
 const MONTHS = [
   "ΙΑΝΟΥΑΡΙΟΣ",
@@ -21,42 +20,90 @@ const MONTHS = [
 
 const WEEKDAYS = ["ΔΕ", "ΤΡ", "ΤΕ", "ΠΕ", "ΠΑ", "ΣΑ", "ΚΥ"];
 
-const EVENTS = [
-  {
-    date: "2026-08-27",
-    target: "vrisi-tyrnavou",
-  },
-  {
-    date: "2026-08-28",
-    target: "vrisi-tyrnavou",
-  },
-  {
-    date: "2026-08-29",
-    target: "vrisi-tyrnavou",
-  },
-  {
-    date: "2026-08-30",
-    target: "vrisi-tyrnavou",
-  },
-  {
-    date: "2026-09-03",
-    target: "giorti-krasiou-ambelona",
-  },
-  {
-    date: "2026-09-04",
-    target: "giorti-krasiou-ambelona",
-  },
-  {
-    date: "2026-09-05",
-    target: "giorti-krasiou-ambelona",
-  },
-  {
-    date: "2026-09-06",
-    target: "giorti-krasiou-ambelona",
-  },
-];
+
 
 export default function FestivalCalendar() {
+
+  type CalendarFestival = {
+    id: string;
+    title: string;
+    dates: string;
+    location: string;
+    startDate?: string;
+    endDate?: string;
+  };
+
+  const [festivals, setFestivals] = useState<CalendarFestival[]>([]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function loadFestivals() {
+      try {
+        const response = await fetch("/api/festivals", {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          return;
+        }
+
+        const data: unknown = await response.json();
+
+        if (Array.isArray(data)) {
+          setFestivals(data as CalendarFestival[]);
+        }
+      } catch (error) {
+        if (
+          !(error instanceof DOMException && error.name === "AbortError")
+        ) {
+          console.error("Unable to load festival calendar:", error);
+        }
+      }
+    }
+
+    void loadFestivals();
+
+    return () => controller.abort();
+  }, []);
+
+  const events = useMemo(() => {
+    const result: {
+      date: string;
+      target: string;
+    }[] = [];
+
+    festivals.forEach((festival) => {
+      if (!festival.startDate) {
+        return;
+      }
+
+      const start = new Date(`${festival.startDate}T12:00:00`);
+      const end = festival.endDate
+        ? new Date(`${festival.endDate}T12:00:00`)
+        : start;
+
+      const current = new Date(start);
+
+      while (current <= end) {
+        const date = [
+          current.getFullYear(),
+          String(current.getMonth() + 1).padStart(2, "0"),
+          String(current.getDate()).padStart(2, "0"),
+        ].join("-");
+
+        result.push({
+          date,
+          target: festival.id,
+        });
+
+        current.setDate(current.getDate() + 1);
+      }
+    });
+
+    return result;
+  }, [festivals]);
+
   const today = new Date();
 
   const [month, setMonth] = useState(today.getMonth());
@@ -164,9 +211,9 @@ export default function FestivalCalendar() {
               ? ""
               : `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 
-          const dayEvents = EVENTS.filter(
-            (event) => event.date === dateString
-          );
+          const dayEvents = events.filter(
+  (event) => event.date === dateString
+);
 
           const hasEvent = dayEvents.length > 0;
 

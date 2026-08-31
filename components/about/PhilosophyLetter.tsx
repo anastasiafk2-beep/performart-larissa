@@ -1,3 +1,5 @@
+"use client";
+
 import { Alegreya, Spectral } from "next/font/google";
 
 const alegreya = Alegreya({
@@ -14,11 +16,11 @@ export default function PhilosophyLetter() {
   return (
     <section className=" text-white">
 
-      <div className="mx-auto grid w-full max-w-[1800px] grid-cols-13 pt-40 pb-40">
+      <div className="mx-auto grid w-full max-w-[1800px] grid-cols-1 md:grid-cols-13 pt-20 pb-20 md:pt-40 md:pb-40">
 
         {/* Άρθρο */}
 
-        <div className="col-start-5 col-span-6 max-w-[900px]">
+        <div className="col-span-1 w-full max-w-[900px] px-6 md:col-start-5 md:col-span-6 md:px-0">
 
           <p
             className={`${alegreya.className} italic text-[23px] text-[#D62828]`}
@@ -29,16 +31,16 @@ export default function PhilosophyLetter() {
           <br></br>
 
           <h1
-            className={`${spectral.className}
-            mt-8
-            text-[40px]
-            uppercase
-            tracking-[0.34em]
-            leading-none
-            text-black`}
-          >
-            ΕΥΡΙΠΙΔΗ ΚΟΥΤΣΙΝΑ
-          </h1>
+  className={`${spectral.className}
+  mt-8
+  text-[30px] md:text-[40px]
+  uppercase
+  tracking-[0.18em] md:tracking-[0.34em]
+  leading-tight md:leading-none
+  text-black`}
+>
+  ΕΥΡΙΠΙΔΗ ΚΟΥΤΣΙΝΑ
+</h1>
 
 <br></br>
 <br></br>
@@ -48,13 +50,12 @@ export default function PhilosophyLetter() {
 <br></br>
 
           <div
-            className={`${alegreya.className}
-            mt-20
-            space-y-14
-            text-[20px]
-            leading-[2]
-            text-black`}
-          >
+  className={`${alegreya.className}
+  mt-12 md:mt-20
+  space-y-10 md:space-y-14
+  text-[18px] leading-[1.8] md:text-[20px] md:leading-[2]
+  text-black philosophy-body`}
+>
             <p>
               Πάντα πίστευα πως πίσω από κάθε παράσταση, κάθε τραγούδι και κάθε έργο
               τέχνης υπάρχει μια ιστορία που αξίζει να ακουστεί. Αυτή η σκέψη ήταν η
@@ -93,7 +94,7 @@ export default function PhilosophyLetter() {
 
         {/* Υπογραφή */}
 
-        <div className="col-start-8 col-span-5 mt-32">
+        <div className="col-span-1 mt-16 px-6 md:col-start-8 md:col-span-5 md:mt-32 md:px-0">
 
   <div className="ml-auto w-[420px]">
 <br></br>
@@ -126,7 +127,132 @@ export default function PhilosophyLetter() {
         </div>
 
       </div>
+<style jsx>{`
+  /* =========================
+     MOBILE PHILOSOPHY PAGE
+     ========================= */
 
+  @media (max-width: 767px) {
+
+    /* Το grid της desktop έκδοσης
+       γίνεται κανονικό μονόστηλο */
+    section > div {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      padding-top: 120px !important;
+      padding-bottom: 80px !important;
+      padding-left: 32px !important;
+      padding-right: 32px !important;
+    }
+
+    /* Κύριο άρθρο */
+    section > div > div:first-child {
+      display: block !important;
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+    }
+
+    /* "Ένα σημείωμα από τον" */
+    section > div > div:first-child > p {
+      font-size: 19px !important;
+      line-height: 1.4 !important;
+      margin: 0 0 20px 0 !important;
+    }
+
+    /* Όνομα */
+    section > div > div:first-child h1 {
+      font-size: 32px !important;
+      line-height: 1.15 !important;
+      letter-spacing: 0.18em !important;
+      margin-top: 20px !important;
+      margin-bottom: -10px !important;
+      white-space: normal !important;
+    }
+
+    /* Κόκκινη γραμμή */
+   section > div > div:first-child > div.mt-12.h-\[2px\] {
+    margin-top: 25px !important;
+    width: 110px !important;
+  }
+
+  /* Κείμενο άρθρου */
+section > div > div:first-child > .philosophy-body {
+  margin-top: 45px !important;
+  width: 100% !important;
+  max-width: none !important;
+  padding: 0 !important;
+  font-size: 18px !important;
+  line-height: 1.8 !important;
+}
+
+    /* Κάθε παράγραφος */
+     section > div > div:first-child > .philosophy-body p {
+    margin: 0 !important;
+    }
+
+    /* Υπογραφή */
+    section > div > div:last-child {
+      display: block !important;
+      width: 100% !important;
+      margin: 60px 0 0 0 !important;
+    }
+
+    section > div > div:last-child > div {
+      width: 100% !important;
+      margin: 0 !important;
+    }
+
+    section > div > div:last-child p {
+      font-size: 18px !important;
+      line-height: 1.5 !important;
+    }
+
+    /* Μικρότερα κενά γύρω από το όνομα */
+section > div > div:first-child h1 {
+  margin-top: 5px !important;
+  margin-bottom: -30px !important;
+}
+
+section > div > div:first-child > div.mt-12.h-\[2px\] {
+  margin-top: 10px !important;
+}
+
+  }
+
+
+  /* =========================
+     VERY SMALL PHONES
+     ========================= */
+
+  @media (max-width: 480px) {
+
+    section > div {
+      padding-left: 28px !important;
+      padding-right: 28px !important;
+      padding-top: 105px !important;
+    }
+
+    section > div > div:first-child > p {
+      font-size: 18px !important;
+    }
+
+    section > div > div:first-child h1 {
+      font-size: 29px !important;
+      letter-spacing: 0.15em !important;
+    }
+
+  section > div > div:first-child > .philosophy-body {
+  width: 100% !important;
+  max-width: none !important;
+  padding: 0 !important;
+  font-size: 18px !important;
+  line-height: 1.8 !important;
+}
+
+  }
+`}</style>
     </section>
   );
 }

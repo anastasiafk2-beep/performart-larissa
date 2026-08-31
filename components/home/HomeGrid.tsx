@@ -98,7 +98,14 @@ export default function HomeGrid() {
         <div className="w-full flex justify-center">
 
           <div className="mb-28">
-            <div className="grid w-fit grid-cols-2 gap-5 lg:grid-cols-4">
+            <div
+  className="home-grid"
+  style={{
+    width: "calc(100vw - 48px)",
+    maxWidth: "1880px",
+    margin: "0 auto",
+  }}
+>
 
               {cards.map((card) => (
                 <HomeCard
@@ -120,6 +127,25 @@ export default function HomeGrid() {
           </div>
 
         </div>
+        <style jsx>{`
+  .home-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .home-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1600px) {
+    .home-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+`}</style>
       </section>
 
       <ContactModal

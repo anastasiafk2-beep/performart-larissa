@@ -123,5 +123,165 @@ export default function InterviewCard({ interview }: Props) {
 <br></br>
     </div>
   </section>
+
+
+
 );
+
+<style jsx>{`
+  @media (max-width: 767px) {
+
+    /* ================================
+       MOBILE INTERVIEW CARD
+       ================================ */
+
+    section {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+
+      padding: 40px 20px 50px !important;
+
+      margin: 0 !important;
+    }
+
+
+    /* Κεντρικό περιεχόμενο */
+    section > div:nth-child(2) {
+      width: 100% !important;
+      max-width: 100% !important;
+
+      display: flex !important;
+      flex-direction: column !important;
+
+      gap: 30px !important;
+
+      margin: 0 auto !important;
+
+      transform: none !important;
+    }
+
+
+    /* ================================
+       ΚΕΙΜΕΝΟ
+       ================================ */
+
+    section > div:nth-child(2) > div:first-child {
+
+      width: 100% !important;
+      max-width: 100% !important;
+
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+
+      padding: 0 !important;
+    }
+
+
+    section > div:nth-child(2) > div:first-child p {
+
+      max-width: 100% !important;
+
+      font-size: 14px !important;
+
+      line-height: 1.5 !important;
+    }
+
+
+    section > div:nth-child(2) > div:first-child h2 {
+
+      width: 100% !important;
+      max-width: 100% !important;
+
+      font-size: 25px !important;
+
+      line-height: 1.12 !important;
+
+      margin: 10px 0 !important;
+
+      overflow-wrap: break-word !important;
+    }
+
+
+    /* ================================
+       ΕΙΚΟΝΑ
+       ================================ */
+
+    section > div:nth-child(2) > div:last-child {
+
+      width: 100% !important;
+      max-width: 100% !important;
+
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+
+      padding: 0 !important;
+
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+    }
+
+
+    section > div:nth-child(2) > div:last-child img {
+
+      display: block !important;
+
+      width: 100% !important;
+      max-width: 100% !important;
+
+      height: auto !important;
+
+      object-fit: contain !important;
+
+      margin: 0 auto !important;
+
+      border-radius: 0 !important;
+    }
+
+
+    /* ================================
+       ΚΟΥΜΠΙ
+       ================================ */
+
+    section > div:nth-child(2) > div:last-child a {
+
+      width: auto !important;
+
+      min-width: 0 !important;
+
+      margin: 20px auto 0 !important;
+
+      padding: 9px 14px !important;
+
+      font-size: 8px !important;
+
+      line-height: 1 !important;
+    }
+
+
+    /* ================================
+       VIDEO
+       ================================ */
+
+    section iframe {
+
+      width: 100% !important;
+
+      max-width: 100% !important;
+
+      height: auto !important;
+
+      aspect-ratio: 16 / 9 !important;
+    }
+
+
+    /* Κρύβουμε τα χειροκίνητα <br> μόνο στο mobile */
+    section br {
+      display: none !important;
+    }
+
+  }
+`}</style>
+
 }

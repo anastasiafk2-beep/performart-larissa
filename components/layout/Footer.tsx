@@ -44,7 +44,7 @@ export default function Footer() {
   }}
 >
 
-      <div className="absolute inset-0 bg-red-900">
+      <div className="absolute inset-0 bg-red-800">
 
   <div className="absolute inset-0 bg-black/40" />
 </div>
@@ -54,18 +54,18 @@ export default function Footer() {
       <div className="relative mx-auto max-w-9xl  px-6 lg:px-10 pt-28 pb-20">
       {/* Main Footer */}
 
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-y-12 lg:gap-y-0 pt-8">
+<div className="footer-main">
 
   {/* CONTACT */}
 
-   <div className="flex flex-col items-center border-b lg:border-b-0 lg:border-r border-white/10 px-8 lg:px-12 py-20 lg:py-24">
+   <div className="footer-column footer-contact">
   <div className="mb-8 flex items-center gap-4">
     <span className="h-px w-8 bg-red-600" />
     <h3 className="text-[17px] font-bold uppercase tracking-[0.45em] text-white/80">
       ΕΠΙΚΟΙΝΩΝΙΑ
     </h3>
   </div>
-<div className="h-10" />
+<div className="h-5 md:h-10" />
   <div className="space-y-10">
     <a
   href="mailto:info@performartlarissa.gr"
@@ -79,7 +79,7 @@ export default function Footer() {
    performart.lar@gmail.com
   </span>
 </a>
-<div className="h-8" />
+<div className="h-4 md:h-8" />
     <a
   href="tel:+306991234567"
   className="group flex items-center  justify-center gap-5 text-zinc-400 transition hover:text-white"
@@ -97,7 +97,7 @@ export default function Footer() {
 
   {/* SOCIAL */}
 
-  <div className="flex flex-col items-center border-b lg:border-b-0 lg:border-r border-white/10 px-8 lg:px-12 py-20 lg:py-24">
+  <div className="footer-column footer-social">
   <div className="mb-8 flex items-center gap-4">
     <span className="h-px w-8 bg-red-600" />
     <h3 className="text-[17px] font-bold uppercase tracking-[0.45em] text-white/80">
@@ -105,7 +105,7 @@ export default function Footer() {
     </h3>
   </div>
 <div className="h-8" />
-  <div className="space-y-6">
+  <div className="flex flex-col gap-5">
     {socialLinks.map((item) => {
       const Icon = item.icon;
 
@@ -115,7 +115,7 @@ export default function Footer() {
           href={item.href}
           target="_blank"
           className="group flex items-center justify-center gap-5 text-zinc-400 hover:text-white transition"
-        ><div className="h-12" />
+        >
           <Icon size={22} className="group-hover:scale-110 transition" />
           <span className="text-lg">{item.name}</span>
         </Link>
@@ -143,6 +143,84 @@ export default function Footer() {
 </div>
 
 </div>
+<style jsx>{`
+  .footer-main {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-top: 32px;
+  }
+
+  .footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 48px;
+  }
+
+  .footer-contact {
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-social {
+    border-right: none;
+  }
+
+  @media (max-width: 767px) {
+    .footer-main {
+      grid-template-columns: 1fr;
+      padding-top: 0;
+    }
+
+    .footer-column {
+      padding: 42px 20px;
+    }
+
+    .footer-contact {
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-social {
+      border-bottom: none;
+    }
+
+    .footer-column h3 {
+      font-size: 13px !important;
+      letter-spacing: 0.32em !important;
+    }
+
+    .footer-column a,
+    .footer-column span {
+      font-size: 15px !important;
+    }
+
+    .footer-column svg {
+      width: 19px !important;
+      height: 19px !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-column {
+      padding: 34px 16px;
+    }
+
+    .footer-column h3 {
+      font-size: 12px !important;
+      letter-spacing: 0.28em !important;
+    }
+
+    .footer-column a,
+    .footer-column span {
+      font-size: 14px !important;
+    }
+
+    .footer-column svg {
+      width: 18px !important;
+      height: 18px !important;
+    }
+  }
+`}</style>
 </footer>
 );
 }

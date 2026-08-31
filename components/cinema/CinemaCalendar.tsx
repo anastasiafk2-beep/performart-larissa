@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import useCinemaMovies from "@/hooks/useCinemaMovies";
 
 const MONTHS = [
   "ΙΑΝΟΥΑΡΙΟΣ",
@@ -20,18 +21,21 @@ const MONTHS = [
 
 const WEEKDAYS = ["ΔΕ", "ΤΡ", "ΤΕ", "ΠΕ", "ΠΑ", "ΣΑ", "ΚΥ"];
 
-import { movies } from "@/content/cinema/movies";
-
-const EVENTS = movies.flatMap((movie) =>
-  movie.screenings.map((screening) => ({
-    date: screening.date,
-    target: movie.id,
-    title: movie.title,
-  }))
-);
-
 export default function CinemaCalendar() {
+  const movies = useCinemaMovies();
   const today = new Date();
+
+  const events = useMemo(
+    () =>
+      movies.flatMap((movie) =>
+        movie.screenings.map((screening) => ({
+          date: screening.date,
+          target: movie.id,
+          title: movie.title,
+        }))
+      ),
+    [movies]
+  );
 
   const [month, setMonth] = useState(today.getMonth());
   const [year, setYear] = useState(today.getFullYear());
@@ -45,7 +49,11 @@ export default function CinemaCalendar() {
     // Δευτέρα -> 0
     startDay = startDay === 0 ? 6 : startDay - 1;
 
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInMonth = new Date(
+      year,
+      month + 1,
+      0
+    ).getDate();
 
     const cells: (number | null)[] = [];
 
@@ -84,237 +92,699 @@ export default function CinemaCalendar() {
 
   return (
     <div
-  className="
-    w-[600px]
-  border border-[#E9D8C8]/70
-  bg-transparent
-  backdrop-blur-[2px]
-  shadow-none
-  p-5
-  "
->
+      className="
+        cinema-calendar
 
- <div
-  className="relative flex items-center justify-center"
-  style={{
-    paddingTop: "18px",
-    paddingBottom: "18px",
-  }}
->
+        w-[600px]
 
-  <button
-    onClick={previousMonth}
-    className="absolute left-[calc(50%-150px)] text-[12px] font-light text-[#C2272D] transition hover:scale-110"
-    aria-label="Προηγούμενος μήνας"
-  >
-    ←
-  </button>
+        border
+        border-[#E9D8C8]/70
 
-  <h2
-    className="
-      text-2xl
-      tracking-[0.18em]
-      font-light
-      text-[#2A2A2A]
-    "
-  >
-    {MONTHS[month]} {year}
-  </h2>
+        bg-transparent
 
-  <button
-    onClick={nextMonth}
-    className="absolute right-[calc(50%-150px)] text-[12px] font-light text-[#C2272D] transition hover:scale-110"
-    aria-label="Επόμενος μήνας"
-  >
-    →
-  </button>
+        backdrop-blur-[2px]
 
-</div>
-  <div className="grid grid-cols-7 mt-2 mb-4">
+        shadow-none
 
-    {WEEKDAYS.map((day) => (
+        p-5
+      "
+    >
+
+      {/* =====================================================
+          MONTH HEADER
+          ===================================================== */}
 
       <div
-        key={day}
         className="
-          text-center
-          text-xs
-          tracking-[0.28em]
-          text-[#8B8178]
-          uppercase
-          py-2
+          cinema-calendar-header
+
+          relative
+
+          flex
+          items-center
+          justify-center
         "
+        style={{
+          paddingTop: "18px",
+          paddingBottom: "18px",
+        }}
       >
-        {day}
-      </div>
 
-    ))}
+        {/* PREVIOUS */}
 
-  </div>
-
-  <div className="grid grid-cols-7 gap-y-0">
-
-  {calendar.map((day, index) => {
-  const dateString =
-    day === null
-      ? ""
-      : `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-
- const dayEvents = EVENTS.filter(
-  (event) => event.date === dateString
-);
-
-const hasEvent = dayEvents.length > 0;
-
-const column = index % 7;
-
-  const isToday =
-    day === today.getDate() &&
-    month === today.getMonth() &&
-    year === today.getFullYear();
-
- return (
-  <div
-    key={index}
-    className="group relative flex h-12 items-center justify-center"
-  >
-    {day && (
-      <>
-        {/* ΗΜΕΡΑ */}
         <button
-          className={`
-            relative
-            z-10
-            h-9
-            w-9
-            rounded-full
-            flex
-            items-center
-            justify-center
-            transition-all
-            hover:bg-[#F5E7E0]
-            hover:text-[#C2272D]
+          onClick={previousMonth}
+          className="
+            cinema-calendar-prev
 
-            ${
-              isToday
-                ? "bg-[#F3DAD5] text-[#C2272D] font-semibold"
-                : "text-[#2A2A2A]"
-            }
-          `}
+            absolute
+
+            left-[calc(50%-150px)]
+
+            text-[12px]
+            font-light
+
+            text-[#C2272D]
+
+            transition
+            hover:scale-110
+          "
+          aria-label="Προηγούμενος μήνας"
         >
-          {day}
-
-          {/* ΚΟΥΚΚΙΔΑ ΠΡΟΒΟΛΗΣ */}
-          {hasEvent && (
-            <span
-              className="
-                absolute
-                bottom-1
-                left-1/2
-                -translate-x-1/2
-                h-1.5
-                w-1.5
-                rounded-full
-                bg-[#C2272D]
-              "
-            />
-          )}
+          ←
         </button>
 
-        {/* POPUP ΠΡΟΒΟΛΩΝ */}
-        {hasEvent && (
+
+        {/* MONTH */}
+
+        <h2
+          className="
+            cinema-calendar-month
+
+            text-2xl
+
+            tracking-[0.18em]
+
+            font-light
+
+            text-black
+          "
+        >
+          {MONTHS[month]} {year}
+        </h2>
+
+
+        {/* NEXT */}
+
+        <button
+          onClick={nextMonth}
+          className="
+            cinema-calendar-next
+
+            absolute
+
+            right-[calc(50%-150px)]
+
+            text-[12px]
+            font-light
+
+            text-[#C2272D]
+
+            transition
+            hover:scale-110
+          "
+          aria-label="Επόμενος μήνας"
+        >
+          →
+        </button>
+
+      </div>
+
+
+      {/* =====================================================
+          WEEKDAYS
+          ===================================================== */}
+
+      <div
+        className="
+          cinema-calendar-weekdays
+
+          grid
+          grid-cols-7
+
+          mt-2
+          mb-4
+        "
+      >
+
+        {WEEKDAYS.map((day) => (
+
           <div
-            className={`
-  absolute
-  top-full
-  z-50
-  hidden
-  w-64
-  mt-2
-  rounded-none
-  border
-  border-[#E9D8C8]
-  bg-[#FBF7F2]
-  p-4
-  text-left
-  shadow-xl
-  group-hover:block
+            key={day}
+            className="
+              text-center
 
-  ${
-    column <= 1
-      ? "left-0"
-      : column >= 5
-        ? "right-0"
-        : "left-1/2 -translate-x-1/2"
-  }
-`}
+              text-xs
 
-style={{
-    paddingLeft: "20px",
-    paddingRight: "20px",
-  }}
-            
+              tracking-[0.28em]
+
+              text-black/80
+
+              uppercase
+
+              py-2
+            "
           >
-            <div className="absolute -bottom-3 left-0 right-0 h-6" />
-            {dayEvents.map((event) => {
-              const movie = movies.find(
-                (movie) => movie.id === event.target
-              );
+            {day}
+          </div>
 
-              const screening = movie?.screenings.find(
-                (screening) => screening.date === event.date
-              );
+        ))}
 
-              return (
-                <div
-                  key={`${event.date}-${event.target}`}
-                  className="
-                    border-b
-                    border-[#E9D8C8]
-                    pb-4
-                    mb-4
-                    last:border-0
-                    last:mb-0
-                    last:pb-0
-                  "
-                >
-                  <p className="font-serif text-lg text-[#252321]">
-                    {event.title}
-                  </p>
+      </div>
 
-                  {screening && (
-                    <p className="mt-1 text-xs tracking-[0.15em] text-[#8B8178]">
-                      {screening.time}
-                    </p>
+
+      {/* =====================================================
+          DAYS
+          ===================================================== */}
+
+      <div
+        className="
+          cinema-calendar-days
+
+          grid
+          grid-cols-7
+
+          gap-y-0
+        "
+      >
+
+        {calendar.map((day, index) => {
+
+          const dateString =
+            day === null
+              ? ""
+              : `${year}-${String(month + 1).padStart(
+                  2,
+                  "0"
+                )}-${String(day).padStart(2, "0")}`;
+
+          const dayEvents = events.filter(
+            (event) => event.date === dateString
+          );
+
+          const hasEvent = dayEvents.length > 0;
+
+          const column = index % 7;
+
+          const isToday =
+            day === today.getDate() &&
+            month === today.getMonth() &&
+            year === today.getFullYear();
+
+          return (
+            <div
+              key={index}
+              className="
+                cinema-calendar-day
+
+                group
+                relative
+
+                flex
+                h-12
+
+                items-center
+                justify-center
+              "
+            >
+
+              {day && (
+                <>
+
+                  {/* =================================================
+                      DAY
+                      ================================================= */}
+
+                  <button
+                    className={`
+                      relative
+                      z-10
+
+                      h-9
+                      w-9
+
+                      rounded-full
+
+                      flex
+                      items-center
+                      justify-center
+
+                      transition-all
+
+                      hover:bg-[#F5E7E0]
+                      hover:text-[#C2272D]
+
+                      ${
+                        isToday
+                          ? "bg-red-700 text-white font-semibold"
+                          : "text-[#2A2A2A]"
+                      }
+                    `}
+                  >
+                    {day}
+
+
+                    {/* EVENT DOT */}
+
+                    {hasEvent && (
+                      <span
+                        className="
+                          absolute
+
+                          bottom-1
+                          left-1/2
+
+                          -translate-x-1/2
+
+                          h-1.5
+                          w-1.5
+
+                          rounded-full
+
+                          bg-red-700
+                        "
+                      />
+                    )}
+
+                  </button>
+
+
+                  {/* =================================================
+                      EVENT POPUP
+                      ================================================= */}
+
+                  {hasEvent && (
+                    <div
+                      className={`
+                        absolute
+
+                        top-full
+
+                        z-50
+
+                        hidden
+
+                        w-64
+
+                        mt-2
+
+                        rounded-none
+
+                        border
+                        border-[#E9D8C8]
+
+                        bg-[#FBF7F2]
+
+                        p-4
+
+                        text-left
+
+                        shadow-xl
+
+                        group-hover:block
+
+                        ${
+                          column <= 1
+                            ? "left-0"
+                            : column >= 5
+                              ? "right-0"
+                              : "left-1/2 -translate-x-1/2"
+                        }
+                      `}
+                      style={{
+                        paddingLeft: "20px",
+                        paddingRight: "20px",
+                      }}
+                    >
+
+                      <div
+                        className="
+                          absolute
+                          -bottom-3
+                          left-0
+                          right-0
+                          h-6
+                        "
+                      />
+
+
+                      {dayEvents.map((event) => {
+
+                        const movie = movies.find(
+                          (movie) =>
+                            movie.id === event.target
+                        );
+
+                        const screening =
+                          movie?.screenings.find(
+                            (screening) =>
+                              screening.date === event.date
+                          );
+
+                        return (
+                          <div
+                            key={`${event.date}-${event.target}`}
+                            className="
+                              border-b
+                              border-[#E9D8C8]
+
+                              pb-4
+                              mb-4
+
+                              last:border-0
+                              last:mb-0
+                              last:pb-0
+                            "
+                          >
+
+                            <p
+                              className="
+                                font-serif
+                                text-lg
+                                text-[#252321]
+                              "
+                            >
+                              {event.title}
+                            </p>
+
+
+                            {screening && (
+                              <p
+                                className="
+                                  mt-1
+
+                                  text-xs
+
+                                  tracking-[0.15em]
+
+                                  text-[#8B8178]
+                                "
+                              >
+                                {screening.time}
+                              </p>
+                            )}
+
+
+                            <Link
+                              href={`/cinema/${event.target}`}
+                              className="
+                                !text-black/60
+
+                                inline-flex
+
+                                items-center
+
+                                gap-1
+
+                                text-xs
+
+                                font-medium
+
+                                uppercase
+                              "
+                            >
+                              ΔΕΙΤΕ ΠΕΡΙΣΣΟΤΕΡΑ →
+                            </Link>
+
+                          </div>
+                        );
+
+                      })}
+
+                    </div>
                   )}
 
-                  <Link
-                    href={`/cinema/${event.target}`}
-                    className="
-                      
-  !text-black/60
-  inline-flex
-  items-center
-  gap-1
-  text-xs
-  font-medium
-  uppercase
-                    "
-                  >
-                    
-                  ΔΕΙΤΕ ΠΕΡΙΣΣΟΤΕΡΑ   →
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </>
-    )}
-  </div>
-);
-})}
-  </div>
+                </>
+              )}
+
+            </div>
+          );
+
+        })}
+
+      </div>
+
+
+      {/* =====================================================
+          MOBILE
+          ===================================================== */}
+
+      <style>{`
+
+        @media (max-width: 767px) {
+
+          /* ===============================================
+             CALENDAR CONTAINER
+             =============================================== */
+
+          .cinema-calendar {
+
+            width: 100% !important;
+            max-width: 100% !important;
+
+            margin: 0 auto !important;
+
+            padding: 12px !important;
+
+            box-sizing: border-box !important;
+
+            overflow: visible !important;
+          }
+
+
+          /* ===============================================
+             HEADER
+             =============================================== */
+
+          .cinema-calendar-header {
+
+            width: 100% !important;
+
+            padding-top: 14px !important;
+            padding-bottom: 14px !important;
+
+            box-sizing: border-box !important;
+          }
+
+
+          /* ===============================================
+             MONTH TITLE
+             =============================================== */
+
+          .cinema-calendar-month {
+
+            margin: 0 !important;
+
+            font-size: 16px !important;
+
+            line-height: 1.2 !important;
+
+            letter-spacing: 0.12em !important;
+
+            white-space: nowrap !important;
+          }
+
+
+          /* ===============================================
+             ARROWS
+             =============================================== */
+
+          .cinema-calendar-prev,
+          .cinema-calendar-next {
+
+            position: absolute !important;
+
+            top: 50% !important;
+
+            transform: translateY(-50%) !important;
+
+            margin: 0 !important;
+
+            font-size: 11px !important;
+
+            line-height: 1 !important;
+          }
+
+
+          .cinema-calendar-prev {
+
+            left: 12px !important;
+          }
+
+
+          .cinema-calendar-next {
+
+            right: 12px !important;
+          }
+
+
+          /* ===============================================
+             WEEKDAYS
+             =============================================== */
+
+          .cinema-calendar-weekdays {
+
+            width: 100% !important;
+
+            margin-top: 4px !important;
+            margin-bottom: 6px !important;
+
+            grid-template-columns:
+              repeat(7, minmax(0, 1fr)) !important;
+          }
+
+
+          .cinema-calendar-weekdays > div {
+
+            width: 100% !important;
+
+            padding-top: 7px !important;
+            padding-bottom: 7px !important;
+
+            font-size: 8px !important;
+
+            line-height: 1 !important;
+
+            letter-spacing: 0.12em !important;
+
+            text-align: center !important;
+
+            box-sizing: border-box !important;
+          }
+
+
+          /* ===============================================
+             DAYS GRID
+             =============================================== */
+
+          .cinema-calendar-days {
+
+            width: 100% !important;
+
+            grid-template-columns:
+              repeat(7, minmax(0, 1fr)) !important;
+
+            gap: 0 !important;
+
+            box-sizing: border-box !important;
+          }
+
+
+          /* ===============================================
+             DAY CELL
+             =============================================== */
+
+          .cinema-calendar-day {
+
+            width: 100% !important;
+
+            height: 42px !important;
+
+            min-width: 0 !important;
+
+            box-sizing: border-box !important;
+          }
+
+
+          /* ===============================================
+             DAY BUTTON
+             =============================================== */
+
+          .cinema-calendar-day > button {
+
+            width: 30px !important;
+            height: 30px !important;
+
+            min-width: 30px !important;
+            min-height: 30px !important;
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            font-size: 11px !important;
+
+            box-sizing: border-box !important;
+          }
+
+
+          /* ===============================================
+             EVENT DOT
+             =============================================== */
+
+          .cinema-calendar-day > button span {
+
+            width: 5px !important;
+            height: 5px !important;
+
+            bottom: 3px !important;
+          }
+
+
+          /* ===============================================
+             POPUP
+             =============================================== */
+
+          .cinema-calendar-day > div {
+
+            max-width: calc(100vw - 48px) !important;
+
+            box-sizing: border-box !important;
+          }
+
+        }
+
+
+        /* =================================================
+           VERY SMALL PHONES
+           ================================================= */
+
+        @media (max-width: 480px) {
+
+          .cinema-calendar {
+
+            padding: 10px !important;
+          }
+
+
+          .cinema-calendar-month {
+
+            font-size: 15px !important;
+
+            letter-spacing: 0.10em !important;
+          }
+
+
+          .cinema-calendar-prev {
+
+            left: 8px !important;
+          }
+
+
+          .cinema-calendar-next {
+
+            right: 8px !important;
+          }
+
+
+          .cinema-calendar-weekdays > div {
+
+            font-size: 7px !important;
+
+            letter-spacing: 0.08em !important;
+          }
+
+
+          .cinema-calendar-day {
+
+            height: 40px !important;
+          }
+
+
+          .cinema-calendar-day > button {
+
+            width: 28px !important;
+            height: 28px !important;
+
+            min-width: 28px !important;
+            min-height: 28px !important;
+
+            font-size: 10px !important;
+          }
+
+        }
+
+      `}</style>
+
     </div>
   );
 }

@@ -1,6 +1,7 @@
 export interface Screening {
   date: string;
   time: string;
+  venue?: string;
 }
 
 export interface Movie {

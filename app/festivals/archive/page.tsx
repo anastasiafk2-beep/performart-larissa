@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import { festivals } from "@/content/festivals";
-import Footer from "@/components/layout/Footer";
+import { useEffect, useMemo, useState } from "react";
+
+import {
+  festivals as localFestivals,
+  type Festival,
+} from "@/content/festivals/festivals";
 
 const MONTHS = [
   "ΙΑΝΟΥΑΡΙΟΣ",
@@ -31,6 +34,54 @@ const WEEKDAYS = [
 ];
 
 export default function FestivalsArchivePage() {
+
+    const [festivals, setFestivals] =
+  useState<Festival[]>(localFestivals);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function loadFestivals() {
+      try {
+        const response = await fetch("/api/festivals", {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          return;
+        }
+
+        const data: unknown = await response.json();
+
+        if (Array.isArray(data)) {
+  const sanityFestivals = data as Festival[];
+
+  const merged = new Map(
+    localFestivals.map(
+      (festival) => [festival.id, festival] as const
+    )
+  );
+
+  sanityFestivals.forEach((festival) => {
+    merged.set(festival.id, festival);
+  });
+
+  setFestivals(Array.from(merged.values()));
+}
+      } catch (error) {
+        if (
+          !(error instanceof DOMException && error.name === "AbortError")
+        ) {
+          console.error("Unable to load festivals:", error);
+        }
+      }
+    }
+
+    void loadFestivals();
+
+    return () => controller.abort();
+  }, []);
+
   const [view, setView] = useState<"list" | "calendar">("list");
 
   const [selectedDate, setSelectedDate] = useState("all");
@@ -59,16 +110,25 @@ label: festival.year,
    * Φιλτράρισμα φεστιβάλ
    */
   const filteredFestivals = useMemo(() => {
-    if (selectedDate === "all") {
-      return festivals;
-    }
+  const filtered =
+    selectedDate === "all"
+      ? festivals
+      : festivals.filter(
+          (festival) => festival.year === selectedDate
+        );
 
-    return festivals.filter((festival) => {
-     const value = festival.year;
+  return [...filtered].sort((a, b) => {
+    const dateA = a.startDate
+      ? new Date(`${a.startDate}T12:00:00`).getTime()
+      : new Date(`${a.year}-01-01T12:00:00`).getTime();
 
-      return value === selectedDate;
-    });
-  }, [selectedDate]);
+    const dateB = b.startDate
+      ? new Date(`${b.startDate}T12:00:00`).getTime()
+      : new Date(`${b.year}-01-01T12:00:00`).getTime();
+
+    return dateB - dateA;
+  });
+}, [festivals, selectedDate]);
 
   /*
    * Ημερολόγιο
@@ -99,7 +159,24 @@ label: festival.year,
    */
  
  const festivalsOnDay = (day: number) => {
-  return festivals.filter(() => false);
+  const currentDate = new Date(year, month, day);
+
+  return festivals.filter((festival) => {
+    if (!festival.startDate) {
+      return false;
+    }
+
+    const startDate = new Date(`${festival.startDate}T12:00:00`);
+
+    const endDate = festival.endDate
+      ? new Date(`${festival.endDate}T12:00:00`)
+      : startDate;
+
+    return (
+      currentDate >= startDate &&
+      currentDate <= endDate
+    );
+  });
 };
 
   const previousMonth = () => {
@@ -112,7 +189,7 @@ label: festival.year,
 
   return (
     <main
-      className="relative min-h-screen overflow-hidden bg-[#B5DED7] text-[#2B2B2B]"
+      className="festivals-archive-page relative min-h-screen overflow-hidden bg-white text-[#2B2B2B]"
       style={{
        
         backgroundSize: "cover",
@@ -132,14 +209,14 @@ label: festival.year,
     marginLeft: "auto",
     marginRight: "auto",
   }}
-  className="pb-24 pt-24"
+  className="festivals-archive-container pb-24 pt-24"
 >
 <br></br>
 <br></br>
 <br></br>
 <br></br>
         {/* Πίσω στα Φεστιβάλ */}
-        <div className="mb-8">
+        <div className="festivals-archive-back mb-8">
           <Link
             href="/festivals"
             className="inline-flex items-center text-[14px] uppercase tracking-[0.18em] text-[#2B2B2B] transition hover:text-[#C9252D]"
@@ -150,7 +227,7 @@ label: festival.year,
 <br></br>
 <br></br>
         {/* Τίτλος */}
-        <header className="mb-16 ">
+        <header className="festivals-archive-header mb-16 ">
           <p className="mb-2 text-[11px] uppercase tracking-[0.35em] text-[#C9252D]">
             ΦΕΣΤΙΒΑΛ
           </p>
@@ -164,7 +241,7 @@ label: festival.year,
         </header>
 
         {/* ΦΙΛΤΡΑ */}
-       <div className="mb-10 grid w-full border border-[#D8CEC6] md:grid-cols-2">
+       <div className="festivals-archive-filters mb-10 grid w-full border border-[#D8CEC6] md:grid-cols-2">
 
           {/* ΗΜΕΡΟΜΗΝΙΑ */}
           <div className="border-b border-[#D8CEC6] p-4 md:border-b-0 md:border-r">
@@ -233,9 +310,9 @@ label: festival.year,
         {/* ========================= */}
 
         {view === "list" && (
-          <div className="w-full ">
+          <div className="festivals-archive-list w-full ">
 <br></br>
-            <div className="grid grid-cols-[130px_1fr_180px] border-b border-[#BFB4AA] pb-3 text-[12px] uppercase tracking-[0.2em] text-[#5F5751]">
+            <div className="festivals-archive-list-header grid grid-cols-[130px_1fr_180px] border-b border-[#BFB4AA] pb-3 text-[12px] uppercase tracking-[0.2em] text-[#5F5751]">
               <span>ΗΜΕΡΟΜΗΝΙΑ</span>
               <span>ΦΕΣΤΙΒΑΛ</span>
               <span className="text-right">ΠΛΗΡΟΦΟΡΙΕΣ</span>
@@ -244,7 +321,7 @@ label: festival.year,
             {filteredFestivals.map((festival) => (
               <article
                 key={festival.id}
-                className="grid grid-cols-[130px_1fr_180px] items-center border-b border-[#D8CEC6] py-5"
+                className="festivals-archive-row grid grid-cols-[130px_1fr_180px] items-center border-b border-[#D8CEC6] py-5"
               >
 
                 {/* ΗΜΕΡΟΜΗΝΙΑ */}
@@ -305,10 +382,10 @@ label: festival.year,
         {/* ========================= */}
 
         {view === "calendar" && (
-          <div className="grid gap-10  lg:grid-cols-[1fr_320px]">
+          <div className="festivals-archive-calendar-layout grid gap-10  lg:grid-cols-[1fr_320px]">
 
             {/* CALENDAR */}
-            <div className="border border-[#D8CEC6] p-6 md:p-8">
+            <div className="festivals-archive-calendar border border-[#D8CEC6] p-6 md:p-8">
 
               {/* MONTH HEADER */}
               <div className="mb-8 flex items-center justify-between">
@@ -406,7 +483,7 @@ label: festival.year,
             </div>
 
             {/* FESTIVALS ΤΟΥ ΜΗΝΑ */}
-            <aside>
+            <aside className="festivals-archive-month">
 
               <h3 className="mb-5 font-serif text-xl uppercase tracking-[0.12em]">
                 ΦΕΣΤΙΒΑΛ ΤΟΥ ΜΗΝΑ
@@ -415,7 +492,24 @@ label: festival.year,
               <div className="space-y-5">
 
                {festivals
-  .filter((festival) => festival.year === String(year))
+  .filter((festival) => {
+    if (!festival.startDate) {
+      return false;
+    }
+
+    const startDate = new Date(`${festival.startDate}T12:00:00`);
+    const endDate = festival.endDate
+      ? new Date(`${festival.endDate}T12:00:00`)
+      : startDate;
+
+    const monthStart = new Date(year, month, 1);
+    const monthEnd = new Date(year, month + 1, 0);
+
+    return (
+      startDate <= monthEnd &&
+      endDate >= monthStart
+    );
+  })
                   .map((festival) => (
                     <Link
                       key={festival.id}
@@ -451,6 +545,413 @@ label: festival.year,
       </section>
 
       
+
+      {/* =========================================================
+          MOBILE ONLY
+          Το desktop παραμένει ακριβώς όπως είναι.
+         ========================================================= */}
+      <style>{`
+        @media (max-width: 767px) {
+
+          /* PAGE */
+          .festivals-archive-page {
+            width: 100% !important;
+            max-width: 100vw !important;
+            min-width: 0 !important;
+            overflow-x: hidden !important;
+            box-sizing: border-box !important;
+          }
+
+          /* MAIN CONTAINER */
+          .festivals-archive-page .festivals-archive-container {
+            width: 100% !important;
+            max-width: 100% !important;
+
+            margin: 0 !important;
+            padding: 145px 20px 60px !important;
+
+            box-sizing: border-box !important;
+          }
+
+          /* DESKTOP <br> SPACING */
+          .festivals-archive-page .festivals-archive-container > br {
+            display: none !important;
+          }
+
+          /* BACK */
+          .festivals-archive-page .festivals-archive-back {
+            width: 100% !important;
+            margin: 0 0 38px !important;
+            padding: 0 !important;
+          }
+
+          .festivals-archive-page .festivals-archive-back a {
+            font-size: 10px !important;
+            line-height: 1.4 !important;
+            letter-spacing: 0.12em !important;
+            white-space: nowrap !important;
+          }
+
+          /* HEADER */
+          .festivals-archive-page .festivals-archive-header {
+            width: 100% !important;
+            margin: 0 0 34px !important;
+            padding: 0 !important;
+            text-align: center !important;
+          }
+
+          .festivals-archive-page .festivals-archive-header > br {
+            display: none !important;
+          }
+
+          .festivals-archive-page .festivals-archive-header p {
+            margin: 0 0 12px !important;
+            font-size: 9px !important;
+            line-height: 1.4 !important;
+            letter-spacing: 0.24em !important;
+            text-align: center !important;
+          }
+
+          .festivals-archive-page .festivals-archive-header h1 {
+            width: 100% !important;
+            max-width: 100% !important;
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            font-size: 30px !important;
+            line-height: 1.08 !important;
+            letter-spacing: 0.055em !important;
+
+            text-align: center !important;
+            white-space: normal !important;
+          }
+
+          /* FILTERS */
+          .festivals-archive-page .festivals-archive-filters {
+            width: 100% !important;
+            max-width: 100% !important;
+
+            margin: 0 0 35px !important;
+
+            display: flex !important;
+            flex-direction: column !important;
+
+            box-sizing: border-box !important;
+          }
+
+          .festivals-archive-page .festivals-archive-filters > div {
+            width: 100% !important;
+            min-width: 0 !important;
+
+            border-right: none !important;
+            border-bottom: 1px solid #D8CEC6 !important;
+
+            padding: 14px !important;
+
+            box-sizing: border-box !important;
+          }
+
+          .festivals-archive-page .festivals-archive-filters > div:last-child {
+            border-bottom: none !important;
+          }
+
+          .festivals-archive-page .festivals-archive-filters label,
+          .festivals-archive-page .festivals-archive-filters span {
+            font-size: 8px !important;
+            line-height: 1.4 !important;
+            letter-spacing: 0.13em !important;
+          }
+
+          .festivals-archive-page .festivals-archive-filters select {
+            width: 100% !important;
+            max-width: 100% !important;
+            font-size: 11px !important;
+            line-height: 1.4 !important;
+            box-sizing: border-box !important;
+          }
+
+          .festivals-archive-page .festivals-archive-filters > div:last-child > div {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 14px !important;
+          }
+
+          .festivals-archive-page .festivals-archive-filters button {
+            font-size: 9px !important;
+            line-height: 1.4 !important;
+            letter-spacing: 0.09em !important;
+          }
+
+          /* LIST */
+          .festivals-archive-page .festivals-archive-list {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            box-sizing: border-box !important;
+          }
+
+          .festivals-archive-page .festivals-archive-list > br {
+            display: none !important;
+          }
+
+          .festivals-archive-page .festivals-archive-list-header {
+            display: none !important;
+          }
+
+          /* EACH FESTIVAL */
+          .festivals-archive-page .festivals-archive-row {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+
+            gap: 16px !important;
+
+            padding: 18px 0 !important;
+            box-sizing: border-box !important;
+          }
+
+          /* DATE */
+          .festivals-archive-page .festivals-archive-row > div:nth-child(1) {
+            width: 100% !important;
+            padding: 0 !important;
+          }
+
+          .festivals-archive-page .festivals-archive-row > div:nth-child(1) p:first-child {
+            font-size: 25px !important;
+            line-height: 1 !important;
+          }
+
+          .festivals-archive-page .festivals-archive-row > div:nth-child(1) p:nth-child(2) {
+            margin-top: 5px !important;
+            font-size: 9px !important;
+            line-height: 1.4 !important;
+            letter-spacing: 0.10em !important;
+          }
+
+          /* FESTIVAL + IMAGE */
+          .festivals-archive-page .festivals-archive-row > div:nth-child(2) {
+            width: 100% !important;
+            min-width: 0 !important;
+
+            display: flex !important;
+            align-items: center !important;
+
+            gap: 12px !important;
+          }
+
+          .festivals-archive-page .festivals-archive-row > div:nth-child(2) img,
+          .festivals-archive-page .festivals-archive-row > div:nth-child(2) > div:first-child {
+            width: 62px !important;
+            min-width: 62px !important;
+            height: 72px !important;
+
+            object-fit: cover !important;
+            box-sizing: border-box !important;
+          }
+
+          .festivals-archive-page .festivals-archive-row > div:nth-child(2) > div:last-child {
+            min-width: 0 !important;
+            flex: 1 !important;
+          }
+
+          .festivals-archive-page .festivals-archive-row h2 {
+            margin: 0 !important;
+            font-size: 16px !important;
+            line-height: 1.2 !important;
+            letter-spacing: 0.02em !important;
+            overflow-wrap: break-word !important;
+          }
+
+          .festivals-archive-page .festivals-archive-row > div:nth-child(2) p {
+            margin-top: 5px !important;
+            font-size: 8px !important;
+            line-height: 1.4 !important;
+            letter-spacing: 0.08em !important;
+          }
+
+          /* INFO BUTTON */
+          .festivals-archive-page .festivals-archive-row > div:nth-child(3) {
+            width: 100% !important;
+            text-align: left !important;
+          }
+
+          .festivals-archive-page .festivals-archive-row > div:nth-child(3) a {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+
+            width: auto !important;
+            max-width: 100% !important;
+
+            padding: 8px 12px !important;
+
+            font-size: 8px !important;
+            line-height: 1.3 !important;
+            letter-spacing: 0.10em !important;
+
+            box-sizing: border-box !important;
+            white-space: nowrap !important;
+          }
+
+          /* CALENDAR VIEW */
+          .festivals-archive-page .festivals-archive-calendar-layout {
+            width: 100% !important;
+            max-width: 100% !important;
+
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 35px !important;
+
+            box-sizing: border-box !important;
+          }
+
+          .festivals-archive-page .festivals-archive-calendar {
+            width: 100% !important;
+            max-width: 100% !important;
+
+            min-width: 0 !important;
+
+            padding: 12px !important;
+
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+          }
+
+          .festivals-archive-page .festivals-archive-calendar > div:first-child {
+            margin-bottom: 18px !important;
+          }
+
+          .festivals-archive-page .festivals-archive-calendar h2 {
+            font-size: 14px !important;
+            line-height: 1.2 !important;
+            letter-spacing: 0.09em !important;
+            white-space: nowrap !important;
+          }
+
+          .festivals-archive-page .festivals-archive-calendar button {
+            font-size: 12px !important;
+          }
+
+          .festivals-archive-page .festivals-archive-calendar > div:nth-child(2),
+          .festivals-archive-page .festivals-archive-calendar > div:nth-child(3) {
+            width: 100% !important;
+            min-width: 0 !important;
+
+            grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+
+            box-sizing: border-box !important;
+          }
+
+          .festivals-archive-page .festivals-archive-calendar > div:nth-child(2) > div {
+            min-width: 0 !important;
+            padding: 5px 1px !important;
+
+            font-size: 7px !important;
+            line-height: 1.2 !important;
+            letter-spacing: 0.03em !important;
+          }
+
+          .festivals-archive-page .festivals-archive-calendar > div:nth-child(3) > div {
+            min-width: 0 !important;
+            min-height: 56px !important;
+
+            padding: 4px !important;
+
+            overflow: hidden !important;
+            box-sizing: border-box !important;
+          }
+
+          .festivals-archive-page .festivals-archive-calendar > div:nth-child(3) span {
+            width: 24px !important;
+            height: 24px !important;
+
+            font-size: 10px !important;
+          }
+
+          .festivals-archive-page .festivals-archive-calendar > div:nth-child(3) a {
+            display: block !important;
+
+            max-width: 100% !important;
+
+            font-size: 6px !important;
+            line-height: 1.2 !important;
+            letter-spacing: 0 !important;
+
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+          }
+
+          /* FESTIVALS OF THE MONTH */
+          .festivals-archive-page .festivals-archive-month {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            box-sizing: border-box !important;
+          }
+
+          .festivals-archive-page .festivals-archive-month h3 {
+            margin-bottom: 18px !important;
+            font-size: 19px !important;
+            line-height: 1.2 !important;
+            letter-spacing: 0.08em !important;
+          }
+
+          .festivals-archive-page .festivals-archive-month br {
+            display: none !important;
+          }
+
+          .festivals-archive-page .festivals-archive-month h4 {
+            margin-top: 8px !important;
+            font-size: 16px !important;
+            line-height: 1.2 !important;
+          }
+
+          .festivals-archive-page .festivals-archive-month p {
+            font-size: 8px !important;
+            line-height: 1.4 !important;
+          }
+
+          .festivals-archive-page .festivals-archive-month span {
+            margin-top: 10px !important;
+            font-size: 8px !important;
+            line-height: 1.3 !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+
+          .festivals-archive-page .festivals-archive-container {
+            padding-left: 18px !important;
+            padding-right: 18px !important;
+          }
+
+          .festivals-archive-page .festivals-archive-header h1 {
+            font-size: 27px !important;
+          }
+
+          .festivals-archive-page .festivals-archive-row h2 {
+            font-size: 15px !important;
+          }
+
+          .festivals-archive-page .festivals-archive-calendar h2 {
+            font-size: 13px !important;
+          }
+
+          .festivals-archive-page .festivals-archive-calendar > div:nth-child(3) > div {
+            min-height: 52px !important;
+            padding: 3px !important;
+          }
+        }
+      `}</style>
+
     </main>
   );
 }

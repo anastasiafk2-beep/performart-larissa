@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { movies } from "@/content/cinema/movies";
+import useCinemaMovies from "@/hooks/useCinemaMovies";
 import Footer from "@/components/layout/Footer";
 import { Alegreya, Spectral } from "next/font/google";
 
@@ -53,22 +53,26 @@ function formatDate(date: string) {
   };
 }
 
-const screenings = movies
-  .flatMap((movie) =>
-    movie.screenings.map((screening) => ({
-      movie,
-      date: screening.date,
-      time: screening.time,
-    }))
-  )
-  .sort((a, b) => {
-    const dateA = `${a.date}T${a.time}`;
-    const dateB = `${b.date}T${b.time}`;
-
-    return dateA.localeCompare(dateB);
-  });
-
 export default function ScreeningsPage() {
+  const movies = useCinemaMovies();
+  const screenings = useMemo(
+    () =>
+      movies
+        .flatMap((movie) =>
+          movie.screenings.map((screening) => ({
+            movie,
+            date: screening.date,
+            time: screening.time,
+          }))
+        )
+        .sort((a, b) => {
+          const dateA = `${a.date}T${a.time}`;
+          const dateB = `${b.date}T${b.time}`;
+
+          return dateA.localeCompare(dateB);
+        }),
+    [movies]
+  );
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedMovie, setSelectedMovie] = useState("");
   const [viewMode, setViewMode] = useState<"list" | "calendar">("list");
@@ -81,11 +85,11 @@ export default function ScreeningsPage() {
     return Array.from(
       new Set(screenings.map((screening) => screening.date))
     ).sort();
-  }, []);
+  }, [screenings]);
 
   const availableMovies = useMemo(() => {
     return movies;
-  }, []);
+  }, [movies]);
 
   const filteredScreenings = useMemo(() => {
     return screenings.filter((screening) => {
@@ -97,7 +101,7 @@ export default function ScreeningsPage() {
 
       return matchesDate && matchesMovie;
     });
-  }, [selectedDate, selectedMovie]);
+  }, [screenings, selectedDate, selectedMovie]);
 
   const calendarDays = useMemo(() => {
     const year = calendarDate.getFullYear();
@@ -129,7 +133,7 @@ export default function ScreeningsPage() {
 
       return matchesMovie;
     });
-  }, [selectedMovie]);
+  }, [screenings, selectedMovie]);
 
   const getScreeningsForCalendarDay = (day: number) => {
     const year = calendarDate.getFullYear();
@@ -153,17 +157,17 @@ export default function ScreeningsPage() {
   return (
     <>
   <main
-   className="relative overflow-hidden bg-[#707BD4]/80">
+   className="screenings-page relative overflow-hidden bg-white">
 
   {/* Background overlay */}
-  <div className="absolute inset-0 bg-white/70 pointer-events-none" />
+  <div className="absolute inset-0 bg-white pointer-events-none" />
 
   <div className="relative z-10">
         
         {/* ΤΙΤΛΟΣ */}
         <section className="px-6 pb-20  pt-10 md:px-10">
           <div
-            className=""
+            className="screenings-title-inner"
             style={{
               width: "70%",
               marginLeft: "15%",
@@ -171,6 +175,7 @@ export default function ScreeningsPage() {
           >
 
             <div
+  className="screenings-back"
   style={{
     width: "25%",
     marginLeft: "80%",
@@ -197,7 +202,7 @@ export default function ScreeningsPage() {
 </div >
             
             <p
-            className={`${alegreya.className} mb-5 text-xs uppercase tracking-[0.35em] text-[#C13B3A] lg:text-[15px]`}
+            className={`screenings-label ${alegreya.className} mb-5 text-xs uppercase tracking-[0.35em] text-[#C13B3A] lg:text-[15px]`}
           >
             CINEMA
             </p>
@@ -205,14 +210,14 @@ export default function ScreeningsPage() {
           
 
            <h1
-            className={`${spectral.className} text-5xl uppercase tracking-[0.15em] text-black md:text-6xl lg:text-[45px]`}
+            className={`screenings-title ${spectral.className} text-5xl uppercase tracking-[0.15em] text-black md:text-6xl lg:text-[45px]`}
           >
               ΟΛΕΣ ΟΙ ΠΡΟΒΟΛΕΣ
             </h1>
   <br></br>
             
   
-            <p className="mt-6 text-xs uppercase tracking-[0.22em] text-black/80">
+            <p className="screenings-subtitle mt-6 text-xs uppercase tracking-[0.22em] text-black/80">
               ΑΝΑΚΑΛΥΨΕ ΟΛΟ ΤΟ ΠΡΟΓΡΑΜΜΑ ΠΡΟΒΟΛΩΝ
             </p>
               <br></br>
@@ -221,8 +226,9 @@ export default function ScreeningsPage() {
         </section>
   
         {/* ΦΙΛΤΡΑ */}
-<section className="px-6 md:px-10">
+<section className="screenings-filters-section px-6 md:px-10">
   <div
+    className="screenings-filters"
     style={{
         width: "70%",
   marginLeft: "15%",
@@ -235,6 +241,7 @@ export default function ScreeningsPage() {
 
     {/* ΗΜΕΡΟΜΗΝΙΑ */}
     <div
+      className="screenings-filter"
       style={{
         padding: "7px 22px",
         borderRight: "1px solid #E9D8C8",
@@ -300,6 +307,7 @@ export default function ScreeningsPage() {
 
     {/* ΤΑΙΝΙΑ */}
     <div
+      className="screenings-filter"
       style={{
         padding: "8px 18px",
         borderRight: "1px solid #E9D8C8",
@@ -361,6 +369,7 @@ export default function ScreeningsPage() {
 
     {/* ΠΡΟΒΟΛΗ ΩΣ */}
     <div
+      className="screenings-filter"
       style={{
         padding: "8px 18px",
         display: "flex",
@@ -467,8 +476,9 @@ export default function ScreeningsPage() {
 </section>
   <br></br>
         {/* ΠΡΟΒΟΛΕΣ */}
-        <section className="px-6 pb-20 pt-10 md:px-10">
+        <section className="screenings-content-section px-6 pb-20 pt-10 md:px-10">
           <div
+            className="screenings-content-inner"
             style={{
               width: "70%",
               marginLeft: "15%",
@@ -525,7 +535,7 @@ export default function ScreeningsPage() {
                     return (
                       <div
                         key={`${screening.movie.id}-${screening.date}-${screening.time}`}
-                        className="
+                        className="screening-row
                           grid
                           grid-cols-1
                           border-b
@@ -533,7 +543,7 @@ export default function ScreeningsPage() {
                           md:grid-cols-[150px_1fr_130px_130px]
                         "
                       >
-                        <div className="flex items-center py-6">
+                        <div className="screening-date flex items-center py-6">
                           {isNewDate && (
                             <div>
                               <p className="font-serif text-4xl text-[#8F2025]">
@@ -549,7 +559,7 @@ export default function ScreeningsPage() {
                           )}
                         </div>
 
-                        <div className="flex items-center gap-5 py-5">
+                        <div className="screening-movie flex items-center gap-5 py-5">
                           <img
                             src={screening.movie.poster}
                             alt={screening.movie.title}
@@ -570,7 +580,7 @@ export default function ScreeningsPage() {
                         </div>
 
                         <div
-                          className="
+                          className="screening-time
                             flex
                             items-center
                             border-t
@@ -585,7 +595,7 @@ export default function ScreeningsPage() {
                         </div>
 
                         <div
-                          className="
+                          className="screening-button
                             flex
                             items-center
                             pb-6
@@ -624,7 +634,7 @@ export default function ScreeningsPage() {
                   <br></br>
                     <br></br>
 
-                <div className="flex justify-center pt-12">
+                <div className="load-more flex justify-center pt-12">
                   <button
                     type="button"
                     className="
@@ -651,12 +661,14 @@ export default function ScreeningsPage() {
             ) : (
               /* ΗΜΕΡΟΛΟΓΙΟ */
               <div
+                className="screenings-calendar"
                 style={{
                   borderTop: "1px solid #DCCFC5",
                   borderLeft: "1px solid #DCCFC5",
                 }}
               >
                 <div
+                  className="screenings-calendar-header"
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -687,6 +699,7 @@ export default function ScreeningsPage() {
                         fontFamily: "serif",
                         fontSize: "28px",
                         letterSpacing: "0.12em",
+                        color: "#252321",
                       }}
                     >
                       {MONTHS[calendarDate.getMonth()]}
@@ -719,6 +732,7 @@ export default function ScreeningsPage() {
                 </div>
 
                 <div
+                  className="screenings-calendar-grid"
                   style={{
                     display: "grid",
                     gridTemplateColumns: "repeat(7, 1fr)",
@@ -745,6 +759,7 @@ export default function ScreeningsPage() {
                     if (day === null) {
                       return (
                         <div
+                          className="screenings-calendar-day"
                           key={`empty-${index}`}
                           style={{
                             minHeight: "105px",
@@ -770,6 +785,7 @@ export default function ScreeningsPage() {
 
                     return (
                       <div
+                        className="screenings-calendar-day"
                         key={day}
                         onClick={() => {
                           if (dayScreenings.length > 0) {
@@ -791,6 +807,7 @@ export default function ScreeningsPage() {
                         }}
                       >
                         <div
+                          className="screenings-calendar-day-number"
                           style={{
                             fontFamily: "serif",
                             fontSize: "22px",
@@ -806,6 +823,7 @@ export default function ScreeningsPage() {
                         <div style={{ marginTop: "8px" }}>
                           {dayScreenings.slice(0, 3).map((screening) => (
                             <div
+                              className="screenings-calendar-event"
                               key={`${screening.movie.id}-${screening.time}`}
                               style={{
                                 marginBottom: "5px",
@@ -820,6 +838,7 @@ export default function ScreeningsPage() {
                                 style={{
                                   fontFamily: "serif",
                                   fontSize: "14px",
+                                  color: "#252321",
                                 }}
                               >
                                 {screening.movie.title}
@@ -856,6 +875,292 @@ export default function ScreeningsPage() {
             )}
           </div>
         </section>
+
+        <style>{`
+          @media (max-width: 767px) {
+            .screenings-page {
+              width: 100% !important;
+              max-width: 100% !important;
+              overflow-x: hidden !important;
+            }
+
+            .screenings-page .screenings-title-inner {
+              width: 100% !important;
+              margin-left: 0 !important;
+              margin-right: 0 !important;
+            }
+
+            .screenings-page .screenings-back {
+              width: auto !important;
+              margin-left: 0 !important;
+              margin-right: 0 !important;
+              position: relative !important;
+              top: 0 !important;
+              margin-top: 145px !important;
+              margin-bottom: 38px !important;
+              z-index: 20 !important;
+            }
+
+            .screenings-page .screenings-back a {
+              font-size: 10px !important;
+              letter-spacing: 0.12em !important;
+              white-space: nowrap !important;
+            }
+
+            .screenings-page .screenings-title-section {
+              padding-left: 24px !important;
+              padding-right: 24px !important;
+            }
+
+            .screenings-page .screenings-label {
+              font-size: 9px !important;
+              margin-bottom: 10px !important;
+            }
+
+            .screenings-page .screenings-title {
+              font-size: 31px !important;
+              line-height: 1.05 !important;
+              letter-spacing: 0.06em !important;
+              white-space: normal !important;
+            }
+
+            .screenings-page .screenings-subtitle {
+              font-size: 8px !important;
+              line-height: 1.45 !important;
+              letter-spacing: 0.13em !important;
+            }
+
+            .screenings-page .screenings-filters-section {
+              padding-left: 24px !important;
+              padding-right: 24px !important;
+            }
+
+            .screenings-page .screenings-filters {
+              width: 100% !important;
+              margin-left: 0 !important;
+              margin-right: 0 !important;
+              display: flex !important;
+              flex-direction: column !important;
+              min-height: 0 !important;
+              box-sizing: border-box !important;
+            }
+
+            .screenings-page .screenings-filter {
+              width: 100% !important;
+              min-width: 0 !important;
+              box-sizing: border-box !important;
+              padding: 10px 14px !important;
+              border-right: none !important;
+              border-bottom: 1px solid #E9D8C8 !important;
+            }
+
+            .screenings-page .screenings-filter:last-child {
+              border-bottom: none !important;
+            }
+
+            .screenings-page .screenings-filter span {
+              font-size: 7px !important;
+              letter-spacing: 0.12em !important;
+            }
+
+            .screenings-page .screenings-filter select {
+              max-width: 100% !important;
+              font-size: 11px !important;
+              padding-right: 20px !important;
+              overflow: hidden !important;
+              text-overflow: ellipsis !important;
+            }
+
+            .screenings-page .screenings-content-section {
+              padding-left: 24px !important;
+              padding-right: 24px !important;
+            }
+
+            .screenings-page .screenings-content-inner {
+              width: 100% !important;
+              margin-left: 0 !important;
+              margin-right: 0 !important;
+            }
+
+            .screenings-page .screening-row {
+              width: 100% !important;
+              min-width: 0 !important;
+              box-sizing: border-box !important;
+            }
+
+            .screenings-page .screening-date {
+              width: 100% !important;
+              padding-top: 18px !important;
+              padding-bottom: 8px !important;
+            }
+
+            .screenings-page .screening-movie {
+              width: 100% !important;
+              min-width: 0 !important;
+              gap: 12px !important;
+              padding-top: 8px !important;
+              padding-bottom: 12px !important;
+            }
+
+            .screenings-page .screening-movie img {
+              width: 52px !important;
+              height: 76px !important;
+              min-width: 52px !important;
+              object-fit: cover !important;
+            }
+
+            .screenings-page .screening-movie h2 {
+              font-size: 16px !important;
+              line-height: 1.2 !important;
+            }
+
+            .screenings-page .screening-movie p {
+              font-size: 7px !important;
+              line-height: 1.4 !important;
+            }
+
+            .screenings-page .screening-time {
+              width: 100% !important;
+              padding-top: 10px !important;
+              padding-bottom: 10px !important;
+              font-size: 20px !important;
+            }
+
+            .screenings-page .screening-button {
+              width: 100% !important;
+              padding-bottom: 18px !important;
+            }
+
+            .screenings-page .screening-button a {
+              width: 100% !important;
+              max-width: 240px !important;
+              height: 32px !important;
+              font-size: 8px !important;
+            }
+
+            .screenings-page .load-more {
+              width: 100% !important;
+              padding-top: 24px !important;
+            }
+
+            .screenings-page .load-more button {
+              width: 100% !important;
+              max-width: 250px !important;
+              height: 38px !important;
+            }
+
+            .screenings-page .screenings-calendar {
+              width: 100% !important;
+              max-width: 100% !important;
+              overflow: hidden !important;
+              box-sizing: border-box !important;
+            }
+
+            .screenings-page .screenings-calendar-header {
+              width: 100% !important;
+              box-sizing: border-box !important;
+              padding: 14px 10px !important;
+            }
+
+            .screenings-page .screenings-calendar-header p {
+              white-space: nowrap !important;
+            }
+
+            .screenings-page .screenings-calendar-header p:first-child {
+              font-size: 20px !important;
+              letter-spacing: 0.08em !important;
+            }
+
+            .screenings-page .screenings-calendar-header p:last-child {
+              font-size: 8px !important;
+            }
+
+            .screenings-page .screenings-calendar-grid {
+              width: 100% !important;
+              max-width: 100% !important;
+              display: grid !important;
+              grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+              box-sizing: border-box !important;
+            }
+
+            .screenings-page .screenings-calendar-grid > div {
+              min-width: 0 !important;
+              max-width: 100% !important;
+              box-sizing: border-box !important;
+              overflow: hidden !important;
+            }
+
+            .screenings-page .screenings-calendar-grid > div:nth-child(-n+7) {
+              padding: 9px 1px !important;
+              font-size: 8px !important;
+              letter-spacing: 0.03em !important;
+            }
+
+            .screenings-page .screenings-calendar-day {
+              min-height: 88px !important;
+              height: 88px !important;
+              padding: 5px 3px !important;
+            }
+
+            .screenings-page .screenings-calendar-day-number {
+              font-size: 16px !important;
+              line-height: 1 !important;
+            }
+
+            .screenings-page .screenings-calendar-event {
+              width: 100% !important;
+              max-width: 100% !important;
+              box-sizing: border-box !important;
+              margin-bottom: 3px !important;
+              padding: 3px 3px !important;
+              border-left-width: 2px !important;
+              font-size: 7px !important;
+              line-height: 1.15 !important;
+              overflow: hidden !important;
+            }
+
+            .screenings-page .screenings-calendar-event > div:first-child {
+              font-size: 8px !important;
+              line-height: 1.15 !important;
+              white-space: nowrap !important;
+              overflow: hidden !important;
+              text-overflow: ellipsis !important;
+            }
+
+            .screenings-page .screenings-calendar-event > div:last-child {
+              font-size: 7px !important;
+            }
+
+            .screenings-page .screenings-calendar-day > div:last-child {
+              margin-top: 5px !important;
+            }
+
+            .screenings-page .screenings-calendar-day-number + div {
+              max-width: 100% !important;
+              overflow: hidden !important;
+            }
+          }
+
+          @media (max-width: 380px) {
+            .screenings-page .screenings-title {
+              font-size: 28px !important;
+            }
+
+            .screenings-page .screenings-calendar-day {
+              min-height: 82px !important;
+              height: 82px !important;
+              padding: 4px 2px !important;
+            }
+
+            .screenings-page .screenings-calendar-day-number {
+              font-size: 14px !important;
+            }
+
+            .screenings-page .screenings-calendar-event > div:first-child {
+              font-size: 7px !important;
+            }
+          }
+        `}</style>
 
   <br></br>
     <br></br>
