@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { isDarkCulturePath } from "@/lib/site-theme";
 
 export default function BackgroundPattern() {
 
@@ -8,7 +9,7 @@ export default function BackgroundPattern() {
 
 const isHome = pathname === "/";
   
-    if (isHome) {
+    if (isHome || isDarkCulturePath(pathname)) {
   return null;
 }
 return (

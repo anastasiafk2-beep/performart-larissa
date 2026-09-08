@@ -1,9 +1,533 @@
 @import "tailwindcss";
 
 *{
-  margin:0;
-  padding:0;
   box-sizing:border-box;
+}
+
+/* =========================================================
+   SHARED DESKTOP RHYTHM FOR CINEMA / FESTIVALS / GIVEAWAYS
+   ========================================================= */
+
+@media (min-width: 1024px) {
+  /* The culture landing-page titles now start on the same visual axis. */
+  .culture-dark-theme .culture-hero-shell {
+    width: min(930px, 100%);
+    max-width: 930px;
+    min-height: auto;
+    margin: 0 auto;
+    padding: 190px 48px 96px !important;
+  }
+
+  .culture-dark-theme .culture-hero-shell > div {
+    display: block;
+    width: 100%;
+    max-width: none;
+  }
+
+  .culture-dark-theme :is(.cinema-hero-title, .festival-hero-title) {
+    width: 100%;
+    max-width: none;
+  }
+
+  .culture-dark-theme :is(.cinema-hero-title, .festival-hero-title) > br {
+    display: none;
+  }
+
+  .culture-dark-theme :is(.cinema-hero-title, .festival-hero-title) > div {
+    margin-bottom: 16px !important;
+    font-size: 13px !important;
+  }
+
+  .culture-dark-theme :is(.cinema-hero-title, .festival-hero-title) h1 {
+    font-size: 55px !important;
+    line-height: 1;
+    letter-spacing: 0.15em !important;
+  }
+
+  .culture-dark-theme :is(.cinema-hero-title, .festival-hero-title) p {
+    margin-top: 26px !important;
+    font-size: 13px !important;
+  }
+
+  /* Cinema landing page. */
+  .cinema-page {
+    padding-bottom: 160px !important;
+  }
+
+  .cinema-page .cinema-main-section {
+    padding: 72px 48px 0 !important;
+  }
+
+  .cinema-page .cinema-main-grid {
+    max-width: 1200px;
+    grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr) !important;
+    gap: 56px !important;
+  }
+
+  .cinema-page .cinema-calendar-section h2,
+  .cinema-page .cinema-now-playing-section h2 {
+    margin-bottom: 24px !important;
+    font-size: 20px !important;
+  }
+
+  .cinema-page .cinema-now-playing-section {
+    margin-top: 72px !important;
+  }
+
+  .cinema-page .cinema-reviews-section {
+    margin-top: 104px !important;
+  }
+
+  /* Cinema screenings archive. */
+  .screenings-page .screenings-title-section {
+    padding: 210px 48px 0 !important;
+  }
+
+  .screenings-page .screenings-title-inner,
+  .screenings-page .screenings-filters,
+  .screenings-page .screenings-content-inner {
+    width: min(1200px, 100%) !important;
+    max-width: 1200px;
+    margin: 0 auto !important;
+  }
+
+  .screenings-page .screenings-title-inner > br,
+  .screenings-page > .relative > br {
+    display: none;
+  }
+
+  .screenings-page .screenings-back {
+    position: static !important;
+    width: 100% !important;
+    margin: 0 0 72px !important;
+  }
+
+  .screenings-page .screenings-label {
+    margin-bottom: 16px !important;
+    font-size: 13px !important;
+  }
+
+  .screenings-page .screenings-title {
+    font-size: 46px !important;
+    line-height: 1.1;
+  }
+
+  .screenings-page .screenings-subtitle {
+    margin-top: 22px !important;
+  }
+
+  .screenings-page .screenings-filters-section {
+    padding: 72px 48px 0 !important;
+  }
+
+  .screenings-page .screenings-content-section {
+    padding: 72px 48px 160px !important;
+  }
+
+  /* Cinema reviews archive. */
+  .cinema-reviews-page .cinema-reviews-hero {
+    position: relative !important;
+    inset: auto !important;
+    width: min(1200px, 100%);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 210px 48px 0 !important;
+  }
+
+  .cinema-reviews-page .cinema-reviews-hero-inner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cinema-reviews-page .cinema-reviews-back-wrap {
+    position: static !important;
+    order: -1;
+    width: 100% !important;
+    margin: 0 0 72px !important;
+  }
+
+  .cinema-reviews-page .cinema-reviews-kicker {
+    margin-bottom: 16px !important;
+    font-size: 13px !important;
+  }
+
+  .cinema-reviews-page .cinema-reviews-title {
+    margin-top: 0 !important;
+    font-size: 46px !important;
+    line-height: 1.1;
+  }
+
+  .cinema-reviews-page .cinema-reviews-subtitle {
+    margin-top: 22px !important;
+  }
+
+  .cinema-reviews-page .cinema-reviews-list {
+    position: relative !important;
+    inset: auto !important;
+    width: min(1200px, 100%);
+    max-width: 1200px;
+    margin: 88px auto 0;
+    padding: 0 48px 160px !important;
+  }
+
+  .cinema-reviews-page .cinema-reviews-list-heading {
+    margin-bottom: 42px !important;
+    padding-bottom: 18px !important;
+  }
+
+  .cinema-reviews-page .cinema-reviews-grid {
+    gap: 64px 32px !important;
+  }
+
+  /* Individual cinema movie and review pages. */
+  .cinema-detail-page .cinema-detail-shell {
+    width: min(1200px, 100%);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 210px 48px 160px !important;
+  }
+
+  .cinema-detail-page .cinema-detail-shell > div:first-child {
+    margin-bottom: 72px !important;
+  }
+
+  .cinema-detail-page .cinema-detail-shell > div:last-child {
+    gap: 64px !important;
+    grid-template-columns: minmax(340px, 460px) minmax(0, 1fr) !important;
+  }
+
+  .cinema-detail-page .cinema-detail-shell br {
+    display: none;
+  }
+
+  .cinema-detail-page .cinema-detail-shell h1 {
+    margin-top: 18px !important;
+    font-size: 48px !important;
+    line-height: 1.1;
+  }
+
+  .cinema-detail-page .cinema-detail-shell h1 + p {
+    margin-top: 20px !important;
+  }
+
+  .cinema-detail-page .cinema-detail-shell h1 + p + div {
+    margin-top: 38px !important;
+  }
+
+  .cinema-review-detail-page {
+    padding: 210px 48px 160px !important;
+  }
+
+  .cinema-review-detail-page .cinema-review-detail-back,
+  .cinema-review-detail-page .cinema-review-detail-content {
+    width: min(1200px, 100%) !important;
+    max-width: 1200px;
+    margin: 0 auto !important;
+  }
+
+  .cinema-review-detail-page .cinema-review-detail-back {
+    margin-bottom: 72px !important;
+  }
+
+  .cinema-review-detail-page .cinema-review-detail-content {
+    grid-template-columns: minmax(340px, 430px) minmax(0, 1fr) !important;
+    gap: 64px !important;
+  }
+
+  .cinema-review-detail-page .cinema-review-detail-copy h1 {
+    margin: 18px 0 30px !important;
+    font-size: 48px !important;
+    line-height: 1.1;
+  }
+
+  /* Festivals landing page. */
+  .festivals-page {
+    padding-bottom: 160px !important;
+  }
+
+  .festivals-page > .relative > br {
+    display: none;
+  }
+
+  .festivals-page .festivals-main-section {
+    padding: 72px 48px 0 !important;
+  }
+
+  .festivals-page .festivals-main-grid {
+    max-width: 1200px;
+    grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr) !important;
+    gap: 56px !important;
+  }
+
+  .festivals-page .festivals-upcoming-column > br {
+    display: none;
+  }
+
+  .festivals-page .festivals-upcoming-column > div:first-child {
+    margin-bottom: 32px !important;
+  }
+
+  .festivals-page .festivals-upcoming-list {
+    width: 100%;
+    height: auto;
+    min-height: 280px;
+    margin: 0 auto;
+  }
+
+  .festivals-page .festivals-archive-button-wrap {
+    margin-top: 42px !important;
+    text-align: center;
+  }
+
+  .festivals-page .festivals-archive-button {
+    display: inline-flex;
+    justify-content: center;
+    margin-left: 0 !important;
+    padding: 12px 22px !important;
+  }
+
+  .festivals-page .festivals-archive-section {
+    max-width: 1300px;
+    margin-top: 104px !important;
+    padding: 0 48px !important;
+  }
+
+  .festivals-page .festivals-archive-section > div:first-child {
+    margin-bottom: 64px !important;
+  }
+
+  .festivals-page .festivals-archive-section > div:first-child br,
+  .festivals-page .festivals-archive-grid > br {
+    display: none;
+  }
+
+  .festivals-page .festivals-archive-section h2 {
+    font-size: 42px !important;
+  }
+
+  .festivals-page .festivals-archive-grid {
+    gap: 64px 40px !important;
+  }
+
+  /* Festivals archive and detail. */
+  .festivals-archive-page .festivals-archive-container {
+    width: min(1200px, 100%) !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 210px 48px 160px !important;
+  }
+
+  .festivals-archive-page .festivals-archive-container > br,
+  .festivals-archive-page .festivals-archive-header > br,
+  .festivals-archive-page .festivals-archive-list > br {
+    display: none;
+  }
+
+  .festivals-archive-page .festivals-archive-back {
+    margin-bottom: 72px !important;
+  }
+
+  .festivals-archive-page .festivals-archive-header {
+    margin-bottom: 64px !important;
+  }
+
+  .festivals-archive-page .festivals-archive-header p {
+    margin-bottom: 16px !important;
+    font-size: 13px !important;
+  }
+
+  .festivals-archive-page .festivals-archive-header h1 {
+    font-size: 46px !important;
+    line-height: 1.1;
+  }
+
+  .festivals-archive-page .festivals-archive-filters {
+    margin-bottom: 64px !important;
+  }
+
+  .festival-single-page .festival-single-back {
+    width: min(1200px, 100%);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 210px 48px 0 !important;
+  }
+
+  .festival-single-page .festival-single-back a {
+    position: static !important;
+    inset: auto !important;
+  }
+
+  .festival-single-page .festival-single-main {
+    width: min(1200px, 100%) !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 72px 48px 160px !important;
+  }
+
+  .festival-single-page .festival-single-main > br,
+  .festival-single-page .festival-single-text > br {
+    display: none;
+  }
+
+  .festival-single-page .festival-single-header h1 {
+    margin-top: 18px !important;
+    font-size: 46px !important;
+    line-height: 1.1;
+  }
+
+  .festival-single-page .festival-single-intro-grid {
+    margin-top: 80px !important;
+    gap: 64px !important;
+  }
+
+  .festival-single-page .festival-single-gallery {
+    margin-top: 96px !important;
+  }
+
+  /* Giveaways index and individual giveaway. */
+  .giveaways-page {
+    display: flex;
+    align-items: center;
+    padding: 190px 48px 160px !important;
+  }
+
+  .giveaways-page > br,
+  .giveaways-page .giveaways-mobile-content > br,
+  .giveaways-page .giveaways-mobile-details > br {
+    display: none;
+  }
+
+  .giveaways-page .giveaways-mobile-header {
+    width: min(1100px, 100%);
+    max-width: 1100px;
+    margin: 0 auto 88px !important;
+    text-align: center;
+    translate: none !important;
+    transform: none !important;
+  }
+
+  .giveaways-page .giveaways-mobile-header > p:first-child {
+    margin-bottom: 16px !important;
+    font-size: 13px !important;
+  }
+
+  .giveaways-page .giveaways-mobile-header h1 {
+    font-size: 55px !important;
+    line-height: 1;
+    letter-spacing: 0.15em !important;
+  }
+
+  .giveaways-page .giveaways-mobile-header > p:last-child {
+    max-width: 680px;
+    margin: 28px auto 0 !important;
+    font-size: 17px !important;
+    line-height: 1.7;
+  }
+
+  .giveaways-page .giveaways-mobile-list {
+    width: min(1100px, 100%);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .giveaways-page .giveaways-mobile-card {
+    gap: 72px !important;
+    padding: 72px 0 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+  }
+
+  .giveaways-page .giveaways-mobile-card:last-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+  }
+
+  .giveaways-page .giveaways-mobile-content > * + * {
+    margin-top: 20px !important;
+  }
+
+  .giveaways-page .giveaways-mobile-content h2 {
+    font-size: 34px !important;
+    line-height: 1.15;
+  }
+
+  .giveaways-page .giveaways-mobile-button-wrap {
+    margin-top: 34px !important;
+  }
+
+  .giveaway-single-page {
+    display: flex;
+    align-items: center;
+    padding: 210px 48px 160px !important;
+  }
+
+  .giveaway-single-page > br,
+  .giveaway-single-page .giveaway-single-content br {
+    display: none;
+  }
+
+  .giveaway-single-page :is(
+    .giveaway-single-back,
+    .giveaway-single-header,
+    .giveaway-single-content
+  ) {
+    width: min(1200px, 100%);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .giveaway-single-page .giveaway-single-back {
+    margin-bottom: 72px !important;
+  }
+
+  .giveaway-single-page .giveaway-single-header {
+    margin-bottom: 72px !important;
+    text-align: center;
+  }
+
+  .giveaway-single-page .giveaway-single-header > p:first-child {
+    margin-bottom: 16px !important;
+    font-size: 13px !important;
+  }
+
+  .giveaway-single-page .giveaway-single-header h1 {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 46px !important;
+    line-height: 1.1;
+  }
+
+  .giveaway-single-page .giveaway-single-header > p:last-child {
+    margin-top: 22px !important;
+  }
+
+  .giveaway-single-page .giveaway-single-content {
+    grid-template-columns: minmax(300px, 1.05fr) minmax(220px, 0.8fr) minmax(280px, 0.95fr) !important;
+    gap: 56px !important;
+  }
+
+  .giveaway-single-page .giveaway-single-info {
+    padding-top: 24px;
+  }
+
+  .giveaway-single-page .giveaway-single-info > div + div {
+    margin-top: 34px !important;
+  }
+
+  .giveaway-single-page .giveaway-single-participation {
+    padding-top: 24px;
+  }
+
+  .giveaway-single-page .giveaway-single-participation > div {
+    padding: 32px !important;
+  }
+
+  .giveaway-single-page .giveaway-single-participation > div > p {
+    margin-bottom: 28px !important;
+  }
+
+  .giveaway-single-page .giveaway-single-participation > p:last-child {
+    margin-top: 24px !important;
+  }
 }
 
 html{
@@ -27,6 +551,143 @@ img{
 
 button{
   font:inherit;
+}
+
+/* Dark editorial theme shared by the culture sections and every nested route. */
+.culture-dark-theme {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+  color: #ffffff;
+  color-scheme: dark;
+  background: #000000;
+}
+
+/* Page surfaces stay solid black; imagery remains in real <img> elements. */
+.culture-dark-theme :is(main, section, article) {
+  background-color: #000000 !important;
+  background-image: none !important;
+}
+
+.culture-dark-theme :is(
+  [class~="bg-white"],
+  [class~="bg-white/5"],
+  [class~="bg-white/10"],
+  [class~="bg-white/20"],
+  [class~="bg-white/30"],
+  [class~="bg-white/70"],
+  [class~="bg-white/90"],
+  [class~="bg-[#F3D8D5]"],
+  [class~="bg-[#F3DAD5]"],
+  [class~="bg-[#F5E7E0]"],
+  [class~="bg-[#FBF7F2]"],
+  [class~="bg-[#FBF7F2]/40"]
+) {
+  background-color: #000000 !important;
+}
+
+.culture-dark-theme [style*="background-image"],
+.culture-dark-theme [style*="backgroundImage"] {
+  background-image: none !important;
+}
+
+.culture-dark-theme :is(
+  [style*="background:#ffffff"],
+  [style*="background: #ffffff"],
+  [style*="background:#fdfdfd"],
+  [style*="background: #fdfdfd"],
+  [style*="background:#FBF7F3"],
+  [style*="background: #FBF7F3"],
+  [style*="background-color:#fdfdfd"],
+  [style*="background-color: #fdfdfd"]
+) {
+  background-color: #000000 !important;
+}
+
+/* Convert the former light-theme ink colors to white. Brand reds are untouched. */
+.culture-dark-theme :is(
+  [class~="text-black"],
+  [class~="text-black/40"],
+  [class~="text-black/50"],
+  [class~="text-black/60"],
+  [class~="text-black/65"],
+  [class~="text-black/70"],
+  [class~="text-black/75"],
+  [class~="text-black/80"],
+  [class~="text-black/85"],
+  [class~="text-black/90"],
+  [class~="!text-black"],
+  [class~="!text-black/60"],
+  [class~="text-[#111111]"],
+  [class~="text-[#171717]"],
+  [class~="text-[#202020]"],
+  [class~="text-[#252321]"],
+  [class~="text-[#2A2A2A]"],
+  [class~="text-[#2B2B2B]"],
+  [class~="text-[#303030]"],
+  [class~="text-[#343434]"],
+  [class~="text-[#4E4945]"],
+  [class~="text-[#5F5751]"],
+  [class~="text-[#6A6A6A]"],
+  [class~="text-[#777]"],
+  [class~="text-[#857B73]"],
+  [class~="text-[#8A817A]"],
+  [class~="text-[#8B8178]"]
+) {
+  color: #ffffff !important;
+}
+
+.culture-dark-theme :is(
+  [style*="color:#000"],
+  [style*="color: #000"],
+  [style*="color:#252321"],
+  [style*="color: #252321"],
+  [style*="color:#474646"],
+  [style*="color: #474646"],
+  [style*="color:#857B73"],
+  [style*="color: #857B73"]
+) {
+  color: #ffffff !important;
+}
+
+/* Neutral frames from the light theme become subtle white rules. */
+.culture-dark-theme :is(
+  [class~="border-black"],
+  [class~="border-black/3"],
+  [class~="border-black/5"],
+  [class~="border-black/10"],
+  [class~="border-black/15"],
+  [class~="border-black/20"],
+  [class~="border-black/30"],
+  [class~="border-[#252321]"],
+  [class~="border-[#BBAEBD]"],
+  [class~="border-[#BBAEBD]/10"],
+  [class~="border-[#BFB4AA]"],
+  [class~="border-[#D8CEC6]"],
+  [class~="border-[#DCCFC5]"],
+  [class~="border-[#E4DCD5]"],
+  [class~="border-[#E9D8C8]"],
+  [class~="border-[#E9D8C8]/70"],
+  [class~="border-[#ece5e5]"]
+) {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Calendar labels used to be hard-coded for the light cinema page. */
+.culture-dark-theme .performart-calendar,
+.culture-dark-theme .performart-calendar .rdp-month_caption,
+.culture-dark-theme .performart-calendar .rdp-day {
+  color: #ffffff;
+}
+
+.culture-dark-theme .performart-calendar .rdp-weekday,
+.culture-dark-theme .performart-calendar .rdp-outside {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.culture-dark-theme .performart-calendar .rdp-day:hover {
+  color: #c2272d;
+  background: #000000;
 }
 
 .font-editorial {
@@ -202,7 +863,6 @@ body {
 img,
 video {
   max-width: 100%;
-  height: auto;
 }
 
 /* Κανένα section να μην προκαλεί οριζόντιο scroll */
@@ -280,4 +940,1655 @@ footer {
     margin-left: 0 !important;
   }
 
+}
+
+/* =========================================================
+   DESKTOP EDITORIAL POLISH
+   Scoped to the dark culture routes so the homepage and the
+   carefully tuned mobile layouts remain unchanged.
+   ========================================================= */
+
+@media (min-width: 1024px) {
+  .culture-dark-theme :is(
+    .editorial-back-button,
+    .event-detail-back,
+    .book-detail-back a
+  ) {
+    position: static !important;
+    inset: auto !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 12px 22px !important;
+    border: 1px solid #c2272d !important;
+    color: #ffffff !important;
+    font-size: 12px !important;
+    line-height: 1.2;
+    letter-spacing: 0.18em !important;
+    white-space: nowrap;
+    translate: none !important;
+  }
+
+  /* Events: a calm ending before the footer on index and detail pages. */
+  .events-index-page,
+  .event-detail-page {
+    padding-bottom: 160px !important;
+  }
+
+  .event-detail-page > br {
+    display: none;
+  }
+
+  .event-detail-page .event-detail-back-row {
+    position: relative;
+    min-height: 0;
+    padding-top: 190px !important;
+    padding-bottom: 0 !important;
+  }
+
+  .event-detail-page .event-detail-main {
+    padding-top: 72px !important;
+    padding-bottom: 96px !important;
+  }
+
+  .event-detail-page .related-events-section {
+    padding-top: 72px !important;
+    padding-bottom: 24px !important;
+  }
+
+  /* Interview archive: align header/grid and keep a generous final gutter. */
+  .interviews-archive-page .interviews-archive-desktop {
+    width: 100%;
+    max-width: none;
+    padding: 190px 48px 160px !important;
+  }
+
+  .interviews-archive-page .interviews-archive-desktop > br {
+    display: none;
+  }
+
+  .interviews-archive-page .interviews-archive-back {
+    left: auto !important;
+    align-self: center;
+    width: min(1200px, 100%);
+    margin: 0 auto 64px !important;
+    padding: 0 !important;
+  }
+
+  .interviews-archive-page .interviews-archive-desktop > header {
+    margin-bottom: 80px !important;
+    text-align: center;
+  }
+
+  .interviews-archive-page .interviews-archive-desktop > header br {
+    display: none;
+  }
+
+  .interviews-archive-page .interviews-archive-desktop > header p {
+    margin-bottom: 18px !important;
+  }
+
+  /* Books index: centered composition with breathing room around the frame. */
+  .books-page .books-desktop-shell {
+    width: min(1200px, 100%);
+    max-width: 1200px;
+    min-height: auto;
+    margin: 0 auto;
+    padding: 190px 48px 160px !important;
+    translate: none !important;
+    transform: none !important;
+  }
+
+  .books-page .books-title {
+    width: 100%;
+    text-align: center;
+  }
+
+  .books-page .books-title > div:first-child {
+    margin-bottom: 14px !important;
+  }
+
+  .books-page .books-title h1 {
+    font-size: 55px !important;
+    line-height: 1;
+    letter-spacing: 0.15em !important;
+  }
+
+  .books-page .books-title > div:last-child {
+    width: 64px;
+    margin: 26px auto 0 !important;
+    background: #c2272d !important;
+  }
+
+  .books-page .books-week-section {
+    margin-top: 80px !important;
+  }
+
+  .books-page .books-week-card {
+    max-width: 1100px;
+  }
+
+  .books-page .books-week-grid {
+    min-height: 500px;
+  }
+
+  .books-page .books-cover-column {
+    padding: 52px !important;
+  }
+
+  .books-page .books-info-column {
+    align-items: center;
+    padding: 56px 64px !important;
+    text-align: center;
+  }
+
+  .books-page .books-info-column > div:first-child {
+    margin-bottom: 20px !important;
+  }
+
+  .books-page .books-info-column h2 {
+    margin-top: 0 !important;
+    font-size: 42px !important;
+  }
+
+  .books-page .books-info-column > p {
+    margin-top: 22px !important;
+  }
+
+  .books-page .books-info-column > p:last-of-type {
+    max-width: 520px;
+    margin: 30px auto 0 !important;
+  }
+
+  .books-page .books-info-column > div:last-child {
+    margin-top: 40px !important;
+  }
+
+  .books-page .books-bottom-section {
+    margin-top: 104px !important;
+  }
+
+  .books-page .books-bottom-section > div:first-child {
+    background: #c2272d !important;
+  }
+
+  .books-page .books-bottom-section p {
+    margin-top: 28px !important;
+  }
+
+  .books-page .books-bottom-section > div:last-child {
+    margin-top: 34px !important;
+  }
+
+  /* Book detail: keep the back action clear of the fixed logo. */
+  .book-detail-page .book-detail-shell {
+    width: min(1200px, 100%);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 210px 48px 160px !important;
+    translate: none !important;
+    transform: none !important;
+  }
+
+  .book-detail-page .book-detail-back {
+    margin-bottom: 72px !important;
+  }
+
+  .book-detail-page .book-detail-header {
+    align-items: center;
+  }
+
+  .book-detail-page .book-detail-header > div:last-child > * + * {
+    margin-top: 20px !important;
+  }
+
+  .book-detail-page .book-detail-header h1 {
+    font-size: 48px !important;
+    line-height: 1.1;
+  }
+
+  .book-detail-page .book-detail-header p:last-child {
+    margin-top: 30px !important;
+  }
+
+  .book-detail-page .book-detail-content {
+    margin-top: 96px !important;
+  }
+
+  .book-detail-page .book-detail-content > section + section {
+    margin-top: 72px !important;
+  }
+
+  .book-detail-page .book-detail-content > section {
+    margin-bottom: 0 !important;
+  }
+
+  /* Music index: centered, larger twin panels with readable media/text. */
+  .music-page .music-desktop-shell {
+    width: min(1200px, 100%);
+    max-width: 1200px;
+    min-height: auto;
+    margin: 0 auto;
+    padding: 190px 48px 160px !important;
+    translate: none !important;
+    transform: none !important;
+  }
+
+  .music-page .music-title > div:first-child {
+    margin-bottom: 14px !important;
+  }
+
+  .music-page .music-title {
+    width: 100%;
+    text-align: center;
+  }
+
+  .music-page .music-title > * {
+    text-align: center !important;
+  }
+
+  .music-page .music-title h1 {
+    font-size: 55px !important;
+    line-height: 1;
+    letter-spacing: 0.15em !important;
+  }
+
+  .music-page .music-title > div:last-child {
+    width: 64px;
+    margin: 26px auto 0 !important;
+    background: #c2272d !important;
+  }
+
+  .music-page .music-sections {
+    gap: 32px !important;
+    margin-top: 88px !important;
+  }
+
+  .music-page :is(.music-releases, .music-artists) {
+    display: flex;
+    min-height: 480px;
+    flex-direction: column;
+    padding: 42px !important;
+  }
+
+  .music-page :is(.music-releases, .music-artists) > h2 {
+    margin-bottom: 42px !important;
+    font-size: 16px !important;
+  }
+
+  .music-page :is(.music-release-grid, .music-artists-grid) {
+    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)) !important;
+    gap: 30px !important;
+    flex: 1;
+  }
+
+  .music-page :is(.music-release-grid, .music-artists-grid) > div {
+    width: 100%;
+    max-width: 205px;
+    justify-self: center;
+  }
+
+  .music-page .music-release-grid > div > div:first-child {
+    max-width: 200px;
+  }
+
+  .music-page .music-release-grid > div > p:nth-of-type(1) {
+    margin-top: 18px !important;
+    font-size: 16px !important;
+    line-height: 1.3;
+  }
+
+  .music-page .music-release-grid > div > p:nth-of-type(2) {
+    margin-top: 8px !important;
+    font-size: 13px !important;
+  }
+
+  .music-page .music-release-grid > div > p:nth-of-type(3) {
+    margin-top: 7px !important;
+    font-size: 12px !important;
+  }
+
+  .music-page .music-artists-grid > div > div:first-child {
+    width: 128px;
+    height: 128px;
+  }
+
+  .music-page .music-artists-grid > div > p:first-of-type {
+    margin-top: 20px !important;
+    font-size: 17px !important;
+  }
+
+  .music-page .music-artists-grid > div > p:last-of-type {
+    margin-top: 8px !important;
+    font-size: 12px !important;
+  }
+
+  .music-page :is(.music-releases, .music-artists) > div:last-child {
+    margin-top: auto !important;
+    padding-top: 42px;
+  }
+
+  .music-page .music-bottom-section {
+    margin-top: 104px !important;
+    padding-bottom: 0 !important;
+  }
+
+  .music-page .music-bottom-section > div {
+    margin-top: 34px !important;
+  }
+
+  /* Music list pages share one centered rhythm and heading scale. */
+  .music-list-page .editorial-list-shell {
+    width: min(1200px, 100%);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 210px 48px 160px !important;
+  }
+
+  .music-list-page .editorial-list-header {
+    margin-top: 72px !important;
+    text-align: center;
+  }
+
+  .music-list-page .editorial-list-header > p {
+    margin-bottom: 16px !important;
+    font-size: 13px !important;
+  }
+
+  .music-list-page .editorial-list-header h1 {
+    margin-top: 0 !important;
+    font-size: clamp(40px, 3vw, 46px) !important;
+    line-height: 1.1;
+  }
+
+  .music-list-page .editorial-list-header > div:last-child {
+    margin: 30px auto 0 !important;
+  }
+
+  .music-list-page .editorial-list-grid {
+    gap: 72px 40px !important;
+    margin-top: 88px !important;
+  }
+
+  .music-list-page .editorial-list-grid article h2 {
+    margin-top: 22px !important;
+    font-size: 30px !important;
+  }
+
+  .music-list-page .editorial-list-grid article > p {
+    margin-top: 12px !important;
+  }
+
+  .music-list-page .editorial-list-grid article > a:last-child {
+    margin-top: 26px !important;
+  }
+
+  /* Individual music/artist pages follow the same safe header spacing. */
+  :is(.music-detail-page, .artist-detail-page) .music-detail-shell {
+    width: min(1200px, 100%);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 210px 48px 160px !important;
+  }
+
+  :is(.music-detail-page, .artist-detail-page) .music-detail-hero {
+    margin-top: 72px !important;
+  }
+}
+
+/* Music archive pages did not have a mobile header offset, so their back
+   actions used to sit underneath the fixed logo. */
+@media (max-width: 1023px) {
+  .music-list-page .editorial-list-shell {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 150px 24px 72px !important;
+  }
+
+  .music-list-page .editorial-list-header {
+    margin-top: 48px !important;
+    text-align: center;
+  }
+
+  .music-list-page .editorial-list-header > p {
+    margin-bottom: 14px !important;
+  }
+
+  .music-list-page .editorial-list-header > div:last-child {
+    margin: 24px auto 0 !important;
+  }
+
+  .music-list-page .editorial-list-grid {
+    gap: 56px !important;
+    margin-top: 64px !important;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE CULTURE ALIGNMENT
+   The Events page is the reference: 17vw content axis,
+   title label at 72px and main title at roughly 116px.
+   ========================================================= */
+
+@media (min-width: 1024px) {
+  .culture-dark-theme {
+    --culture-axis: 17vw;
+    --culture-width: 69vw;
+  }
+
+  /* ---------- Landing-page shells and titles ---------- */
+  .culture-dark-theme :is(
+    .books-page .books-desktop-shell,
+    .music-page .music-desktop-shell,
+    .cinema-page .culture-hero-shell,
+    .festivals-page .culture-hero-shell
+  ) {
+    width: var(--culture-width) !important;
+    max-width: none !important;
+    min-height: auto;
+    margin: 0 0 0 var(--culture-axis) !important;
+    padding: 72px 0 160px !important;
+  }
+
+  .culture-dark-theme :is(
+    .books-page .books-title,
+    .music-page .music-title,
+    .cinema-page .cinema-hero-title,
+    .festivals-page .festival-hero-title
+  ) {
+    width: 100%;
+    max-width: none;
+    text-align: left !important;
+  }
+
+  .culture-dark-theme :is(
+    .books-page .books-title,
+    .music-page .music-title
+  ) > * {
+    text-align: left !important;
+  }
+
+  .culture-dark-theme :is(
+    .books-page .books-title > div:first-child,
+    .music-page .music-title > div:first-child,
+    .cinema-page .cinema-hero-title > div,
+    .festivals-page .festival-hero-title > div,
+    .giveaways-page .giveaways-mobile-header > p:first-child
+  ) {
+    min-height: 20px;
+    margin: 0 0 24px !important;
+    font-size: 13px !important;
+    line-height: 20px !important;
+  }
+
+  .culture-dark-theme :is(
+    .books-page .books-title h1,
+    .music-page .music-title h1,
+    .cinema-page .cinema-hero-title h1,
+    .festivals-page .festival-hero-title h1,
+    .giveaways-page .giveaways-mobile-header h1
+  ) {
+    width: 100%;
+    margin: 0 !important;
+    font-size: 55px !important;
+    line-height: 1 !important;
+    letter-spacing: 0.15em !important;
+    text-align: left !important;
+  }
+
+  .culture-dark-theme :is(
+    .books-page .books-title > div:last-child,
+    .music-page .music-title > div:last-child
+  ) {
+    margin: 26px 0 0 !important;
+  }
+
+  .cinema-page .culture-hero-shell,
+  .festivals-page .culture-hero-shell {
+    padding-bottom: 54px !important;
+  }
+
+  .cinema-page .culture-hero-shell > div,
+  .festivals-page .culture-hero-shell > div {
+    display: block;
+    width: 100%;
+    max-width: none;
+  }
+
+  .culture-dark-theme :is(
+    .cinema-page .cinema-hero-title,
+    .festivals-page .festival-hero-title
+  ) p {
+    margin-top: 26px !important;
+  }
+
+  .books-page .books-week-card {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .giveaways-page {
+    align-items: flex-start !important;
+    padding: 72px 0 160px !important;
+  }
+
+  .giveaways-page :is(.giveaways-mobile-header, .giveaways-mobile-list) {
+    width: var(--culture-width) !important;
+    max-width: none !important;
+    margin-left: var(--culture-axis) !important;
+    margin-right: 0 !important;
+  }
+
+  .giveaways-page .giveaways-mobile-header {
+    margin-bottom: 72px !important;
+    text-align: left !important;
+  }
+
+  .giveaways-page .giveaways-mobile-header > p:last-child {
+    max-width: 680px;
+    margin: 28px 0 0 !important;
+  }
+
+  /* ---------- Landing-page content follows the title axis ---------- */
+  .cinema-page .cinema-main-section,
+  .festivals-page .festivals-main-section {
+    padding: 72px 0 0 !important;
+  }
+
+  .cinema-page .cinema-main-grid,
+  .festivals-page .festivals-main-grid {
+    width: var(--culture-width) !important;
+    max-width: none !important;
+    margin: 0 0 0 var(--culture-axis) !important;
+  }
+
+  .cinema-page .cinema-reviews-section {
+    margin-top: 104px !important;
+  }
+
+  .cinema-page .cinema-reviews {
+    margin-top: 0 !important;
+    padding: 80px 0 112px !important;
+  }
+
+  .cinema-page .cinema-reviews-container {
+    width: var(--culture-width) !important;
+    max-width: none !important;
+    margin: 0 0 0 var(--culture-axis) !important;
+    translate: none !important;
+    transform: none !important;
+  }
+
+  .cinema-page .cinema-reviews-header {
+    width: 100%;
+    margin-bottom: 44px !important;
+  }
+
+  .cinema-page .cinema-reviews-grid {
+    margin-top: 0 !important;
+  }
+
+  .cinema-page .cinema-reviews-all-button {
+    translate: none !important;
+    transform: none !important;
+  }
+
+  .festivals-page .festivals-archive-section {
+    width: var(--culture-width) !important;
+    max-width: none !important;
+    margin: 104px 0 0 var(--culture-axis) !important;
+    padding: 0 !important;
+    align-items: stretch !important;
+  }
+
+  .festivals-page .festivals-archive-section > div:first-child {
+    width: 100%;
+    margin-bottom: 64px !important;
+    text-align: left !important;
+  }
+
+  .festivals-page .festivals-archive-section h2 {
+    text-align: left !important;
+  }
+
+  .festivals-page .festivals-archive-section > div:first-child > div {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .festivals-page .festivals-archive-grid {
+    width: 100%;
+    max-width: none;
+    margin: 0 !important;
+  }
+
+  .festivals-page .festivals-archive-grid article {
+    justify-self: start;
+    margin: 0 !important;
+  }
+
+  /* ---------- Listing/archive subpages ---------- */
+  .music-list-page .editorial-list-shell,
+  .screenings-page .screenings-title-inner,
+  .cinema-reviews-page .cinema-reviews-hero,
+  .festivals-archive-page .festivals-archive-container {
+    position: relative;
+    width: var(--culture-width) !important;
+    max-width: none !important;
+    margin: 0 0 0 var(--culture-axis) !important;
+  }
+
+  .music-list-page .editorial-list-shell,
+  .festivals-archive-page .festivals-archive-container {
+    padding: 72px 0 160px !important;
+  }
+
+  .screenings-page .screenings-title-section,
+  .cinema-reviews-page .cinema-reviews-hero {
+    padding: 72px 0 0 !important;
+  }
+
+  .music-list-page .editorial-list-header,
+  .festivals-archive-page .festivals-archive-header {
+    margin-top: 0 !important;
+    text-align: left !important;
+  }
+
+  .music-list-page .editorial-list-header > p,
+  .screenings-page .screenings-label,
+  .cinema-reviews-page .cinema-reviews-kicker,
+  .festivals-archive-page .festivals-archive-header > p {
+    min-height: 20px;
+    margin: 0 0 24px !important;
+    font-size: 13px !important;
+    line-height: 20px !important;
+  }
+
+  .culture-dark-theme :is(
+    .music-list-page .editorial-list-header h1,
+    .screenings-page .screenings-title,
+    .cinema-reviews-page .cinema-reviews-title,
+    .festivals-archive-page .festivals-archive-header h1
+  ) {
+    margin: 0 !important;
+    font-size: 46px !important;
+    line-height: 1.1 !important;
+  }
+
+  .music-list-page .editorial-back-button,
+  .screenings-page .screenings-back,
+  .cinema-reviews-page .cinema-reviews-back-wrap,
+  .festivals-archive-page .festivals-archive-back {
+    position: absolute !important;
+    inset: 112px 0 auto auto !important;
+    z-index: 20;
+    width: auto !important;
+    margin: 0 !important;
+  }
+
+  .screenings-page .screenings-back,
+  .cinema-reviews-page .cinema-reviews-back-wrap {
+    top: 40px !important;
+  }
+
+  html body .culture-dark-theme .music-list-page .editorial-list-shell > .editorial-back-button {
+    position: absolute !important;
+    inset: 112px 0 auto auto !important;
+    margin: 0 !important;
+  }
+
+  html body .culture-dark-theme .cinema-reviews-page .cinema-reviews-back-wrap {
+    top: 112px !important;
+  }
+
+  .screenings-page .screenings-filters-section,
+  .screenings-page .screenings-content-section {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .screenings-page .screenings-filters,
+  .screenings-page .screenings-content-inner,
+  .cinema-reviews-page .cinema-reviews-list {
+    width: var(--culture-width) !important;
+    max-width: none !important;
+    margin-left: var(--culture-axis) !important;
+    margin-right: 0 !important;
+  }
+
+  .cinema-reviews-page .cinema-reviews-list {
+    margin-top: 72px !important;
+    padding: 0 0 160px !important;
+  }
+
+  .festivals-archive-page .festivals-archive-header {
+    margin-bottom: 64px !important;
+  }
+
+  /* ---------- Individual content pages ---------- */
+  .book-detail-page .book-detail-shell,
+  :is(.music-detail-page, .artist-detail-page) .music-detail-shell,
+  .cinema-detail-page .cinema-detail-shell {
+    width: var(--culture-width) !important;
+    max-width: none !important;
+    margin: 0 0 0 var(--culture-axis) !important;
+    padding: 72px 0 160px !important;
+  }
+
+  .book-detail-page .book-detail-back,
+  .cinema-detail-page .cinema-detail-shell > div:first-child {
+    margin: 0 0 48px !important;
+  }
+
+  :is(.music-detail-page, .artist-detail-page) .editorial-back-button {
+    margin-bottom: 48px !important;
+  }
+
+  :is(.music-detail-page, .artist-detail-page) .music-detail-hero {
+    margin-top: 48px !important;
+  }
+
+  .book-detail-page .book-detail-header,
+  .book-detail-page .book-detail-header > div:last-child,
+  :is(.music-detail-page, .artist-detail-page) .music-detail-hero > div:last-child {
+    align-items: start;
+    justify-content: flex-start;
+  }
+
+  .book-detail-page .book-detail-header h1,
+  :is(.music-detail-page, .artist-detail-page) .music-detail-hero h1,
+  .cinema-detail-page .cinema-detail-shell h1 {
+    margin-top: 24px !important;
+    font-size: 48px !important;
+    line-height: 1.1 !important;
+  }
+
+  .festival-single-page .festival-single-back {
+    width: var(--culture-width) !important;
+    max-width: none !important;
+    margin: 0 0 0 var(--culture-axis) !important;
+    padding: 72px 0 0 !important;
+  }
+
+  .festival-single-page .festival-single-main {
+    width: var(--culture-width) !important;
+    max-width: none !important;
+    margin: 0 0 0 var(--culture-axis) !important;
+    padding: 48px 0 160px !important;
+  }
+
+  .festival-single-page .festival-single-header h1 {
+    margin-top: 24px !important;
+  }
+
+  .giveaway-single-page {
+    position: relative;
+    align-items: flex-start !important;
+    padding: 72px 0 160px !important;
+  }
+
+  .giveaway-single-page :is(
+    .giveaway-single-back,
+    .giveaway-single-header,
+    .giveaway-single-content
+  ) {
+    width: var(--culture-width) !important;
+    max-width: none !important;
+    margin-left: var(--culture-axis) !important;
+    margin-right: 0 !important;
+  }
+
+  .giveaway-single-page .giveaway-single-back {
+    margin-bottom: 48px !important;
+  }
+
+  .giveaway-single-page .giveaway-single-header {
+    margin-bottom: 64px !important;
+    text-align: left !important;
+  }
+
+  .giveaway-single-page .giveaway-single-header h1 {
+    margin: 24px 0 0 !important;
+  }
+
+  .cinema-review-detail-page {
+    padding: 72px 0 160px !important;
+  }
+
+  .cinema-review-detail-page .cinema-review-detail-back,
+  .cinema-review-detail-page .cinema-review-detail-content {
+    width: var(--culture-width) !important;
+    max-width: none !important;
+    margin-left: var(--culture-axis) !important;
+    margin-right: 0 !important;
+  }
+
+  .cinema-review-detail-page .cinema-review-detail-back {
+    margin-bottom: 48px !important;
+  }
+
+  .cinema-review-detail-page .cinema-review-detail-copy h1 {
+    margin-top: 24px !important;
+    font-size: 48px !important;
+  }
+}
+
+/* Laptop widths: preserve the Events axis, but compact grids and imagery. */
+@media (min-width: 1024px) and (max-width: 1599px) {
+  .cinema-page .cinema-main-grid,
+  .festivals-page .festivals-main-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(270px, 0.8fr) !important;
+    gap: 40px !important;
+  }
+
+  .music-page .music-sections {
+    gap: 24px !important;
+  }
+
+  .music-page :is(.music-releases, .music-artists) {
+    min-height: 440px;
+    padding: 32px !important;
+  }
+
+  .music-page .music-release-grid > div > div:first-child {
+    max-width: 180px;
+  }
+
+  .music-page .music-artists-grid > div > div:first-child {
+    width: 112px;
+    height: 112px;
+  }
+
+  .giveaways-page .giveaways-mobile-card {
+    gap: 48px !important;
+  }
+
+  .book-detail-page .book-detail-header,
+  :is(.music-detail-page, .artist-detail-page) .music-detail-hero,
+  .cinema-detail-page .cinema-detail-shell > div:last-child,
+  .cinema-review-detail-page .cinema-review-detail-content {
+    gap: 48px !important;
+  }
+
+  :is(.music-detail-page, .artist-detail-page) .music-detail-hero {
+    grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr) !important;
+  }
+
+  .giveaway-single-page .giveaway-single-content {
+    gap: 36px !important;
+  }
+}
+
+/* =========================================================
+   FLUID DESKTOP SCALE
+   vmin follows the smaller viewport dimension, so OS display scaling,
+   browser resizing and short laptop screens produce proportional layouts.
+   ========================================================= */
+
+:root {
+  --fluid-header-height: clamp(84px, 10vmin, 110px);
+  --fluid-page-top: clamp(118px, 16vmin, 176px);
+  --fluid-display-title: clamp(34px, 4.6vmin, 55px);
+  --fluid-section-title: clamp(32px, 4.1vmin, 48px);
+  --fluid-body-large: clamp(16px, 2.1vmin, 24px);
+  --fluid-copy-gap: clamp(34px, 7vmin, 82px);
+  --fluid-grid-gap: clamp(16px, 2.2vmin, 28px);
+}
+
+@media (min-width: 768px) {
+  .hero-container {
+    width: calc(100vw - 12vmin) !important;
+    max-width: 1280px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: clamp(32px, 6vmin, 80px) !important;
+    padding-right: clamp(32px, 6vmin, 80px) !important;
+  }
+
+  .hero-copy {
+    width: min(720px, 74vmin) !important;
+    max-width: 100% !important;
+  }
+
+  .hero-title {
+    font-size: var(--fluid-display-title) !important;
+  }
+
+  .hero-description {
+    width: min(430px, 40vmin) !important;
+    margin-top: var(--fluid-copy-gap) !important;
+    font-size: var(--fluid-body-large) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .culture-dark-theme {
+    --culture-axis: 17vw;
+    --culture-width: 69vw;
+  }
+
+  .events-page {
+    width: 100% !important;
+    padding-left: 17vw !important;
+    padding-right: 14vw !important;
+  }
+
+  .events-page > section,
+  .events-page > div {
+    width: 100% !important;
+  }
+
+  .culture-dark-theme :is(
+    .books-page .books-desktop-shell,
+    .music-page .music-desktop-shell,
+    .cinema-page .culture-hero-shell,
+    .festivals-page .culture-hero-shell,
+    .music-list-page .editorial-list-shell,
+    .book-detail-page .book-detail-shell,
+    .music-detail-page .music-detail-shell,
+    .artist-detail-page .music-detail-shell,
+    .cinema-detail-page .cinema-detail-shell,
+    .festivals-archive-page .festivals-archive-container
+  ) {
+    padding-top: var(--fluid-page-top) !important;
+  }
+
+  .culture-dark-theme :is(
+    .books-page .books-title h1,
+    .music-page .music-title h1,
+    .cinema-page .cinema-hero-title h1,
+    .festivals-page .festival-hero-title h1,
+    .giveaways-page .giveaways-mobile-header h1
+  ),
+  .events-page .events-main-title,
+  .interviews-page .interviews-hero-title h1 {
+    font-size: var(--fluid-display-title) !important;
+  }
+
+  .culture-dark-theme :is(
+    .music-list-page .editorial-list-header h1,
+    .screenings-page .screenings-title,
+    .cinema-reviews-page .cinema-reviews-title,
+    .festivals-archive-page .festivals-archive-header h1
+  ) {
+    font-size: var(--fluid-section-title) !important;
+  }
+
+  .culture-dark-theme .giveaways-page,
+  .culture-dark-theme .giveaway-single-page,
+  .culture-dark-theme .cinema-review-detail-page,
+  .culture-dark-theme .festival-single-page .festival-single-back,
+  .culture-dark-theme .screenings-page .screenings-title-section,
+  .culture-dark-theme .cinema-reviews-page .cinema-reviews-hero,
+  .interviews-archive-page .interviews-archive-desktop,
+  .interviews-page .interviews-hero-container {
+    padding-top: var(--fluid-page-top) !important;
+  }
+
+  .cinema-page .cinema-main-grid,
+  .festivals-page .festivals-main-grid,
+  .music-page .music-sections,
+  .giveaways-page .giveaways-mobile-card,
+  .book-detail-page .book-detail-header,
+  :is(.music-detail-page, .artist-detail-page) .music-detail-hero,
+  .cinema-detail-page .cinema-detail-shell > div:last-child,
+  .cinema-review-detail-page .cinema-review-detail-content,
+  .festival-single-page .festival-single-intro-grid,
+  .giveaway-single-page .giveaway-single-content {
+    gap: var(--fluid-grid-gap) !important;
+  }
+}
+
+/* Tablet / very small laptop layouts. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .culture-dark-theme {
+    --culture-axis: 48px;
+    --culture-width: calc(100vw - 96px);
+  }
+
+  .culture-dark-theme :is(
+    .books-page .books-desktop-shell,
+    .music-page .music-desktop-shell,
+    .cinema-page .culture-hero-shell,
+    .festivals-page .culture-hero-shell,
+    .music-list-page .editorial-list-shell,
+    .book-detail-page .book-detail-shell,
+    .music-detail-page .music-detail-shell,
+    .artist-detail-page .music-detail-shell,
+    .cinema-detail-page .cinema-detail-shell,
+    .festivals-archive-page .festivals-archive-container
+  ) {
+    width: var(--culture-width) !important;
+    max-width: none !important;
+    margin: 0 0 0 var(--culture-axis) !important;
+    padding: 140px 0 96px !important;
+  }
+
+  .cinema-page .culture-hero-shell,
+  .festivals-page .culture-hero-shell {
+    padding-bottom: 64px !important;
+  }
+
+  .cinema-page .culture-hero-shell > div,
+  .festivals-page .culture-hero-shell > div {
+    display: block;
+    width: 100%;
+    max-width: none;
+  }
+
+  .culture-dark-theme :is(
+    .books-title,
+    .music-title,
+    .cinema-hero-title,
+    .festival-hero-title
+  ) {
+    width: 100%;
+    max-width: none;
+    text-align: left !important;
+  }
+
+  .culture-dark-theme :is(
+    .books-title h1,
+    .music-title h1,
+    .cinema-hero-title h1,
+    .festival-hero-title h1,
+    .giveaways-mobile-header h1
+  ) {
+    font-size: 48px !important;
+    line-height: 1.05 !important;
+    text-align: left !important;
+  }
+
+  .cinema-page .cinema-main-section,
+  .festivals-page .festivals-main-section {
+    padding: 64px 0 0 !important;
+  }
+
+  .cinema-page .cinema-main-grid,
+  .festivals-page .festivals-main-grid,
+  .cinema-page .cinema-reviews-container,
+  .festivals-page .festivals-archive-section,
+  .giveaways-page :is(.giveaways-mobile-header, .giveaways-mobile-list) {
+    width: var(--culture-width) !important;
+    max-width: none !important;
+    margin-left: var(--culture-axis) !important;
+    margin-right: 0 !important;
+  }
+
+  .cinema-page .cinema-reviews,
+  .festivals-page .festivals-archive-section {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .giveaways-page {
+    align-items: flex-start !important;
+    padding: 140px 0 96px !important;
+  }
+
+  .giveaways-page .giveaways-mobile-header {
+    text-align: left !important;
+  }
+}
+
+/* Mobile: compact headers, single-column flow and text-only white actions. */
+@media (max-width: 767px) {
+  html body .culture-dark-theme main :is(a, button) {
+    border-color: transparent !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+  }
+
+  html body .culture-dark-theme main :is(a, button) :is(span, p) {
+    color: #ffffff !important;
+  }
+
+  html body .culture-dark-theme :is(
+    .books-page .books-desktop-shell,
+    .music-page .music-desktop-shell,
+    .cinema-page .culture-hero-shell,
+    .festivals-page .culture-hero-shell
+  ) {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 125px 20px 72px !important;
+  }
+
+  html body .culture-dark-theme :is(
+    .books-page .books-title,
+    .music-page .music-title,
+    .cinema-page .cinema-hero-title,
+    .festivals-page .festival-hero-title,
+    .giveaways-page .giveaways-mobile-header
+  ) {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    text-align: center !important;
+  }
+
+  html body .culture-dark-theme :is(
+    .books-page .books-title > div:first-child,
+    .music-page .music-title > div:first-child,
+    .cinema-page .cinema-hero-title > div,
+    .festivals-page .festival-hero-title > div,
+    .giveaways-page .giveaways-mobile-header > p:first-child
+  ) {
+    margin: 0 0 12px !important;
+    font-size: 10px !important;
+    line-height: 16px !important;
+    text-align: center !important;
+  }
+
+  html body .culture-dark-theme :is(
+    .books-page .books-title h1,
+    .music-page .music-title h1,
+    .cinema-page .cinema-hero-title h1,
+    .festivals-page .festival-hero-title h1,
+    .giveaways-page .giveaways-mobile-header h1
+  ) {
+    margin: 0 !important;
+    font-size: 34px !important;
+    line-height: 1.08 !important;
+    letter-spacing: 0.08em !important;
+    text-align: center !important;
+    white-space: normal !important;
+  }
+
+  html body .culture-dark-theme :is(
+    .books-page .books-title > div:last-child,
+    .music-page .music-title > div:last-child
+  ) {
+    margin: 20px auto 0 !important;
+  }
+
+  html body .culture-dark-theme .giveaways-page {
+    width: 100% !important;
+    max-width: 100% !important;
+    align-items: stretch !important;
+    padding: 125px 20px 72px !important;
+  }
+
+  html body .culture-dark-theme .giveaways-page :is(
+    .giveaways-mobile-header,
+    .giveaways-mobile-list
+  ) {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  html body .culture-dark-theme .giveaways-page .giveaways-mobile-header {
+    margin-bottom: 52px !important;
+  }
+
+  html body .culture-dark-theme .giveaways-page .giveaways-mobile-header > p:last-child {
+    margin: 22px auto 0 !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    text-align: center !important;
+  }
+
+  html body .culture-dark-theme .cinema-page .cinema-main-section,
+  html body .culture-dark-theme .festivals-page .festivals-main-section {
+    padding-top: 48px !important;
+  }
+
+  html body .culture-dark-theme .cinema-page .cinema-reviews-header {
+    margin-bottom: 32px !important;
+  }
+
+  /* Archive/list page shells. */
+  html body .culture-dark-theme :is(
+    .music-list-page .editorial-list-shell,
+    .festivals-archive-page .festivals-archive-container
+  ) {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 125px 20px 72px !important;
+  }
+
+  html body .culture-dark-theme :is(
+    .music-list-page .editorial-back-button,
+    .screenings-page .screenings-back,
+    .cinema-reviews-page .cinema-reviews-back-wrap,
+    .festivals-archive-page .festivals-archive-back
+  ) {
+    position: static !important;
+    inset: auto !important;
+    width: 100% !important;
+    margin: 0 0 36px !important;
+  }
+
+  html body .culture-dark-theme :is(
+    .music-list-page .editorial-list-header,
+    .festivals-archive-page .festivals-archive-header
+  ) {
+    margin: 0 !important;
+    text-align: center !important;
+  }
+
+  html body .culture-dark-theme :is(
+    .music-list-page .editorial-list-header h1,
+    .screenings-page .screenings-title,
+    .cinema-reviews-page .cinema-reviews-title,
+    .festivals-archive-page .festivals-archive-header h1
+  ) {
+    font-size: 32px !important;
+    line-height: 1.12 !important;
+    text-align: center !important;
+  }
+
+  /* Individual content-page shells. */
+  html body .culture-dark-theme :is(
+    .book-detail-page .book-detail-shell,
+    .music-detail-page .music-detail-shell,
+    .artist-detail-page .music-detail-shell,
+    .cinema-detail-page .cinema-detail-shell
+  ) {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 125px 20px 72px !important;
+  }
+
+  html body .culture-dark-theme :is(
+    .book-detail-page .book-detail-back,
+    .cinema-detail-page .cinema-detail-shell > div:first-child
+  ) {
+    margin-bottom: 36px !important;
+  }
+
+  html body .culture-dark-theme :is(
+    .music-detail-page,
+    .artist-detail-page
+  ) .editorial-back-button {
+    position: static !important;
+    margin-bottom: 36px !important;
+  }
+
+  html body .culture-dark-theme :is(
+    .music-detail-page,
+    .artist-detail-page
+  ) .music-detail-hero {
+    margin-top: 36px !important;
+  }
+
+  html body .culture-dark-theme :is(
+    .book-detail-page,
+    .music-detail-page,
+    .artist-detail-page,
+    .cinema-detail-page,
+    .festival-single-page,
+    .giveaway-single-page,
+    .cinema-review-detail-page
+  ) h1 {
+    font-size: 32px !important;
+    line-height: 1.12 !important;
+  }
+
+  html body .culture-dark-theme .festival-single-page .festival-single-back {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 125px 20px 0 !important;
+  }
+
+  html body .culture-dark-theme .festival-single-page .festival-single-main {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 36px 20px 72px !important;
+  }
+
+  html body .culture-dark-theme .giveaway-single-page,
+  html body .culture-dark-theme .cinema-review-detail-page {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 125px 20px 72px !important;
+  }
+
+  html body .culture-dark-theme :is(
+    .giveaway-single-page .giveaway-single-back,
+    .cinema-review-detail-page .cinema-review-detail-back
+  ) {
+    margin-bottom: 36px !important;
+  }
+
+  html body .culture-dark-theme :is(
+    .giveaway-single-page .giveaway-single-back,
+    .giveaway-single-page .giveaway-single-header,
+    .giveaway-single-page .giveaway-single-content,
+    .cinema-review-detail-page .cinema-review-detail-back,
+    .cinema-review-detail-page .cinema-review-detail-content
+  ) {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  html body .culture-dark-theme main :is(
+    .editorial-back-button,
+    .event-detail-back,
+    .book-detail-back a,
+    .giveaway-single-back a,
+    .festival-single-back a,
+    .festivals-archive-back a,
+    .cinema-reviews-back,
+    .screenings-back a
+  ) {
+    min-height: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    color: #ffffff !important;
+    font-size: 10px !important;
+    line-height: 1.4 !important;
+    letter-spacing: 0.12em !important;
+  }
+}
+
+/* =========================================================
+   LAPTOP LAYOUT — 1024px to 1599px
+   Keeps the established mobile and wide-desktop compositions intact.
+   ========================================================= */
+
+@media (min-width: 1024px) and (max-width: 1599px) {
+  :root {
+    --laptop-gutter: 17vw;
+    --laptop-content: 69vw;
+  }
+
+  .culture-dark-theme {
+    --culture-axis: var(--laptop-gutter);
+    --culture-width: var(--laptop-content);
+  }
+
+  /* Keep every editorial page clear of the fixed header. */
+  .culture-dark-theme :is(
+    .books-page .books-desktop-shell,
+    .music-page .music-desktop-shell,
+    .cinema-page .culture-hero-shell,
+    .festivals-page .culture-hero-shell,
+    .music-list-page .editorial-list-shell,
+    .book-detail-page .book-detail-shell,
+    .music-detail-page .music-detail-shell,
+    .artist-detail-page .music-detail-shell,
+    .cinema-detail-page .cinema-detail-shell,
+    .festivals-archive-page .festivals-archive-container
+  ) {
+    padding-top: var(--fluid-page-top) !important;
+  }
+
+  .culture-dark-theme :is(
+    .books-page .books-title h1,
+    .music-page .music-title h1,
+    .cinema-page .cinema-hero-title h1,
+    .festivals-page .festival-hero-title h1,
+    .giveaways-page .giveaways-mobile-header h1
+  ) {
+    font-size: var(--fluid-display-title) !important;
+  }
+
+  .culture-dark-theme :is(
+    .music-list-page .editorial-list-header h1,
+    .screenings-page .screenings-title,
+    .cinema-reviews-page .cinema-reviews-title,
+    .festivals-archive-page .festivals-archive-header h1
+  ) {
+    font-size: var(--fluid-section-title) !important;
+  }
+
+  .culture-dark-theme .giveaways-page,
+  .culture-dark-theme .giveaway-single-page,
+  .culture-dark-theme .cinema-review-detail-page {
+    padding-top: var(--fluid-page-top) !important;
+  }
+
+  .culture-dark-theme .festival-single-page .festival-single-back,
+  .culture-dark-theme .screenings-page .screenings-title-section,
+  .culture-dark-theme .cinema-reviews-page .cinema-reviews-hero {
+    padding-top: var(--fluid-page-top) !important;
+  }
+
+  .interviews-archive-page .interviews-archive-desktop {
+    padding-top: var(--fluid-page-top) !important;
+  }
+
+  /* Events used viewport percentages that became too narrow on laptops. */
+  .events-page {
+    width: 100% !important;
+    padding-left: 17vw !important;
+    padding-right: 14vw !important;
+  }
+
+  .events-page > section,
+  .events-page > div {
+    width: 100% !important;
+  }
+
+  .events-index-page > br {
+    display: none;
+  }
+
+  .events-index-page > section:first-of-type {
+    padding-top: var(--fluid-page-top) !important;
+  }
+
+  .events-page .events-main-title {
+    font-size: var(--fluid-display-title) !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1599px) and (max-height: 800px) {
+  .hero-content {
+    padding-bottom: 0 !important;
+  }
+
+  .hero-title {
+    font-size: var(--fluid-display-title) !important;
+  }
+
+  .hero-description {
+    margin-top: var(--fluid-copy-gap) !important;
+    font-size: var(--fluid-body-large) !important;
+  }
+}
+
+/* Small laptops need breathing room more than extra columns. */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .cinema-page .cinema-main-grid,
+  .festivals-page .festivals-main-grid,
+  .music-page .music-sections,
+  .books-page .books-week-grid,
+  .book-detail-page .book-detail-header,
+  :is(.music-detail-page, .artist-detail-page) .music-detail-hero,
+  .cinema-detail-page .cinema-detail-shell > div:last-child,
+  .cinema-review-detail-page .cinema-review-detail-content,
+  .festival-single-page .festival-single-intro-grid,
+  .giveaway-single-page .giveaway-single-content,
+  .interviews-page .interviews-featured-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .books-page .books-week-grid,
+  .music-page :is(.music-releases, .music-artists) {
+    min-height: 0 !important;
+  }
+
+  .books-page .books-cover-column {
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+  }
+
+  .book-detail-page .book-detail-header > div:first-child,
+  :is(.music-detail-page, .artist-detail-page) .music-detail-hero > div:first-child,
+  .cinema-detail-page .cinema-detail-shell > div:last-child > div:first-child,
+  .cinema-review-detail-page .cinema-review-detail-content > div:first-child {
+    width: min(440px, 100%) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .giveaway-single-page .giveaway-single-content {
+    gap: 48px !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1599px) {
+  .interviews-page > br {
+    display: none;
+  }
+
+  .interviews-page .interviews-hero-container {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    padding: var(--fluid-page-top) 0 clamp(64px, 9vmin, 96px) !important;
+  }
+
+  .interviews-page .interviews-hero-title {
+    width: 100% !important;
+    max-width: 900px !important;
+  }
+
+  .interviews-page .interviews-hero-title h1 {
+    font-size: var(--fluid-display-title) !important;
+  }
+
+  .interviews-page .interviews-featured-desktop {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 1180px !important;
+    margin: 0 auto !important;
+    padding: 0 0 96px !important;
+    translate: none !important;
+    transform: none !important;
+  }
+
+  .interviews-page .interviews-featured-desktop > div {
+    max-width: 1180px !important;
+  }
+}
+
+/* =========================================================
+   FINAL RESPONSIVE BALANCE
+   Keep typography, cards and spacing on the same fluid scale.
+   ========================================================= */
+
+@media (min-width: 768px) {
+  .interviews-page .interviews-featured-desktop {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 1180px !important;
+    margin: 0 auto !important;
+    padding-bottom: clamp(64px, 9vmin, 100px) !important;
+    translate: none !important;
+    transform: none !important;
+  }
+
+  .interviews-page .interviews-featured-grid {
+    align-items: stretch;
+  }
+
+  .interviews-page .interviews-featured-copy {
+    padding: clamp(28px, 4vmin, 58px) !important;
+  }
+
+  .interviews-page .interviews-featured-copy > p:first-child {
+    margin-bottom: clamp(16px, 2.2vmin, 26px) !important;
+    font-size: clamp(12px, 1.45vmin, 15px) !important;
+  }
+
+  .interviews-page .interviews-featured-title {
+    font-size: clamp(26px, 3.5vmin, 39px) !important;
+  }
+
+  .interviews-page .interviews-featured-description {
+    margin-top: clamp(18px, 2.5vmin, 28px) !important;
+    font-size: clamp(15px, 1.9vmin, 20px) !important;
+  }
+
+  .interviews-page .interviews-featured-action {
+    margin-top: clamp(24px, 3.2vmin, 36px) !important;
+  }
+
+  .interviews-page .interviews-featured-image {
+    min-height: clamp(340px, 49vmin, 530px) !important;
+  }
+
+  .interviews-page .interviews-recent-desktop {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 1180px !important;
+    margin: 0 auto !important;
+    padding: 0 0 clamp(72px, 10vmin, 112px) !important;
+    translate: none !important;
+    transform: none !important;
+  }
+
+  .interviews-page .interviews-recent-title {
+    margin-bottom: clamp(30px, 4.5vmin, 50px) !important;
+  }
+
+  .interviews-page .interviews-recent-title h2 {
+    font-size: var(--fluid-section-title) !important;
+    line-height: 1.12 !important;
+    white-space: normal !important;
+  }
+
+  .interviews-page .interviews-recent-grid {
+    max-width: none !important;
+    gap: var(--fluid-grid-gap) !important;
+  }
+
+  .interviews-page .interviews-recent-card-copy {
+    padding: clamp(16px, 2.2vmin, 24px) !important;
+  }
+
+  .interviews-page .interviews-recent-card-title {
+    margin-top: clamp(12px, 1.8vmin, 20px) !important;
+    font-size: clamp(18px, 2.25vmin, 24px) !important;
+  }
+
+  .interviews-page .interviews-recent-card-description {
+    margin-top: clamp(10px, 1.5vmin, 16px) !important;
+    font-size: clamp(14px, 1.7vmin, 18px) !important;
+  }
+
+  .interviews-page .interviews-recent-all {
+    margin-top: clamp(36px, 5vmin, 58px) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-title {
+    font-size: clamp(27px, 7.6vw, 34px) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .hero-title > div {
+    margin-bottom: 10px !important;
+  }
+
+  .hero-description {
+    margin-top: 42px !important;
+    font-size: clamp(15px, 4.2vw, 18px) !important;
+    line-height: 1.6 !important;
+  }
 }
