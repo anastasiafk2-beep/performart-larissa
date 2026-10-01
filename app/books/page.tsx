@@ -42,6 +42,7 @@ export default function BooksPage() {
 
       <div
         className="
+          books-desktop-shell
           relative
           z-10
           mx-auto
@@ -55,8 +56,6 @@ export default function BooksPage() {
 
           lg:px-8
           lg:py-20
-          lg:translate-x-[370px]
-          lg:translate-y-[110px]
         "
       >
 
@@ -341,8 +340,7 @@ export default function BooksPage() {
                     lg:leading-[1.9]
                   `}
                 >
-                 {book?.description ||
-  "Εδώ θα μπει αργότερα μια σύντομη παρουσίαση του βιβλίου της εβδομάδας."}
+              
                 </p>
 
 

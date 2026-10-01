@@ -5,14 +5,15 @@ import { getGiveaways } from "@/lib/giveaways-data";
 
 export default async function GiveawaysPage() {
   const giveaways = await getGiveaways();
+
   return (
-    <main className="giveaways-mobile-page min-h-screen bg-white px-6 md:px-10 lg:px-16 py-24 flex flex-col items-center">
+    <main className="giveaways-page giveaways-mobile-page bg-white px-6 md:px-10 lg:px-16 py-24 flex flex-col items-center">
 
 
 <br></br>
 <br></br>
       {/* HEADER */}
-      <section className="giveaways-mobile-header w-full max-w-6xl mb-20 md:translate-x-16 lg:translate-x-84">
+      <section className="giveaways-mobile-header w-full max-w-6xl mb-20">
         <p className="text-[12px] tracking-[0.35em] text-red-600 mb-4">
           ΔΙΑΓΩΝΙΣΜΟΙ
         </p>

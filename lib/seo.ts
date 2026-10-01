@@ -4,30 +4,9 @@ export const SITE_NAME = "The performART – Larissa";
 export const SITE_ALTERNATE_NAME = "The performART Larissa";
 export const SITE_DESCRIPTION =
   "Ό,τι συμβαίνει στον πολιτισμό της Λάρισας: εκδηλώσεις, μουσική, κινηματογράφος, βιβλίο, συνεντεύξεις, φεστιβάλ και απόψεις.";
-export const DEFAULT_OG_IMAGE = "/images/heroo.jpg";
+export const DEFAULT_OG_IMAGE = "/og/logo-perf.png";
 
-function getSiteUrl() {
-  const configuredUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    process.env.VERCEL_PROJECT_PRODUCTION_URL ||
-    "performart-larissa.vercel.app";
-
-  const urlWithProtocol = /^https?:\/\//i.test(configuredUrl)
-    ? configuredUrl
-    : `https://${configuredUrl}`;
-
-  try {
-    const url = new URL(urlWithProtocol);
-    url.pathname = "/";
-    url.search = "";
-    url.hash = "";
-    return url;
-  } catch {
-    return new URL("https://performart-larissa.vercel.app");
-  }
-}
-
-export const SITE_URL = getSiteUrl();
+export const SITE_URL = new URL("https://performart.gr");
 export const ORGANIZATION_ID = `${SITE_URL.toString()}#organization`;
 export const WEBSITE_ID = `${SITE_URL.toString()}#website`;
 

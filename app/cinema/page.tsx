@@ -49,10 +49,11 @@ export default function CinemaPage() {
             justify-center
 
             px-5
-            py-10
+py-10
 
-            lg:px-8
-            lg:py-12
+lg:px-8
+lg:pt-0
+lg:pb-12
           "
         >
 
@@ -67,9 +68,9 @@ export default function CinemaPage() {
               grid-cols-1
               gap-10
 
-              lg:grid-cols-[700px_1fr]
-              lg:gap-20
-              lg:items-center
+              lg:grid-cols-[620px_1fr]
+lg:gap-10
+lg:items-start
             "
           >
 
@@ -129,7 +130,7 @@ export default function CinemaPage() {
 
                 w-full
 
-                lg:mt-[100px]
+                lg:mt-[20px]
               "
             >
               <CinemaNowPlaying />
@@ -173,6 +174,34 @@ export default function CinemaPage() {
           ===================================================== */}
 
       <style>{`
+
+      /* =================================================
+   DESKTOP POSITIONING
+   ================================================= */
+
+@media (min-width: 768px) {
+
+  /* Ανεβάζει ΟΛΟ το ημερολόγιο + ΤΙ ΠΑΙΖΕΙ */
+  .cinema-page .cinema-main-section {
+    margin-top: -10px !important;
+    padding-top: 0 !important;
+  }
+
+  /* Μετακινεί όλο το block αριστερά */
+  .cinema-page .cinema-main-grid {
+    max-width: 1300px !important;
+    transform: translateX(-140px) !important;
+
+    grid-template-columns: 620px 1fr !important;
+    column-gap: 45px !important;
+  }
+
+  /* Το ΤΙ ΠΑΙΖΕΙ να έρθει πάνω και αριστερά */
+  .cinema-page .cinema-now-playing-section {
+    margin-top: 20px !important;
+    transform: translateX(-20px) !important;
+  }
+}
 
         @media (max-width: 767px) {
 

@@ -57,7 +57,7 @@ export default function InterviewsPage() {
     .slice(0, 3);
 
   return (
-    <main className="min-h-screen events-page overflow-x-hidden bg-white text-[#2B2B2B]">
+    <main className="interviews-page min-h-screen events-page overflow-x-hidden bg-white text-[#2B2B2B]">
       <br />
       <br />
       <br />
@@ -66,64 +66,55 @@ export default function InterviewsPage() {
           HERO
           ========================================================= */}
 
-      <InterviewHero />
+      <div className="interviews-hero">
+  <InterviewHero />
+</div>
 
       {/* =========================================================
           DESKTOP — FEATURED INTERVIEW
           ========================================================= */}
 
-      <section className="relative left-155 -top-90 z-10 hidden w-[110vw] -translate-x-1/2 px-4 pb-24 md:block md:px-8 lg:px-0">
-        <div className="mx-auto w-full max-w-[1650px]">
-          <div className="grid overflow-hidden border border-[#BBAEBD]/10 lg:grid-cols-2">
+      <section className="interviews-featured-desktop relative z-10 hidden w-full -mt-32 pb-24 md:block">
+        <div className="mx-auto w-full max-w-[900px]">
+          <div className="interviews-featured-grid grid overflow-hidden border border-[#BBAEBD]/10 lg:grid-cols-[40%_60%]">
 
             {/* ΑΡΙΣΤΕΡΑ — ΚΕΙΜΕΝΟ */}
 
-            <div
-              className="flex flex-col justify-center bg-white md:p-14 lg:p-16"
-              style={{ paddingLeft: "30px" }}
-            >
+            <div className="interviews-featured-copy flex flex-col justify-center bg-white">
               <p
                 className={`${alegreya.className} mb-6 text-sm uppercase tracking-[0.3em] text-red-800`}
               >
                 {new Date(featuredInterview.date).toLocaleDateString("el-GR")}
               </p>
 
-              <br />
-
               <h2
-                className={`${spectral.className} max-w-xl text-[30px] leading-tight text-black/90`}
+                className={`${spectral.className} interviews-featured-title max-w-xl leading-tight text-black/90`}
               >
                 {featuredInterview.title}
               </h2>
 
-              <br />
+             
 
-              <p
-                className={`${alegreya.className} mt-7 max-w-xl text-lg leading-relaxed text-black/70`}
-              >
-                {featuredInterview.description}
-              </p>
-
-              <br />
-
-              <div className="mt-8">
+              <div className="interviews-featured-action">
                 <Link
                   href={`/interviews/${featuredInterview.id}`}
-                  className="inline-flex min-w-[230px] min-h-[50px] items-center justify-center border border-[#C13B3A] px-6 py-3 text-xs uppercase tracking-[0.25em] !text-black transition hover:bg-red-700 hover:!text-black"
+                  className="inline-flex min-w-[200px] min-h-[30px] items-center justify-center border border-[#C13B3A] px-6 py-3 text-xs uppercase tracking-[0.25em] !text-white transition hover:bg-red-700 hover:!text-white"
                 >
-                  ΔΙΑΒΑΣΤΕ ΤΟ ΑΡΘΡΟ →
+                  {featuredInterview.type === "video"
+  ? "ΔΕΙΤΕ ΤΗ ΣΥΝΕΝΤΕΥΞΗ →"
+  : "ΔΙΑΒΑΣΤΕ ΤΟ ΑΡΘΡΟ →"}
                 </Link>
               </div>
             </div>
 
             {/* ΔΕΞΙΑ — ΕΙΚΟΝΑ */}
 
-            <div className="relative min-h-[400px] bg-white">
+            <div className="interviews-featured-image relative bg-white">
               {featuredImage ? (
                 <img
                   src={featuredImage}
                   alt={featuredInterview.title}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-contain"
                 />
               ) : (
                 <div className="flex h-full min-h-[420px] items-center justify-center bg-white text-black">
@@ -210,9 +201,11 @@ export default function InterviewsPage() {
 
             <Link
   href={`/interviews/${featuredInterview.id}`}
-  className="interviews-mobile-featured-link mt-6 inline-flex min-h-[42px] items-center justify-center px-0 py-2 text-[9px] uppercase tracking-[0.2em] !text-black"
+  className="interviews-mobile-featured-link mt-6 inline-flex min-h-[42px] items-center justify-center px-0 py-2 text-[9px] uppercase tracking-[0.2em] !text-white"
 >
-              ΔΙΑΒΑΣΤΕ ΤΟ ΑΡΘΡΟ →
+              {featuredInterview.type === "video"
+  ? "ΔΕΙΤΕ ΤΗ ΣΥΝΕΝΤΕΥΞΗ →"
+  : "ΔΙΑΒΑΣΤΕ ΤΟ ΑΡΘΡΟ →"}
             </Link>
           </div>
 
@@ -244,24 +237,22 @@ export default function InterviewsPage() {
           DESKTOP — RECENT INTERVIEWS
           ========================================================= */}
 
-      <section className="relative left-190 -top-60 z-10 hidden w-[40vw] -translate-x-1/2 px-4 pb-24 md:block md:px-8 lg:px-0">
+      <section className="interviews-recent-desktop relative z-10 hidden w-full pb-24 md:block">
         <div className="mx-auto w-full max-w-[1500px]">
 
           {/* ΤΙΤΛΟΣ */}
 
-          <div className="mb-12 flex gap-3">
+          <div className="interviews-recent-title flex gap-3">
             <h2
-              className={`${spectral.className} whitespace-nowrap text-3xl uppercase tracking-[0.15em] text-black`}
+              className={`${spectral.className} uppercase tracking-[0.15em] text-black`}
             >
               ΠΡΟΣΦΑΤΕΣ ΣΥΝΕΝΤΕΥΞΕΙΣ
             </h2>
           </div>
 
-          <br />
-
           {/* 3 ΚΑΡΤΕΣ */}
 
-          <div className="mx-auto grid w-full max-w-[1050px] grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="interviews-recent-grid mx-auto grid w-full grid-cols-1 md:grid-cols-3">
 
             {recentInterviews.map((interview) => (
               <article
@@ -286,58 +277,43 @@ export default function InterviewsPage() {
 
                 {/* ΚΕΙΜΕΝΟ */}
 
-                <div
-                  style={{
-                    paddingLeft: "20px",
-                    paddingRight: "15px",
-                    paddingTop: "14px",
-                    paddingBottom: "14px",
-                  }}
-                >
+                <div className="interviews-recent-card-copy">
                   <p
                     className={`${alegreya.className} text-xs uppercase tracking-[0.25em] text-red-800`}
                   >
                     {new Date(interview.date).toLocaleDateString("el-GR")}
                   </p>
 
-                  <br />
-
                   <h3
-                    className={`${spectral.className} mt-4 text-[20px] leading-tight text-black`}
+                    className={`${spectral.className} interviews-recent-card-title leading-tight text-black`}
                   >
                     {interview.title}
                   </h3>
 
-                  <br />
-
                   <p
-                    className={`${alegreya.className} mt-4 line-clamp-3 text-base leading-relaxed text-black/70`}
+                    className={`${alegreya.className} interviews-recent-card-description line-clamp-3 leading-relaxed text-black/70`}
                   >
                     {interview.description}
                   </p>
 
-                  <br />
-
                   <Link
                     href={`/interviews/${interview.id}`}
-                    className="mt-6 inline-block pb-2 text-xs uppercase tracking-[0.2em] !text-red-900 transition hover:!text-[#C13B3A]"
+                    className="mt-6 inline-block pb-2 text-xs uppercase tracking-[0.2em] !text-[#C2272D] transition hover:!text-[#C13B3A]"
                   >
-                    ΔΙΑΒΑΣΤΕ ΤΟ ΑΡΘΡΟ →
+                    {featuredInterview.type === "video"
+  ? "ΔΕΙΤΕ ΤΗ ΣΥΝΕΝΤΕΥΞΗ →"
+  : "ΔΙΑΒΑΣΤΕ ΤΟ ΑΡΘΡΟ →"}
                   </Link>
                 </div>
 
-                <br />
               </article>
             ))}
 
           </div>
 
-          <br />
-          <br />
-
           {/* ΟΛΕΣ ΟΙ ΣΥΝΕΝΤΕΥΞΕΙΣ */}
 
-          <div className="mt-16 flex">
+          <div className="interviews-recent-all flex">
             <Link
               href="/interviews/archive"
               className="inline-flex min-h-[50px] min-w-[330px] items-center justify-center border border-red-800 bg-red-800 px-6 py-3 text-xs uppercase tracking-[0.25em] !text-white transition hover:bg-white hover:!text-[#C13B3A]"
@@ -412,7 +388,9 @@ export default function InterviewsPage() {
                   <Link
                     href={`/interviews/${interview.id}`}
                   >
-                    ΔΙΑΒΑΣΤΕ ΤΟ ΑΡΘΡΟ →
+                    {featuredInterview.type === "video"
+  ? "ΔΕΙΤΕ ΤΗ ΣΥΝΕΝΤΕΥΞΗ →"
+  : "ΔΙΑΒΑΣΤΕ ΤΟ ΑΡΘΡΟ →"}
                   </Link>
 
                 </div>
@@ -437,239 +415,332 @@ export default function InterviewsPage() {
           MOBILE CSS
           ========================================================= */}
 
-      <style jsx>{`
-       .interviews-mobile-recent {
-  display: block !important;
+      <style>{`
+  @media (max-width: 767px) {
+
+  .interviews-page.events-page {
+  position: relative !important;
+  left: 0 !important;
+  right: auto !important;
+  transform: none !important;
+
   width: 100% !important;
   max-width: 100% !important;
-  margin: 0 !important;
-  padding: 80px 20px 110px 20px !important;
-  background: #ffffff;
-  box-sizing: border-box;
+  min-width: 0 !important;
+
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+
+  box-sizing: border-box !important;
 }
 
-        .interviews-mobile-recent-inner {
-          display: block;
-          width: 100% !important;
-          max-width: 390px !important;
-          margin: 0 auto !important;
-          padding: 0 !important;
-          box-sizing: border-box;
-        }
+    /* =========================================
+       ΟΛΗ Η MOBILE ΣΕΛΙΔΑ
+       ========================================= */
 
-        .interviews-mobile-recent-title {
-          display: block;
-          width: 100% !important;
-          margin: 0 0 32px 0 !important;
-          padding: 0 !important;
-          text-align: left !important;
-          box-sizing: border-box;
-        }
+    .interviews-page {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+    }
 
-        .interviews-mobile-recent-title h2 {
-          display: block;
-          width: 100% !important;
-          margin: 0 !important;
-          padding: 0 !important;
-          font-size: 21px !important;
-          line-height: 1.02 !important;
-          font-weight: 400 !important;
-          letter-spacing: 0.055em !important;
-          text-align: left !important;
-          text-transform: uppercase;
-          color: #000000 !important;
-          box-sizing: border-box;
-        }
 
-        .interviews-mobile-cards {
-          display: flex !important;
-          flex-direction: column !important;
-          width: 100% !important;
-          max-width: 100% !important;
-          margin: 0 !important;
-          padding: 0 !important;
-          gap: 36px !important;
-          box-sizing: border-box;
-        }
+    /* =========================================
+       FEATURED INTERVIEW
+       ========================================= */
 
-        .interviews-mobile-card {
-          display: block !important;
-          width: 100% !important;
-          max-width: 100% !important;
-          margin: 0 !important;
-          padding: 0 !important;
-          overflow: hidden !important;
-          border: 1px solid #bbae bd !important;
-          background: #ffffff !important;
-          box-sizing: border-box;
-        }
+    .interviews-page .interviews-mobile-featured {
+      width: 100% !important;
+      max-width: 100% !important;
 
-        .interviews-mobile-card-image {
-          display: block !important;
-          width: 100% !important;
-          margin: 0 !important;
-          padding: 0 !important;
-          overflow: hidden !important;
-          box-sizing: border-box;
-        }
+      margin: 0 !important;
+      padding: 20px 24px 70px !important;
 
-        .interviews-mobile-card-img {
-          display: block !important;
-          width: 100% !important;
-          height: auto !important;
-          max-width: 100% !important;
-          margin: 0 !important;
-          padding: 0 !important;
-          object-fit: contain !important;
-          box-sizing: border-box;
-        }
+      box-sizing: border-box !important;
+    }
 
-        .interviews-mobile-card-empty-image {
-          display: block;
-          width: 100%;
-          min-height: 220px;
-          background: #ffffff;
-        }
+    .interviews-page .interviews-mobile-featured > div {
+      width: 100% !important;
+      max-width: 340px !important;
 
-        .interviews-mobile-card-content {
-          display: block !important;
-          width: 100% !important;
-          max-width: 100% !important;
-          margin: 0 !important;
-          padding: 18px 18px 20px 18px !important;
-          box-sizing: border-box;
-        }
+      margin: 0 auto !important;
+      padding: 0 !important;
 
-        .interviews-mobile-card-content > p:first-child {
-          display: block;
-          margin: 0 !important;
-          padding: 0 !important;
-          font-size: 9px !important;
-          line-height: 1.2 !important;
-          letter-spacing: 0.22em !important;
-          text-transform: uppercase;
-          color: #991b1b !important;
-        }
+      transform: none !important;
+    }
 
-        .interviews-mobile-card-content h3 {
-          display: block !important;
-          width: 100% !important;
-          margin: 10px 0 0 0 !important;
-          padding: 0 !important;
-          font-size: 16px !important;
-          line-height: 1.12 !important;
-          font-weight: 400 !important;
-          letter-spacing: 0 !important;
-          color: #000000 !important;
-          box-sizing: border-box;
-        }
 
-        .interviews-mobile-card-content > p:nth-of-type(2) {
-          display: block !important;
-          width: 100% !important;
-          margin: 12px 0 0 0 !important;
-          padding: 0 !important;
-          font-size: 13px !important;
-          line-height: 1.45 !important;
-          color: rgba(0, 0, 0, 0.7) !important;
-          box-sizing: border-box;
-        }
+    /* featured εικόνα */
 
-        .interviews-mobile-card-content a {
-          display: inline-block !important;
-          margin: 16px 0 0 0 !important;
-          padding: 0 !important;
-          font-size: 8px !important;
-          line-height: 1.2 !important;
-          letter-spacing: 0.2em !important;
-          text-transform: uppercase;
-          color: #7f1d1d !important;
-          text-decoration: none !important;
-        }
+    .interviews-page .interviews-mobile-featured img {
+      display: block !important;
 
-        .interviews-mobile-all {
-          display: flex !important;
-          width: 100% !important;
-          max-width: 100% !important;
-          margin: 58px 0 0 0 !important;
-          padding: 0 !important;
-          justify-content: center !important;
-          box-sizing: border-box;
-        }
+      width: 100% !important;
+      max-width: 340px !important;
+      height: auto !important;
 
-        .interviews-mobile-all a {
-          display: flex !important;
-          width: 100% !important;
-          min-height: 45px !important;
-          margin: 0 !important;
-          padding: 12px 16px !important;
-          align-items: center !important;
-          justify-content: center !important;
-          box-sizing: border-box;
-          background: #991b1b !important;
-          color: #ffffff !important;
-          text-decoration: none !important;
-          font-family: inherit;
-          font-size: 9px !important;
-          line-height: 1.2 !important;
-          letter-spacing: 0.2em !important;
-          text-transform: uppercase;
-          text-align: center !important;
-        }
+      margin: 0 auto !important;
+    }
 
-        @media (min-width: 768px) {
-          .interviews-mobile-recent {
-            display: none !important;
-          }
-        }
 
-        @media (max-width: 767px) {
-          .interviews-mobile-recent {
-            display: block !important;
-          }
-        }
+    /* featured κείμενο */
 
-        @media (max-width: 380px) {
-          .interviews-mobile-recent {
-            padding-left: 16px !important;
-            padding-right: 16px !important;
-          }
+    .interviews-page .interviews-mobile-featured .w-full.pt-7 {
+      width: 100% !important;
+      padding-top: 20px !important;
 
-          .interviews-mobile-recent-title h2 {
-            font-size: 20px !important;
-          }
+      text-align: left !important;
+    }
 
-          .interviews-mobile-card-content h3 {
-            font-size: 17px !important;
-          }
-        }
+    .interviews-page .interviews-mobile-featured .w-full.pt-7 > p:first-child {
+      margin: 0 0 10px !important;
 
-                @media (max-width: 767px) {
-          .interviews-mobile-featured-title {
-            font-size: 21px !important;
-            line-height: 1.12 !important;
-            width: 100% !important;
-            margin-top: 12px !important;
-          }
+      font-size: 9px !important;
+      line-height: 1.2 !important;
+      letter-spacing: 0.18em !important;
+    }
 
-          .interviews-mobile-featured + #mobile-recent-interviews {
-            margin-top: 80px !important;
-          }
+    .interviews-page .interviews-mobile-featured-title {
+      width: 100% !important;
 
-@media (max-width: 767px) {
-  .interviews-mobile-featured-link {
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    background: transparent !important;
+      margin: 0 !important;
+
+      font-size: 20px !important;
+      line-height: 1.18 !important;
+      letter-spacing: 0 !important;
+    }
+
+    .interviews-page .interviews-mobile-featured-title + p {
+      width: 100% !important;
+
+      margin-top: 14px !important;
+
+      font-size: 13px !important;
+      line-height: 1.5 !important;
+    }
+
+    .interviews-page .interviews-mobile-featured-link {
+      min-height: 38px !important;
+
+      margin-top: 18px !important;
+
+      padding: 7px 0 !important;
+
+      font-size: 8px !important;
+      letter-spacing: 0.15em !important;
+    }
+
+
+    /* featured βελάκια */
+
+    .interviews-page .interviews-mobile-featured .mt-8 {
+      margin-top: 22px !important;
+    }
+
+    .interviews-page .interviews-mobile-featured button {
+      font-size: 23px !important;
+    }
+
+
+    /* =========================================
+       ΠΡΟΣΦΑΤΕΣ ΣΥΝΕΝΤΕΥΞΕΙΣ
+       ========================================= */
+
+    .interviews-page .interviews-mobile-recent {
+      display: block !important;
+
+      width: 100% !important;
+      max-width: 100% !important;
+
+      margin: 0 !important;
+      padding: 55px 24px 80px !important;
+
+      box-sizing: border-box !important;
+    }
+
+    .interviews-page .interviews-mobile-recent-inner {
+      width: 100% !important;
+      max-width: 340px !important;
+
+      margin: 0 auto !important;
+      padding: 0 !important;
+
+      transform: none !important;
+    }
+
+
+    /* Τίτλος πρόσφατων */
+
+    .interviews-page .interviews-mobile-recent-title {
+      width: 100% !important;
+
+      margin: 0 0 32px !important;
+
+      text-align: left !important;
+    }
+
+    .interviews-page .interviews-mobile-recent-title h2 {
+      width: 100% !important;
+
+      margin: 0 !important;
+
+      font-size: 21px !important;
+      line-height: 1.12 !important;
+      letter-spacing: 0.08em !important;
+
+      text-align: left !important;
+    }
+
+
+    /* =========================================
+       ΚΑΡΤΕΣ
+       ========================================= */
+
+    .interviews-page .interviews-mobile-cards {
+      display: flex !important;
+      flex-direction: column !important;
+
+      width: 100% !important;
+
+      gap: 28px !important;
+    }
+
+    .interviews-page .interviews-mobile-card {
+      display: block !important;
+
+      width: 100% !important;
+      max-width: 340px !important;
+
+      margin: 0 !important;
+      padding: 0 !important;
+
+      box-sizing: border-box !important;
+    }
+
+
+    /* εικόνα κάρτας */
+
+    .interviews-page .interviews-mobile-card-image {
+      width: 100% !important;
+      max-width: 340px !important;
+
+      margin: 0 !important;
+      padding: 0 !important;
+
+      overflow: hidden !important;
+    }
+
+    .interviews-page .interviews-mobile-card-img {
+      display: block !important;
+
+      width: 100% !important;
+      max-width: 340px !important;
+      height: auto !important;
+
+      margin: 0 !important;
+    }
+
+
+    /* κείμενο κάρτας */
+
+    .interviews-page .interviews-mobile-card-content {
+      width: 100% !important;
+
+      padding: 15px 0 0 !important;
+
+      text-align: left !important;
+    }
+
+    .interviews-page .interviews-mobile-card-content > p:first-child {
+      margin: 0 0 8px !important;
+
+      font-size: 8px !important;
+      line-height: 1.2 !important;
+      letter-spacing: 0.16em !important;
+    }
+
+    .interviews-page .interviews-mobile-card-content h3 {
+      width: 100% !important;
+
+      margin: 0 !important;
+
+      font-size: 18px !important;
+      line-height: 1.2 !important;
+    }
+
+    .interviews-page .interviews-mobile-card-content h3 + p {
+      width: 100% !important;
+
+      margin: 11px 0 0 !important;
+
+      font-size: 12px !important;
+      line-height: 1.5 !important;
+    }
+
+    .interviews-page .interviews-mobile-card-content a {
+      display: inline-block !important;
+
+      margin-top: 15px !important;
+
+      font-size: 8px !important;
+      line-height: 1.2 !important;
+      letter-spacing: 0.14em !important;
+    }
+
+
+    /* =========================================
+       ΔΕΙΤΕ ΟΛΕΣ
+       ========================================= */
+
+    .interviews-page .interviews-mobile-all {
+      display: flex !important;
+
+      width: 100% !important;
+
+      margin-top: 42px !important;
+
+      justify-content: flex-start !important;
+    }
+
+    .interviews-page .interviews-mobile-all a {
+      display: inline-flex !important;
+
+      width: auto !important;
+      min-height: 38px !important;
+
+      padding: 9px 14px !important;
+
+      align-items: center !important;
+      justify-content: center !important;
+
+      font-size: 8px !important;
+      line-height: 1.2 !important;
+      letter-spacing: 0.14em !important;
+    }
+  }
+
+  @media (min-width: 768px) {
+  .interviews-page .interviews-featured-title {
+    font-size: 26px !important;
   }
 }
 
-        }
+  @media (min-width: 768px) {
+    .interviews-mobile-featured,
+    .interviews-mobile-recent {
+      display: none !important;
+    }
+  }
 
-      `}</style>
+  @media (min-width: 768px) {
+  .interviews-page .interviews-featured-desktop {
+    transform: translateY(-140px) !important;
+  }
+}
+
+`}</style>
     </main>
   );
 }

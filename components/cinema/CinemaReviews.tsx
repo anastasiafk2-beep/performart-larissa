@@ -52,9 +52,9 @@ export default function CinemaReviews() {
   }, []);
 
   const allReviews = [
-    ...reviews,
-    ...sanityReviews,
-  ];
+  ...sanityReviews,
+  ...reviews,
+];
 
   return (
     <section
@@ -90,8 +90,6 @@ export default function CinemaReviews() {
           mx-auto
 
           max-w-[1800px]
-
-          translate-x-10
         "
       >
 
@@ -152,11 +150,10 @@ export default function CinemaReviews() {
               text-xs
               uppercase
               tracking-[0.3em]
-              !text-black
+              !text-white
               transition
               hover:bg-[#C2272D]
               hover:text-white
-              lg:translate-x-[-110px]
             "
           >
             ΔΕΙΤΕ ΟΛΕΣ ΤΙΣ ΚΡΙΤΙΚΕΣ →
@@ -177,21 +174,21 @@ export default function CinemaReviews() {
             gap-6
 
             md:grid-cols-2
-            xl:grid-cols-3
+            xl:grid-cols-2
 
             mt-10
             mb-[60px]
           "
         >
 
-          {allReviews.map((review) => (
+          {allReviews.slice(0, 2).map((review) => (
 
-            <CinemaReviewCard
-              key={review.id}
-              {...review}
-            />
+  <CinemaReviewCard
+    key={review.id}
+    {...review}
+  />
 
-          ))}
+))}
 
         </div>
 

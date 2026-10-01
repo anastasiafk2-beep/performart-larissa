@@ -5,7 +5,7 @@ import { defineQuery } from "next-sanity";
 import {
   festivals as localFestivals,
   type Festival,
-} from "@/content/festivals/festivals";
+} from "@/content/festivals";
 
 import { sanityClient } from "@/lib/sanity";
 
@@ -106,7 +106,7 @@ return {
         )
         .map((item) => ({
           day: item.day!.trim(),
-          title: item.title?.trim() || undefined,
+          title: item.title?.trim() || "",
           artists: Array.isArray(item.artists)
             ? item.artists.filter(
                 (artist): artist is string =>
@@ -152,23 +152,98 @@ export async function getFestivals(): Promise<Festival[]> {
         { next: { revalidate: 60 } }
       );
 
-    const mergedFestivals = new Map(
-      localFestivals.map(
-        (festival) => [festival.id, festival] as const
-      )
+   const normalizedSanityFestivals = sanityFestivals
+  .map(normalizeFestival)
+  .filter(
+    (festival): festival is Festival =>
+      festival !== null
+  );
+
+const mergedFestivals = new Map<string, Festival>();
+
+localFestivals.forEach((localFestival) => {
+  const sanityFestival = normalizedSanityFestivals.find(
+    (item) => item.id === localFestival.id
+  );
+
+  if (!sanityFestival) {
+    mergedFestivals.set(localFestival.id, localFestival);
+    return;
+  }
+
+  mergedFestivals.set(localFestival.id, {
+    ...localFestival,
+    ...sanityFestival,
+
+    title:
+      sanityFestival.title || localFestival.title,
+
+    year:
+      sanityFestival.year || localFestival.year,
+
+    dates:
+      sanityFestival.dates || localFestival.dates,
+
+    startDate:
+      sanityFestival.startDate || localFestival.startDate,
+
+    endDate:
+      sanityFestival.endDate || localFestival.endDate,
+
+    location:
+      sanityFestival.location || localFestival.location,
+
+    description:
+      sanityFestival.description || localFestival.description,
+
+    quote:
+      sanityFestival.quote || localFestival.quote,
+
+    intro:
+      sanityFestival.intro || localFestival.intro,
+
+    lineup:
+      sanityFestival.lineup?.length
+        ? sanityFestival.lineup
+        : localFestival.lineup,
+
+    activities:
+      sanityFestival.activities?.length
+        ? sanityFestival.activities
+        : localFestival.activities,
+
+    facilities:
+      sanityFestival.facilities?.length
+        ? sanityFestival.facilities
+        : localFestival.facilities,
+
+    ticketInfo:
+      sanityFestival.ticketInfo || localFestival.ticketInfo,
+
+    image:
+      sanityFestival.image || localFestival.image,
+
+    images:
+      sanityFestival.images?.length
+        ? sanityFestival.images
+        : localFestival.images,
+
+    upcoming:
+      sanityFestival.upcoming ?? localFestival.upcoming,
+  });
+});
+
+normalizedSanityFestivals.forEach((sanityFestival) => {
+  if (!mergedFestivals.has(sanityFestival.id)) {
+    mergedFestivals.set(
+      sanityFestival.id,
+      sanityFestival
     );
+  }
+});
 
-    sanityFestivals
-      .map(normalizeFestival)
-      .filter(
-        (festival): festival is Festival =>
-          festival !== null
-      )
-      .forEach((festival) =>
-        mergedFestivals.set(festival.id, festival)
-      );
+return Array.from(mergedFestivals.values());
 
-    return Array.from(mergedFestivals.values());
   } catch (error) {
     console.error(
       "Unable to load Sanity festivals:",

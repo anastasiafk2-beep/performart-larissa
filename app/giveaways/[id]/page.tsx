@@ -1,13 +1,45 @@
+import TrackedLink from "@/components/analytics/TrackedLink";
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import JsonLd from "@/components/seo/JsonLd";
 import { getGiveaways } from "@/lib/giveaways-data";
+import {
+  createArticleJsonLd,
+  createBreadcrumbJsonLd,
+  createPageMetadata,
+} from "@/lib/seo";
 
 type Props = {
   params: Promise<{
     id: string;
   }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const giveaway = (await getGiveaways()).find((item) => item.id === id);
+  const path = `/giveaways/${encodeURIComponent(id)}`;
+
+  if (!giveaway) {
+    return createPageMetadata({
+      title: "Ο διαγωνισμός δεν βρέθηκε",
+      description: "Η σελίδα διαγωνισμού που ζητήσατε δεν είναι διαθέσιμη.",
+      path,
+      noIndex: true,
+    });
+  }
+
+  return createPageMetadata({
+    title: giveaway.title,
+    description: giveaway.subtitle || giveaway.description,
+    path,
+    image: giveaway.image,
+    imageAlt: giveaway.title,
+    type: "article",
+  });
+}
 
 export default async function GiveawayPage({ params }: Props) {
  
@@ -25,6 +57,25 @@ const giveaway = giveaways.find(
 
   return (
     <main className="giveaway-single-page min-h-screen bg-white px-6 md:px-10 lg:px-16 py-24 flex flex-col items-center">
+      <JsonLd
+        data={[
+          createArticleJsonLd({
+            headline: giveaway.title,
+            description: giveaway.subtitle || giveaway.description,
+            path: `/giveaways/${encodeURIComponent(giveaway.id)}`,
+            image: giveaway.image,
+            section: "Giveaways",
+          }),
+          createBreadcrumbJsonLd([
+            { name: "Αρχική", path: "/" },
+            { name: "Giveaways", path: "/giveaways" },
+            {
+              name: giveaway.title,
+              path: `/giveaways/${encodeURIComponent(giveaway.id)}`,
+            },
+          ]),
+        ]}
+      />
       <br></br>
       <br></br>
       <br></br>
@@ -34,7 +85,7 @@ const giveaway = giveaways.find(
       <div className="giveaway-single-back w-full max-w-7xl text-red-700 mx-auto mb-10">
         <a
           href="/giveaways"
-          className="text-[12px]  tracking-[0.12em] uppercase"
+          className="editorial-back-button text-[12px] tracking-[0.12em] uppercase"
         >
           ← ΠΙΣΩ ΣΤΑ GIVEAWAYS
         </a>
@@ -112,7 +163,7 @@ const giveaway = giveaways.find(
         </div>
 
         {/* ΠΩΣ ΣΥΜΜΕΤΕΧΕΤΕ */}
-        <div>
+        <div className="giveaway-single-participation">
 <br></br>
 <br></br>
 <br></br>
@@ -147,14 +198,16 @@ const giveaway = giveaways.find(
 
           <br></br>
 
-            <a
+            <TrackedLink
+              eventName="giveaway_click"
+              eventParams={{ giveaway_id: giveaway.id, giveaway_title: giveaway.title }}
               href={giveaway.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 block bg-[#d92f2f] text-white text-center py-4 text-[15px] tracking-[0.12em] uppercase hover:opacity-90 transition"
             >
               ΣΥΜΜΕΤΟΧΗ ΣΤΟ GIVEAWAY ↗
-            </a>
+            </TrackedLink>
 
           </div>
 <br></br>

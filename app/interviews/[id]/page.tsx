@@ -1,6 +1,17 @@
+import ContentView from "@/components/analytics/ContentView";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import JsonLd from "@/components/seo/JsonLd";
 import { getInterviews } from "@/lib/interviews-data";
+import {
+  ORGANIZATION_ID,
+  absoluteUrl,
+  createArticleJsonLd,
+  createBreadcrumbJsonLd,
+  createPageMetadata,
+  toSeoDescription,
+} from "@/lib/seo";
 import { Spectral, Alegreya } from "next/font/google";
 
 const spectral = Spectral({
@@ -18,6 +29,37 @@ type InterviewPageProps = {
     id: string;
   }>;
 };
+
+export async function generateMetadata({
+  params,
+}: InterviewPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const interview = (await getInterviews()).find((item) => item.id === id);
+  const path = `/interviews/${encodeURIComponent(id)}`;
+
+  if (!interview) {
+    return createPageMetadata({
+      title: "Η συνέντευξη δεν βρέθηκε",
+      description: "Η συνέντευξη που ζητήσατε δεν είναι διαθέσιμη.",
+      path,
+      noIndex: true,
+    });
+  }
+
+  return createPageMetadata({
+    title: interview.title,
+    description: interview.description,
+    path,
+    image:
+      interview.image ||
+      (interview.youtubeId
+        ? `https://img.youtube.com/vi/${interview.youtubeId}/maxresdefault.jpg`
+        : undefined),
+    imageAlt: interview.title,
+    type: "article",
+    publishedTime: interview.date,
+  });
+}
 
 export default async function InterviewPage({
   params,
@@ -39,7 +81,7 @@ const interviews = await getInterviews();
           </h1>
 
           <Link
-            href="/interviews"
+            href="/interviews/archive"
             className={`${alegreya.className} mt-8 inline-block border border-[#C13B3A] px-8 py-3 text-xs uppercase tracking-[0.25em] text-black`}
           >
             ← ΠΙΣΩ ΣΤΙΣ ΣΥΝΕΝΤΕΥΞΕΙΣ
@@ -47,6 +89,46 @@ const interviews = await getInterviews();
         </div>
       </main>
     );
+  }
+
+  const path = `/interviews/${encodeURIComponent(interview.id)}`;
+  const structuredData: Array<Record<string, unknown>> = [
+    createArticleJsonLd({
+      headline: interview.title,
+      description: interview.description,
+      path,
+      image:
+        interview.image ||
+        (interview.youtubeId
+          ? `https://img.youtube.com/vi/${interview.youtubeId}/maxresdefault.jpg`
+          : undefined),
+      datePublished: interview.date,
+      section: "Συνεντεύξεις",
+    }),
+    createBreadcrumbJsonLd([
+      { name: "Αρχική", path: "/" },
+      { name: "Συνεντεύξεις", path: "/interviews" },
+      { name: interview.title, path },
+    ]),
+  ];
+
+  if (interview.youtubeId) {
+    structuredData.push({
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "@id": `${absoluteUrl(path)}#video`,
+      name: interview.title,
+      description: toSeoDescription(interview.description),
+      thumbnailUrl: [
+        interview.image
+          ? absoluteUrl(interview.image)
+          : `https://img.youtube.com/vi/${interview.youtubeId}/maxresdefault.jpg`,
+      ],
+      uploadDate: interview.date,
+      embedUrl: `https://www.youtube-nocookie.com/embed/${interview.youtubeId}`,
+      mainEntityOfPage: absoluteUrl(path),
+      publisher: { "@id": ORGANIZATION_ID },
+    });
   }
 
   return (
@@ -66,6 +148,8 @@ const interviews = await getInterviews();
         backgroundAttachment: "fixed",
       }}
     >
+      <ContentView event="interview_view" contentId={interview.id} params={{ content_title: interview.title, interview_format: interview.formats?.join(",") || interview.type }} />
+      <JsonLd data={structuredData} />
 
       {/* OVERLAY */}
 
@@ -78,6 +162,7 @@ const interviews = await getInterviews();
 
       <div
         className="
+          interview-detail-shell
           relative
           z-10
           mx-auto
@@ -109,7 +194,7 @@ const interviews = await getInterviews();
         >
 
           <Link
-            href="/interviews"
+            href="/interviews/archive"
             className={`
               ${alegreya.className}
 
@@ -280,8 +365,11 @@ const interviews = await getInterviews();
               VIDEO
               ================================================= */}
 
-          {interview.type === "video" &&
-            interview.youtubeId && (
+          {(
+  interview.formats?.includes("youtube") ||
+  interview.type === "video"
+) &&
+  interview.youtubeId && (
               <div
                 className="
                   mt-8
@@ -306,13 +394,86 @@ const interviews = await getInterviews();
               </div>
             )}
 
+          {/* =================================================
+              Q&A INTERVIEW
+              ================================================= */}
+
+          {interview.formats?.includes("qa") &&
+            interview.questions &&
+            interview.questions.length > 0 && (
+              <div
+                className="
+                  interview-qa
+                  mt-10
+                  w-full
+                  lg:mt-16
+                "
+              >
+                {interview.introduction && (
+                  <p
+                    className={`
+                      ${alegreya.className}
+                      mb-10
+                      text-[16px]
+                      leading-[1.65]
+                      text-black/80
+                      lg:mb-14
+                      lg:text-[18px]
+                    `}
+                  >
+                    {interview.introduction}
+                  </p>
+                )}
+
+                <div className="space-y-10 lg:space-y-14">
+                  {interview.questions.map(
+                    (item, index) => (
+                      <div
+                        key={`${item.question}-${index}`}
+                        className="interview-qa-item"
+                      >
+                        <h2
+                          className={`
+                            ${spectral.className}
+                            text-[19px]
+                            leading-[1.35]
+                            text-black
+                            lg:text-[22px]
+                          `}
+                        >
+                          {item.question}
+                        </h2>
+
+                        <p
+                          className={`
+                            ${alegreya.className}
+                            mt-4
+                            whitespace-pre-line
+                            text-[16px]
+                            leading-[1.7]
+                            text-black/75
+                            lg:mt-5
+                            lg:text-[18px]
+                          `}
+                        >
+                          {item.answer}
+                        </p>
+                      </div>
+                    )
+                  )}
+                </div>
+              </div>
+            )}
 
           {/* =================================================
               ARTICLE
               ================================================= */}
 
-          {interview.type === "article" &&
-            interview.url && (
+          {(
+  interview.formats?.includes("article") ||
+  interview.type === "article"
+) &&
+  interview.url && (
               <div
                 className="
                   mt-8
@@ -671,6 +832,81 @@ const interviews = await getInterviews();
           }
 
         }
+
+@media (min-width: 768px) {
+
+  .interview-detail-shell {
+    position: relative !important;
+
+    width: 100% !important;
+    max-width: 1000px !important;
+
+    margin: 0 auto !important;
+
+    padding: 170px 40px 90px 40px !important;
+
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+
+    transform: none !important;
+  }
+
+  .interview-detail-shell > div:first-child {
+    width: 100% !important;
+    margin-bottom: 42px !important;
+  }
+
+  .interview-detail-shell > div:first-child a {
+    position: static !important;
+
+    font-size: 10px !important;
+
+    padding: 9px 16px !important;
+  }
+
+  .interview-detail-shell > p {
+    font-size: 10px !important;
+  }
+
+  .interview-detail-shell > h1 {
+    max-width: 760px !important;
+
+    margin-top: 14px !important;
+
+    font-size: 30px !important;
+    line-height: 1.15 !important;
+  }
+
+  .interview-detail-shell > div:nth-of-type(2) {
+    width: 100% !important;
+    max-width: 700px !important;
+
+    margin: 38px auto 0 auto !important;
+  }
+
+  .interview-detail-shell > div:last-child {
+    width: 100% !important;
+    max-width: 700px !important;
+
+    margin: 38px auto 0 auto !important;
+  }
+
+  .interview-detail-shell > div:last-child > p {
+    font-size: 17px !important;
+    line-height: 1.55 !important;
+  }
+
+  .interview-detail-shell > div:last-child > div a {
+    position: static !important;
+
+    margin-top: 28px !important;
+
+    padding: 10px 18px !important;
+
+    font-size: 10px !important;
+  }
+}
 
       `}</style>
 

@@ -114,7 +114,7 @@ export default function EventsPage() {
 
   return (
     
-    <main className="min-h-screen events-page bg-white text-[#171717]">
+    <main className="events-index-page min-h-screen events-page bg-white text-[#171717]">
 
 
 
@@ -236,7 +236,7 @@ export default function EventsPage() {
 <br></br>
 <br></br>
 <br></br>
-           {/* AGENDA ΤΗΣ ΕΒΔΟΜΑΔΑΣ */}
+      {/* AGENDA ΤΗΣ ΕΒΔΟΜΑΔΑΣ */}
       <section className="px-8 py-20 max-md:px-6 max-md:py-10">
         <div className="mx-auto max-w-[1400px] max-md:overflow-x-auto">
 
@@ -338,7 +338,7 @@ export default function EventsPage() {
 
 
       {/* ΕΡΧΟΝΤΑΙ */}
-      <section className="px-8 py-20 max-md:px-6 max-md:py-10">
+      <section className="events-coming-section px-8 py-20 max-md:px-6 max-md:py-10">
 <br></br>
 <br></br>
         <div className="mx-auto max-w-[1400px] max-md:w-full">

@@ -1,8 +1,16 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Alegreya, Spectral } from "next/font/google";
 
+import JsonLd from "@/components/seo/JsonLd";
 import { getArtists } from "@/lib/artists-data";
+import {
+  absoluteUrl,
+  createBreadcrumbJsonLd,
+  createPageMetadata,
+  toSeoDescription,
+} from "@/lib/seo";
 
 const alegreya = Alegreya({
   subsets: ["latin"],
@@ -17,6 +25,34 @@ const spectral = Spectral({
 type ArtistPageProps = {
   params: Promise<{ id: string }>;
 };
+
+export async function generateMetadata({
+  params,
+}: ArtistPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const artist = (await getArtists()).find((item) => item.id === id);
+  const path = `/music/artists/${encodeURIComponent(id)}`;
+
+  if (!artist) {
+    return createPageMetadata({
+      title: "Ο καλλιτέχνης δεν βρέθηκε",
+      description: "Η σελίδα καλλιτέχνη που ζητήσατε δεν είναι διαθέσιμη.",
+      path,
+      noIndex: true,
+    });
+  }
+
+  return createPageMetadata({
+    title: artist.name,
+    description:
+      artist.description ||
+      artist.bio ||
+      `${artist.name}${artist.genre ? ` — ${artist.genre}` : ""}.`,
+    path,
+    image: artist.image,
+    imageAlt: artist.name,
+  });
+}
 
 export default async function ArtistPage({
   params,
@@ -74,17 +110,44 @@ export default async function ArtistPage({
     );
   }
 
+  const path = `/music/artists/${encodeURIComponent(artist.id)}`;
+  const artistStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    "@id": `${absoluteUrl(path)}#artist`,
+    name: artist.name,
+    description: toSeoDescription(artist.description || artist.bio),
+    url: absoluteUrl(path),
+    image: artist.image ? absoluteUrl(artist.image) : undefined,
+    genre: artist.genre,
+    sameAs: [artist.instagram, artist.spotify, artist.youtube].filter(Boolean),
+    mainEntityOfPage: absoluteUrl(path),
+  };
+
   return (
     <main
       className="
+        artist-detail-page
         min-h-screen
         overflow-x-hidden
         bg-white
         text-[#171717]
       "
     >
+      <JsonLd
+        data={[
+          artistStructuredData,
+          createBreadcrumbJsonLd([
+            { name: "Αρχική", path: "/" },
+            { name: "Μουσική", path: "/music" },
+            { name: "Καλλιτέχνες", path: "/music/artists" },
+            { name: artist.name, path },
+          ]),
+        ]}
+      />
       <div
         className="
+          music-detail-shell
           mx-auto
           w-full
           max-w-[1200px]
@@ -104,6 +167,7 @@ export default async function ArtistPage({
           href="/music/artists"
           className={`
             ${alegreya.className}
+            editorial-back-button
 
             inline-block
 
@@ -136,6 +200,7 @@ export default async function ArtistPage({
 
         <section
           className="
+            music-detail-hero
             mt-14
 
             grid

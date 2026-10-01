@@ -1,6 +1,15 @@
+import ContentView from "@/components/analytics/ContentView";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import JsonLd from "@/components/seo/JsonLd";
 import { getCinemaReviews } from "@/lib/cinema-reviews-data";
+import {
+  ORGANIZATION_ID,
+  absoluteUrl,
+  createBreadcrumbJsonLd,
+  createPageMetadata,
+} from "@/lib/seo";
 
 const reviews = [
   {
@@ -19,36 +28,89 @@ type Props = {
   }>;
 };
 
-export default async function ReviewPage({ params }: Props) {
-  const { id } = await params;
-
+async function getReview(id: string) {
   const localReview = reviews.find((item) => item.id === id);
 
-  const sanityReviews = await getCinemaReviews();
+  if (localReview) return localReview;
 
-  const sanityReview = sanityReviews.find(
-    (item) => item.id === id
-  );
+  const sanityReview = (await getCinemaReviews()).find((item) => item.id === id);
 
-  const review = localReview
-    ? localReview
-    : sanityReview
+  return sanityReview
     ? {
         id: sanityReview.id,
         title: sanityReview.title,
         excerpt: sanityReview.excerpt,
         rating: sanityReview.rating,
         image: sanityReview.image || "",
+        createdAt: sanityReview.createdAt,
       }
     : null;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const review = await getReview(id);
+  const path = `/cinema/reviews/${encodeURIComponent(id)}`;
+
+  if (!review) {
+    return createPageMetadata({
+      title: "Η κριτική δεν βρέθηκε",
+      description: "Η κριτική κινηματογράφου που ζητήσατε δεν είναι διαθέσιμη.",
+      path,
+      noIndex: true,
+    });
+  }
+
+  return createPageMetadata({
+    title: `Κριτική: ${review.title}`,
+    description: review.excerpt,
+    path,
+    image: review.image || undefined,
+    imageAlt: review.title,
+    type: "article",
+    publishedTime: "createdAt" in review ? review.createdAt : undefined,
+  });
+}
+
+export default async function ReviewPage({ params }: Props) {
+  const { id } = await params;
+  const review = await getReview(id);
 
   if (!review) {
     notFound();
   }
 
+  const path = `/cinema/reviews/${encodeURIComponent(review.id)}`;
+  const ratingValue = Number.parseFloat(review.rating.replace(",", "."));
+  const reviewStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "@id": `${absoluteUrl(path)}#review`,
+    name: `Κριτική: ${review.title}`,
+    reviewBody: review.excerpt,
+    url: absoluteUrl(path),
+    image: review.image ? absoluteUrl(review.image) : undefined,
+    datePublished: "createdAt" in review ? review.createdAt : undefined,
+    inLanguage: "el-GR",
+    author: { "@id": ORGANIZATION_ID },
+    publisher: { "@id": ORGANIZATION_ID },
+    itemReviewed: {
+      "@type": "Movie",
+      name: review.title,
+    },
+    reviewRating: Number.isFinite(ratingValue)
+      ? {
+          "@type": "Rating",
+          ratingValue,
+          bestRating: 10,
+          worstRating: 1,
+        }
+      : undefined,
+  };
+
   return (
 <main
-  className="relative min-h-screen text-black"
+  className="cinema-review-detail-page relative min-h-screen text-black"
   style={{
     padding: "120px 6vw 100px",
     backgroundColor: "#fdfdfd",
@@ -60,9 +122,22 @@ export default async function ReviewPage({ params }: Props) {
     backgroundBlendMode: "multiply",
   }}
 >
+      <ContentView event="article_view" contentId={review.id} params={{ content_title: review.title, content_type: "cinema_review" }} />
+      <JsonLd
+        data={[
+          reviewStructuredData,
+          createBreadcrumbJsonLd([
+            { name: "Αρχική", path: "/" },
+            { name: "Σινεμά", path: "/cinema" },
+            { name: "Κριτικές", path: "/cinema/reviews" },
+            { name: review.title, path },
+          ]),
+        ]}
+      />
   
       {/* ΠΙΣΩ */}
       <div
+        className="cinema-review-detail-back"
         style={{
           width: "70%",
           marginLeft: "15%",
@@ -73,6 +148,7 @@ zIndex: 1,
       >
         <a
           href="/cinema/reviews"
+          className="editorial-back-button"
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -90,6 +166,7 @@ zIndex: 1,
 
       {/* ΚΥΡΙΟ ΠΕΡΙΕΧΟΜΕΝΟ */}
       <div
+        className="cinema-review-detail-content"
         style={{
           width: "70%",
           marginLeft: "15%",
@@ -102,7 +179,7 @@ zIndex: 1,
         }}
       >
         {/* ΕΙΚΟΝΑ */}
-        <div>
+        <div className="cinema-review-detail-image">
           <img
             src={review.image}
             alt={review.title}
@@ -115,7 +192,7 @@ zIndex: 1,
         </div>
 
         {/* ΚΕΙΜΕΝΟ */}
-        <div>
+        <div className="cinema-review-detail-copy">
           <p
             style={{
               margin: 0,

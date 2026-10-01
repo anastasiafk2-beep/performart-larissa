@@ -2591,4 +2591,189 @@ footer {
     font-size: clamp(15px, 4.2vw, 18px) !important;
     line-height: 1.6 !important;
   }
+
+/* =========================================================
+   GLOBAL CONTENT PROTECTION
+   ========================================================= */
+
+html,
+body,
+body * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* Forms must remain usable */
+input,
+textarea,
+select,
+[contenteditable="true"],
+[data-allow-copy="true"],
+input *,
+textarea *,
+select * {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  user-select: text !important;
+}
+
+/* Prevent long-press image menu on iPhone / iPad */
+img,
+picture,
+video {
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+/* Avoid touch highlighting */
+img {
+  -webkit-tap-highlight-color: transparent;
+}
+
+}
+
+/* Κεντρικό κείμενο αρχικής */
+.hero-section .hero-copy {
+  width: 100% !important;
+  max-width: 720px !important;
+  margin-inline: auto;
+}
+
+.hero-section .hero-title {
+  line-height: 1.2 !important;
+  letter-spacing: -0.015em !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+}
+
+.hero-section .hero-title > div:not(:last-child) {
+  margin-bottom: 8px !important;
+}
+
+.hero-section .hero-title > div:last-child {
+  margin-bottom: 0 !important;
+}
+
+.hero-section .hero-description {
+  width: 100% !important;
+  max-width: 480px !important;
+  margin: 26px auto 0 !important;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-size: clamp(17px, 1.45vw, 18px) !important;
+  line-height: 1.65 !important;
+  color: #eee9e3;
+  text-wrap: balance;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+}
+
+@media (max-width: 767px) {
+  .hero-section .hero-content {
+    padding-top: 110px;
+    padding-bottom: 70px !important;
+  }
+
+  .hero-section .hero-description {
+    max-width: 42ch !important;
+    margin-top: 24px !important;
+  }
+
+}
+
+.hero-section h1.hero-title {
+  font-size: clamp(26px, 4vw, 38px) !important;
+  letter-spacing: 0.06em !important;
+}
+
+/* Decorative rule above the homepage title. */
+.hero-section .hero-copy::before {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 1px;
+  margin: 0 auto 24px;
+  background-color: rgba(255, 255, 255, 0.85);
+}
+/* Red separator between the homepage title and description. */
+.hero-section .hero-description::before {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 1px;
+  margin: 0 auto 24px;
+  background-color: #dc2626;
+}
+/* Homepage perimeter details. */
+.hero-section .hero-edge-label {
+  position: absolute;
+  z-index: 20;
+  top: 115px;
+  right: 30px;
+  display: flex;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font: 400 8px/1.8 Arial, sans-serif;
+  letter-spacing: 0.2em;
+  pointer-events: none;
+}
+.hero-section .hero-edge-label::after {
+  content: "";
+  width: 1px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.35);
+}
+.hero-section .hero-scroll-cue {
+  position: absolute;
+  z-index: 20;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  color: rgba(255, 255, 255, 0.8);
+  font: 400 8px/1.4 Arial, sans-serif;
+  letter-spacing: 0.25em;
+  text-decoration: none;
+}
+.hero-section .hero-scroll-cue > span:first-child {
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+.hero-section .hero-social-links {
+  position: absolute;
+  z-index: 20;
+  right: 24px;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+}
+.hero-section .hero-social-links a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
+}
+.hero-section .hero-social-links a:hover,
+.hero-section .hero-scroll-cue:hover {
+  color: #ffffff;
+}
+.hero-section .hero-social-links a:focus-visible,
+.hero-section .hero-scroll-cue:focus-visible {
+  outline: 1px solid white;
+  outline-offset: 3px;
+}
+@media (max-width: 767px) {
+  .hero-section .hero-edge-label { display: none; }
+  .hero-section .hero-social-links { right: 8px; bottom: 12px; }
+  .hero-section .hero-scroll-cue { bottom: 12px; }
+  .hero-section .hero-content { padding-bottom: 100px !important; }
 }

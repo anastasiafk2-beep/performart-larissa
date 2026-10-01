@@ -1,12 +1,47 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BackButton from "@/components/cinema/BackButton";
+import JsonLd from "@/components/seo/JsonLd";
 import { getCinemaMovies } from "@/lib/cinema-data";
+import {
+  ORGANIZATION_ID,
+  absoluteUrl,
+  createBreadcrumbJsonLd,
+  createPageMetadata,
+  eventDateTime,
+  toSeoDescription,
+} from "@/lib/seo";
 
 type MoviePageProps = {
   params: Promise<{
     id: string;
   }>;
 };
+
+export async function generateMetadata({
+  params,
+}: MoviePageProps): Promise<Metadata> {
+  const { id } = await params;
+  const movie = (await getCinemaMovies()).find((item) => item.id === id);
+  const path = `/cinema/${encodeURIComponent(id)}`;
+
+  if (!movie) {
+    return createPageMetadata({
+      title: "Η ταινία δεν βρέθηκε",
+      description: "Η σελίδα ταινίας που ζητήσατε δεν είναι διαθέσιμη.",
+      path,
+      noIndex: true,
+    });
+  }
+
+  return createPageMetadata({
+    title: `${movie.title} — Προβολές στη Λάρισα`,
+    description: movie.description.join(" "),
+    path,
+    image: movie.poster,
+    imageAlt: `Αφίσα της ταινίας ${movie.title}`,
+  });
+}
 
 export default async function MoviePage({
   params,
@@ -20,16 +55,62 @@ export default async function MoviePage({
     notFound();
   }
 
+  const path = `/cinema/${encodeURIComponent(movie.id)}`;
+  const movieId = `${absoluteUrl(path)}#movie`;
+  const movieStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Movie",
+    "@id": movieId,
+    name: movie.title,
+    description: toSeoDescription(movie.description.join(" ")),
+    url: absoluteUrl(path),
+    image: absoluteUrl(movie.poster),
+    genre: movie.genre,
+    contentRating: movie.rating !== "—" ? movie.rating : undefined,
+    inLanguage: "el-GR",
+    publisher: { "@id": ORGANIZATION_ID },
+  };
+
+  const screeningsStructuredData = movie.screenings.map((screening, index) => ({
+    "@context": "https://schema.org",
+    "@type": "ScreeningEvent",
+    "@id": `${absoluteUrl(path)}#screening-${index + 1}`,
+    name: `${movie.title} — Προβολή`,
+    startDate: eventDateTime(screening.date, screening.time),
+    url: absoluteUrl(path),
+    workPresented: { "@id": movieId },
+    location: {
+      "@type": "Place",
+      name: screening.venue || movie.location,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Λάρισα",
+        addressCountry: "GR",
+      },
+    },
+  }));
+
   return (
     <main
-  className="min-h-screen overflow-hidden bg-white"
+  className="cinema-detail-page min-h-screen overflow-hidden bg-white"
 >
+  <JsonLd
+    data={[
+      movieStructuredData,
+      ...screeningsStructuredData,
+      createBreadcrumbJsonLd([
+        { name: "Αρχική", path: "/" },
+        { name: "Σινεμά", path: "/cinema" },
+        { name: movie.title, path },
+      ]),
+    ]}
+  />
   {/* Light overlay */}
   <div className="absolute inset-0 bg-white pointer-events-none" />
 
   <div className="relative z-10">
 
-      <section className="page-shell">
+      <section className="page-shell cinema-detail-shell">
 <div className="mb-5">
   <BackButton />
 </div>
@@ -74,7 +155,7 @@ export default async function MoviePage({
             {/* ΠΛΗΡΟΦΟΡΙΕΣ */}
             <div className="mt-10 border-t border-[#E9D8C8] pt-8">
 <br></br>
-              <div className="grid grid-cols-2 gap-x-8 gap-y-4 text-sm text-red-900">
+              <div className="grid grid-cols-2 gap-x-8 gap-y-4 text-sm text-[#C2272D]">
 
                 <div>
                   <span className="text-black/70">

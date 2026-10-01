@@ -50,6 +50,7 @@ export default function MusicPage() {
 
       <div
         className="
+          music-desktop-shell
           relative
           z-10
           mx-auto
@@ -63,8 +64,6 @@ export default function MusicPage() {
 
           lg:px-8
           lg:py-20
-          lg:translate-x-[280px]
-          lg:translate-y-[120px]
         "
       >
 
@@ -527,9 +526,10 @@ export default function MusicPage() {
             ΚΑΤΩ ΜΗΝΥΜΑ
             ================================================= */}
 
-        <section
-          className="
-            mt-16
+         <section
+           className="
+             music-bottom-section
+             mt-16
             pb-16
             text-center
 

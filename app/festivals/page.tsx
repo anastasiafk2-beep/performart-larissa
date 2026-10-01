@@ -81,8 +81,32 @@ export default function FestivalsPage() {
 
               <div className="festivals-upcoming-list w-[95%] h-[280px] max-w-[600px] mx-auto grid grid-cols-1 gap-6 bg-black/3">
                 {festivals
-                  .filter((festival) => festival.upcoming)
-                  .map((festival) => (
+  .filter((festival) => {
+    if (!festival.startDate) {
+      return false;
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const endDate = new Date(
+      `${festival.endDate ?? festival.startDate}T23:59:59`
+    );
+
+    return endDate >= today;
+  })
+  .sort((a, b) => {
+    const dateA = a.startDate
+      ? new Date(`${a.startDate}T00:00:00`).getTime()
+      : Number.POSITIVE_INFINITY;
+
+    const dateB = b.startDate
+      ? new Date(`${b.startDate}T00:00:00`).getTime()
+      : Number.POSITIVE_INFINITY;
+
+    return dateA - dateB;
+  })
+  .map((festival) => (
                     <FestivalUpcomingCard
                       key={festival.id}
                       id={festival.id}
@@ -170,13 +194,48 @@ export default function FestivalsPage() {
         </section>
       </div>
 
+      
+
       {/* =========================================================
           MOBILE ONLY
           Το desktop μένει όπως είναι.
           Όλες οι παρακάτω αλλαγές ενεργοποιούνται μόνο κάτω
           από 767px.
          ========================================================= */}
+      
+      
+      
       <style>{`
+
+/* =================================================
+   DESKTOP POSITIONING
+   ================================================= */
+
+@media (min-width: 768px) {
+
+  /* Ανεβάζει ημερολόγιο + επερχόμενα */
+  .festivals-page .festivals-main-section {
+    margin-top: -20px !important;
+    padding-top: 0 !important;
+  }
+
+  /* Μετακινεί όλο το block προς τα αριστερά */
+  .festivals-page .festivals-main-grid {
+    max-width: 1400px !important;
+    transform: translateX(-140px) !important;
+
+    grid-template-columns: 600px 1fr !important;
+    column-gap: 120px !important;
+    align-items: start !important;
+  }
+
+  /* Φέρνει τα επερχόμενα πιο κοντά στο ημερολόγιο */
+  .festivals-page .festivals-upcoming-column {
+    margin-top: 20px !important;
+    transform: translateX(-20px) !important;
+  }
+}
+
         @media (max-width: 767px) {
 
           /* ΒΑΣΙΚΟ MOBILE CONTAINER */

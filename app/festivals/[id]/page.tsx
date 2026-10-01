@@ -1,12 +1,49 @@
+import ContentView from "@/components/analytics/ContentView";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getFestivals } from "@/lib/festivals-data";
 import Footer from "@/components/layout/Footer";
+import JsonLd from "@/components/seo/JsonLd";
+import {
+  createArticleJsonLd,
+  createBreadcrumbJsonLd,
+  createEventJsonLd,
+  createPageMetadata,
+} from "@/lib/seo";
 
 type FestivalPageProps = {
   params: Promise<{
     id: string;
   }>;
 };
+
+export async function generateMetadata({
+  params,
+}: FestivalPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const festival = (await getFestivals()).find((item) => item.id === id);
+  const path = `/festivals/${encodeURIComponent(id)}`;
+
+  if (!festival) {
+    return createPageMetadata({
+      title: "Το φεστιβάλ δεν βρέθηκε",
+      description: "Η σελίδα φεστιβάλ που ζητήσατε δεν είναι διαθέσιμη.",
+      path,
+      noIndex: true,
+    });
+  }
+
+  return createPageMetadata({
+    title: festival.title,
+    description:
+      festival.description ||
+      festival.intro ||
+      `${festival.title}${festival.location ? ` στο ${festival.location}` : ""}.`,
+    path,
+    image: festival.image,
+    imageAlt: festival.title,
+  });
+}
 
 export default async function FestivalPage({
   params,
@@ -38,6 +75,36 @@ const festival = festivals.find(
 
   return (
     <>
+      <JsonLd
+        data={[
+          festival.startDate
+            ? createEventJsonLd({
+                name: festival.title,
+                description: festival.description || festival.intro,
+                path: `/festivals/${encodeURIComponent(festival.id)}`,
+                startDate: festival.startDate,
+                endDate: festival.endDate,
+                image: festival.image,
+                venue: festival.location,
+                locality: festival.location,
+              })
+            : createArticleJsonLd({
+                headline: festival.title,
+                description: festival.description || festival.intro,
+                path: `/festivals/${encodeURIComponent(festival.id)}`,
+                image: festival.image,
+                section: "Φεστιβάλ",
+              }),
+          createBreadcrumbJsonLd([
+            { name: "Αρχική", path: "/" },
+            { name: "Φεστιβάλ", path: "/festivals" },
+            {
+              name: festival.title,
+              path: `/festivals/${encodeURIComponent(festival.id)}`,
+            },
+          ]),
+        ]}
+      />
       <main
         className="festival-single-page relative min-h-screen overflow-hidden bg-white text-[#252321]"
         style={{
@@ -47,7 +114,8 @@ const festival = festivals.find(
           backgroundAttachment: "fixed",
         }}
       >
-        {/* Light overlay */}
+        <ContentView event="festival_view" contentId={festival.id} params={{ content_title: festival.title, festival_year: festival.year }} />
+      {/* Light overlay */}
 
       <div className="absolute inset-0 bg-white/70 pointer-events-none" />
 
@@ -66,6 +134,7 @@ const festival = festivals.find(
     zIndex: 20,
   }}
             className="
+              editorial-back-button
               inline-flex
               border
               border-[#C2272D]
@@ -143,7 +212,17 @@ const festival = festivals.find(
   )}
 
   {/* ΔΕΞΙΑ — ΚΕΙΜΕΝΟ */}
-{(festival.quote || festival.intro || festival.lineup) && (
+
+{(
+  festival.quote ||
+  festival.intro ||
+  festival.lineup ||
+  festival.description ||
+  festival.activities ||
+  festival.facilities ||
+  festival.ticketInfo
+) && (
+
   <div className="festival-single-text pt-2 text-left">
 
    {festival.quote && (

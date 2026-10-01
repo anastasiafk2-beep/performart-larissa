@@ -15,9 +15,9 @@ export default function NewsletterConfirmedPage() {
         <div className="mx-auto mt-6 h-px w-16 bg-[#C2272D]" />
 
         <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-black/70 sm:text-lg">
-          Καλώς ήρθες στο newsletter του The performART – Larissa.
-          Από εδώ και πέρα θα λαμβάνεις στο inbox σου πολιτιστικές προτάσεις,
-          νέα, εκδηλώσεις, συνεντεύξεις και όσα αξίζει να γνωρίζεις.
+          Καλώς ήρθατε στο newsletter του The performART – Larissa.
+          Από εδώ και πέρα θα λαμβάνετε στο inbox σας πολιτιστικές προτάσεις,
+          νέα, εκδηλώσεις, συνεντεύξεις και όσα αξίζει να γνωρίζετε.
         </p>
 
         <Link

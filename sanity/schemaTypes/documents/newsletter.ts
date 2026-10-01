@@ -6,8 +6,14 @@ export const newsletter = defineType({
   type: "document",
 
   fields: [
+    defineField({name:'dryRun',title:'Ασφαλής δοκιμή — χωρίς αποστολή',type:'boolean',initialValue:true,description:'Ενεργό: μόνο πρόχειρο στο Kit. Ανενεργό: πραγματική αποστολή σε όλους τους συνδρομητές όταν δημοσιευτεί αλλαγή σε Έτοιμο.'}),
+    defineField({name:'kitBroadcastId',title:'Kit Broadcast ID',type:'string',readOnly:true}),
+    defineField({name:'sendError',title:'Σφάλμα αποστολής',type:'text',readOnly:true}),
+    defineField({name:'testBroadcastId',title:'Kit δοκιμαστικό Broadcast ID',type:'string',readOnly:true}),
+    defineField({name:'testedAt',title:'Τελευταία ασφαλής δοκιμή',type:'datetime',readOnly:true}),
+
     defineField({
-      name: "title",
+      name: "internalTitle",
       title: "Εσωτερικός τίτλος",
       type: "string",
       description:
@@ -25,7 +31,7 @@ export const newsletter = defineType({
     }),
 
     defineField({
-      name: "previewText",
+      name: "preheader",
       title: "Preview text",
       type: "string",
       description:
@@ -46,7 +52,7 @@ export const newsletter = defineType({
     }),
 
     defineField({
-      name: "sendStatus",
+      name: "status",
       title: "Κατάσταση αποστολής",
       type: "string",
       initialValue: "draft",
@@ -81,9 +87,9 @@ export const newsletter = defineType({
 
   preview: {
     select: {
-      title: "title",
+      title: "internalTitle",
       subtitle: "subject",
-      status: "sendStatus",
+      status: "status",
     },
 
     prepare({ title, subtitle, status }) {

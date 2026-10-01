@@ -236,8 +236,8 @@ export default function Header() {
           }
 
           .site-header-logo img {
-            width: clamp(340px, 46vmin, 480px) !important;
-            max-width: clamp(340px, 46vmin, 480px) !important;
+            width: clamp(300px, 36.8vmin, 384px) !important;
+max-width: clamp(300px, 36.8vmin, 384px) !important;
             height: auto !important;
             transform: translateY(clamp(14px, 1vmin, 25px));
           }
@@ -298,8 +298,8 @@ export default function Header() {
 
         @media (min-width: 1600px) {
           .site-header-logo img {
-            width: 350px !important;
-            max-width: 350px !important;
+            width: 340px !important;
+            max-width: 340px !important;
           }
         }
 
@@ -386,8 +386,8 @@ export default function Header() {
           }
 
           header > div > a img {
-            width: 155px !important;
-            max-width: 155px !important;
+            width: 165px !important;
+            max-width: 165px !important;
             height: auto !important;
             margin-left: 0 !important;
           }

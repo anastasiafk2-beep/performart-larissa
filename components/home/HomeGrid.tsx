@@ -6,7 +6,6 @@ import HomeCard from "@/components/cards/HomeCard";
 import ContactModal from "@/components/ContactModal";
 
 import {
-  House,
   Shapes,
   CalendarDays,
   Mic,
@@ -15,8 +14,9 @@ import {
   Clapperboard,
   Tent,
   Gift,
-  Send,
+  MessageSquareText
 } from "lucide-react";
+
 
 const cards = [
   
@@ -45,8 +45,16 @@ const cards = [
     image: "/images/menu/interviews.png",
   },
 
+ {
+  number: "04",
+  title: "ΑΠΟΨΕΙΣ",
+  href: "/opinions",
+  icon: MessageSquareText,
+  image: "/images/menu/interviews.png",
+},
+
   {
-    number: "04",
+    number: "05",
     title: "ΒΙΒΛΙΟ",
     href: "/books",
     icon: BookOpen,
@@ -54,7 +62,7 @@ const cards = [
   },
 
   {
-    number: "05",
+    number: "06",
     title: "ΜΟΥΣΙΚΗ",
     href: "/music",
     icon: Music,
@@ -62,7 +70,7 @@ const cards = [
   },
 
   {
-    number: "06",
+    number: "07",
     title: "ΣΙΝΕΜΑ",
     href: "/cinema",
     icon: Clapperboard,
@@ -70,7 +78,7 @@ const cards = [
   },
 
   {
-    number: "07",
+    number: "08",
     title: "ΦΕΣΤΙΒΑΛ",
     href: "/festivals",
     icon: Tent,
@@ -78,14 +86,13 @@ const cards = [
   },
 
   {
-    number: "08",
+    number: "09",
     title: "GIVEAWAYS",
     href: "/giveaways",
     icon: Gift,
     image: "/images/menu/giveaways.png",
   },
 
-  
 
 ];
 
@@ -94,18 +101,11 @@ export default function HomeGrid() {
 
   return (
     <>
-      <section className="relative z-20 -mt-16 bg-black pt-0 pb-24">
+      <section className="home-grid-section relative z-20 bg-black">
         <div className="w-full flex justify-center">
 
-          <div className="mb-28">
-            <div
-  className="home-grid"
-  style={{
-    width: "calc(100vw - 48px)",
-    maxWidth: "1880px",
-    margin: "0 auto",
-  }}
->
+          <div className="home-grid-wrap">
+            <div className="home-grid">
 
               {cards.map((card) => (
                 <HomeCard
@@ -122,7 +122,6 @@ export default function HomeGrid() {
                   }
                 />
               ))}
-<div></div>
             </div>
           </div>
 
@@ -130,21 +129,56 @@ export default function HomeGrid() {
         <style jsx>{`
   .home-grid {
     display: grid;
+    width: calc(100vw - 40px);
+    max-width: 1880px;
+    margin: 0 auto;
     grid-template-columns: 1fr;
     gap: 20px;
   }
 
+  .home-grid-section {
+    padding-top: clamp(48px, 7vmin, 80px);
+    padding-bottom: clamp(48px, 7vmin, 80px);
+  }
+
+  .home-grid-wrap {
+    margin-bottom: 0;
+  }
+
   @media (min-width: 640px) {
     .home-grid {
+      width: calc(100vw - 64px);
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  @media (min-width: 1600px) {
+  @media (min-width: 1024px) and (max-width: 1599px) {
     .home-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      width: min(1320px, calc(100vw - clamp(80px, 8vw, 128px)));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .home-grid-wrap {
+      margin-bottom: 0;
     }
   }
+
+@media (min-width: 1600px) {
+  .home-grid {
+    width: min(1320px, calc(100vw - 96px));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    column-gap: 0 !important;
+    row-gap: 16px !important;
+  }
+
+  .home-grid > :global(a) {
+    width: calc(100% - 16px) !important;
+    justify-self: center !important;
+  }
+}
+
 `}</style>
       </section>
 

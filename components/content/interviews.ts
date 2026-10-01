@@ -1,13 +1,38 @@
+export type InterviewFormat =
+  | "youtube"
+  | "article"
+  | "qa";
+
+export type InterviewQuestion = {
+  question: string;
+  answer: string;
+};
+
 export type Interview = {
   id: string;
-  type: "video" | "article";
+
+  // ΝΕΑ λογική
+  formats?: InterviewFormat[];
+
+  // Κρατάμε το παλιό type για συμβατότητα
+  type?: "video" | "article";
+
   guest?: string;
   title: string;
   date: string;
   description: string;
+
   youtubeId?: string;
   image?: string;
   url?: string;
+
+  introduction?: string;
+
+  questions?: InterviewQuestion[];
+
+  quote?: string;
+
+  gallery?: string[];
 };
 
 export const interviews: Interview[] = [
@@ -364,6 +389,7 @@ export const interviews: Interview[] = [
   description:
     "Η Κάρμεν Ρουγγέρη μιλά για το θέατρο για παιδιά, τα όνειρά της και τη δύναμη της τέχνης να διαμορφώνει τις επόμενες γενιές.",
   type: "article",
+  image: "/images/interviews/karmen-2025.jpg",
   url: "https://paidis.com/karmen-rougkeri-to-oneiro-mou-einai-mia-epidavros-gemati-me-paidia/",
 },
 
@@ -374,6 +400,7 @@ export const interviews: Interview[] = [
   description:
     "Η Μαρίνα Σπανού μιλά για τη μουσική, τη δημιουργία και την προσωπική της καλλιτεχνική πορεία.",
   type: "article",
+  image: "/images/interviews/spanou-2025.jpeg",
   url: "https://paidis.com/i-marina-spanou-synomilei-me-ton-evripidi-koutsina/",
 },
 
@@ -384,6 +411,7 @@ export const interviews: Interview[] = [
   description:
     "Οι KADEBOSTANY μιλούν για τη μουσική τους ταυτότητα, τις επιρροές τους και τη διεθνή τους πορεία.",
   type: "article",
+  image: "/images/interviews/kadebostany-2026.jpg",
   url: "https://paidis.com/oi-kadebostany-synomiloun-me-ton-evripidi-koutsina/",
 },
 
@@ -394,6 +422,7 @@ export const interviews: Interview[] = [
   description:
     "Η Μαρία Παπαγεωργίου μιλά για την τέχνη, τη δημιουργία και την ανάγκη ο καλλιτέχνης να μη φοβάται να προκαλεί.",
   type: "article",
+  image: "/images/interviews/papageorgioy-2026.jpg",
   url: "https://paidis.com/maria-papageorgiou-i-techni-den-prepei-na-fovatai-na-prokalei/",
 },
 
@@ -404,6 +433,7 @@ export const interviews: Interview[] = [
   description:
     "Το Παιδί Τραύμα μιλά για τη δημιουργία, τη γραφή, τον νέο του δίσκο και τις ιστορίες πίσω από τα τραγούδια του.",
   type: "article",
+  image: "/images/interviews/paiditravma-2025.jpg",
   url: "https://paidis.com/to-paidi-travma-synomilei-me-ton-evripidi-koutsina/",
 },
 
@@ -414,6 +444,7 @@ export const interviews: Interview[] = [
   description:
     "Ο Γιώργος Χατζηπαύλου μιλά για την κωμωδία, την καθημερινότητα και τον ρεαλισμό στη σκηνή και στη ζωή.",
   type: "article",
+  image: "/images/interviews/xatzhpayloy-2026.jpg",
   url: "https://paidis.com/o-evripidis-koutsinas-syzita-me-ton-giorgo-chatzipavlou-gia-tin-komodia-tin-kathimerinotita-kai-to-realismo/",
 },
 
@@ -447,7 +478,7 @@ export const interviews: Interview[] = [
     "Ο Τόλης Παπαδημητρίου μιλά για την πορεία του, το θέατρο και τη σύγχρονη κωμωδία.",
   type: "article",
   image: "/images/interviews/tolis-papadimitriou.png",
-  
+  url: "https://paidis.com/tolis-papadimitriou-i-megalyteri-pathogeneia-simera-einai-pos-oi-anthropoi-den-akoun-o-enas-ton-allon/",
 },
 
 {

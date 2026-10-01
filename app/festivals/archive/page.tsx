@@ -86,9 +86,9 @@ export default function FestivalsArchivePage() {
 
   const [selectedDate, setSelectedDate] = useState("all");
 
-  const [calendarDate, setCalendarDate] = useState(
-    new Date(2026, 7, 1)
-  );
+ const [calendarDate, setCalendarDate] = useState(
+  () => new Date()
+);
 
   /*
    * Φίλτρα
@@ -219,7 +219,7 @@ label: festival.year,
         <div className="festivals-archive-back mb-8">
           <Link
             href="/festivals"
-            className="inline-flex items-center text-[14px] uppercase tracking-[0.18em] text-[#2B2B2B] transition hover:text-[#C9252D]"
+            className="editorial-back-button inline-flex items-center text-[14px] uppercase tracking-[0.18em] text-[#2B2B2B] transition hover:text-[#C9252D]"
           >
             ← ΠΙΣΩ ΣΤΑ ΦΕΣΤΙΒΑΛ
           </Link>
@@ -365,7 +365,7 @@ label: festival.year,
                 <div className="text-right">
                   <Link
                     href={`/festivals/${festival.id}`}
-                    className="inline-flex border border-[#C9252D] px-4 py-2 text-[10px] uppercase tracking-[0.15em] text-[#C9252D] transition hover:bg-[#C9252D] hover:text-white"
+                    className="inline-flex border border-[#C9252D] px-4 py-2 text-[10px] uppercase tracking-[0.15em] text-white transition hover:bg-[#C9252D] hover:text-white"
                   >
                     ΔΕΙΤΕ ΤΟ ΦΕΣΤΙΒΑΛ →
                   </Link>

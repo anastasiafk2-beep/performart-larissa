@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Manrope } from "next/font/google";
 
 import "./globals.css";
-
+import ContentProtection from "@/components/ContentProtection";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
@@ -143,7 +143,7 @@ const globalStructuredData = {
         width: 1536,
         height: 1024,
       },
-      email: "performart.lar@gmail.com",
+      
       areaServed: {
         "@type": "City",
         name: "Λάρισα",
@@ -179,7 +179,7 @@ export default function RootLayout({
       className={`${geist.variable} ${manrope.variable} h-full scroll-smooth`}
     >
      <body className="relative min-h-screen bg-black text-white">
-
+<ContentProtection />
   <JsonLd data={globalStructuredData} />
 
   <BackgroundPattern />

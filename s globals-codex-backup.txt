@@ -1,0 +1,2233 @@
+warning: in the working copy of 'app/globals.css', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/app/globals.css b/app/globals.css[m
+[1mindex 8ce916a..57c123e 100644[m
+[1m--- a/app/globals.css[m
+[1m+++ b/app/globals.css[m
+[36m@@ -1,11 +1,535 @@[m
+ @import "tailwindcss";[m
+ [m
+ *{[m
+[31m-  margin:0;[m
+[31m-  padding:0;[m
+   box-sizing:border-box;[m
+ }[m
+ [m
+[32m+[m[32m/* =========================================================[m
+[32m+[m[32m   SHARED DESKTOP RHYTHM FOR CINEMA / FESTIVALS / GIVEAWAYS[m
+[32m+[m[32m   ========================================================= */[m
+[32m+[m
+[32m+[m[32m@media (min-width: 1024px) {[m
+[32m+[m[32m  /* The culture landing-page titles now start on the same visual axis. */[m
+[32m+[m[32m  .culture-dark-theme .culture-hero-shell {[m
+[32m+[m[32m    width: min(930px, 100%);[m
+[32m+[m[32m    max-width: 930px;[m
+[32m+[m[32m    min-height: auto;[m
+[32m+[m[32m    margin: 0 auto;[m
+[32m+[m[32m    padding: 190px 48px 96px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme .culture-hero-shell > div {[m
+[32m+[m[32m    display: block;[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    max-width: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is(.cinema-hero-title, .festival-hero-title) {[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    max-width: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is(.cinema-hero-title, .festival-hero-title) > br {[m
+[32m+[m[32m    display: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is(.cinema-hero-title, .festival-hero-title) > div {[m
+[32m+[m[32m    margin-bottom: 16px !important;[m
+[32m+[m[32m    font-size: 13px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is(.cinema-hero-title, .festival-hero-title) h1 {[m
+[32m+[m[32m    font-size: 55px !important;[m
+[32m+[m[32m    line-height: 1;[m
+[32m+[m[32m    letter-spacing: 0.15em !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is(.cinema-hero-title, .festival-hero-title) p {[m
+[32m+[m[32m    margin-top: 26px !important;[m
+[32m+[m[32m    font-size: 13px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Cinema landing page. */[m
+[32m+[m[32m  .cinema-page {[m
+[32m+[m[32m    padding-bottom: 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-main-section {[m
+[32m+[m[32m    padding: 72px 48px 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-main-grid {[m
+[32m+[m[32m    max-width: 1200px;[m
+[32m+[m[32m    grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr) !important;[m
+[32m+[m[32m    gap: 56px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-calendar-section h2,[m
+[32m+[m[32m  .cinema-page .cinema-now-playing-section h2 {[m
+[32m+[m[32m    margin-bottom: 24px !important;[m
+[32m+[m[32m    font-size: 20px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-now-playing-section {[m
+[32m+[m[32m    margin-top: 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-reviews-section {[m
+[32m+[m[32m    margin-top: 104px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Cinema screenings archive. */[m
+[32m+[m[32m  .screenings-page .screenings-title-section {[m
+[32m+[m[32m    padding: 210px 48px 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .screenings-page .screenings-title-inner,[m
+[32m+[m[32m  .screenings-page .screenings-filters,[m
+[32m+[m[32m  .screenings-page .screenings-content-inner {[m
+[32m+[m[32m    width: min(1200px, 100%) !important;[m
+[32m+[m[32m    max-width: 1200px;[m
+[32m+[m[32m    margin: 0 auto !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .screenings-page .screenings-title-inner > br,[m
+[32m+[m[32m  .screenings-page > .relative > br {[m
+[32m+[m[32m    display: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .screenings-page .screenings-back {[m
+[32m+[m[32m    position: static !important;[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    margin: 0 0 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .screenings-page .screenings-label {[m
+[32m+[m[32m    margin-bottom: 16px !important;[m
+[32m+[m[32m    font-size: 13px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .screenings-page .screenings-title {[m
+[32m+[m[32m    font-size: 46px !important;[m
+[32m+[m[32m    line-height: 1.1;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .screenings-page .screenings-subtitle {[m
+[32m+[m[32m    margin-top: 22px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .screenings-page .screenings-filters-section {[m
+[32m+[m[32m    padding: 72px 48px 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .screenings-page .screenings-content-section {[m
+[32m+[m[32m    padding: 72px 48px 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Cinema reviews archive. */[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-hero {[m
+[32m+[m[32m    position: relative !important;[m
+[32m+[m[32m    inset: auto !important;[m
+[32m+[m[32m    width: min(1200px, 100%);[m
+[32m+[m[32m    max-width: 1200px;[m
+[32m+[m[32m    margin: 0 auto;[m
+[32m+[m[32m    padding: 210px 48px 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-hero-inner {[m
+[32m+[m[32m    display: flex;[m
+[32m+[m[32m    flex-direction: column;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-back-wrap {[m
+[32m+[m[32m    position: static !important;[m
+[32m+[m[32m    order: -1;[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    margin: 0 0 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-kicker {[m
+[32m+[m[32m    margin-bottom: 16px !important;[m
+[32m+[m[32m    font-size: 13px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-title {[m
+[32m+[m[32m    margin-top: 0 !important;[m
+[32m+[m[32m    font-size: 46px !important;[m
+[32m+[m[32m    line-height: 1.1;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-subtitle {[m
+[32m+[m[32m    margin-top: 22px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-list {[m
+[32m+[m[32m    position: relative !important;[m
+[32m+[m[32m    inset: auto !important;[m
+[32m+[m[32m    width: min(1200px, 100%);[m
+[32m+[m[32m    max-width: 1200px;[m
+[32m+[m[32m    margin: 88px auto 0;[m
+[32m+[m[32m    padding: 0 48px 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-list-heading {[m
+[32m+[m[32m    margin-bottom: 42px !important;[m
+[32m+[m[32m    padding-bottom: 18px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-grid {[m
+[32m+[m[32m    gap: 64px 32px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Individual cinema movie and review pages. */[m
+[32m+[m[32m  .cinema-detail-page .cinema-detail-shell {[m
+[32m+[m[32m    width: min(1200px, 100%);[m
+[32m+[m[32m    max-width: 1200px;[m
+[32m+[m[32m    margin: 0 auto;[m
+[32m+[m[32m    padding: 210px 48px 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-detail-page .cinema-detail-shell > div:first-child {[m
+[32m+[m[32m    margin-bottom: 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-detail-page .cinema-detail-shell > div:last-child {[m
+[32m+[m[32m    gap: 64px !important;[m
+[32m+[m[32m    grid-template-columns: minmax(340px, 460px) minmax(0, 1fr) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-detail-page .cinema-detail-shell br {[m
+[32m+[m[32m    display: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-detail-page .cinema-detail-shell h1 {[m
+[32m+[m[32m    margin-top: 18px !important;[m
+[32m+[m[32m    font-size: 48px !important;[m
+[32m+[m[32m    line-height: 1.1;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-detail-page .cinema-detail-shell h1 + p {[m
+[32m+[m[32m    margin-top: 20px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-detail-page .cinema-detail-shell h1 + p + div {[m
+[32m+[m[32m    margin-top: 38px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-review-detail-page {[m
+[32m+[m[32m    padding: 210px 48px 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-review-detail-page .cinema-review-detail-back,[m
+[32m+[m[32m  .cinema-review-detail-page .cinema-review-detail-content {[m
+[32m+[m[32m    width: min(1200px, 100%) !important;[m
+[32m+[m[32m    max-width: 1200px;[m
+[32m+[m[32m    margin: 0 auto !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-review-detail-page .cinema-review-detail-back {[m
+[32m+[m[32m    margin-bottom: 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-review-detail-page .cinema-review-detail-content {[m
+[32m+[m[32m    grid-template-columns: minmax(340px, 430px) minmax(0, 1fr) !important;[m
+[32m+[m[32m    gap: 64px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-review-detail-page .cinema-review-detail-copy h1 {[m
+[32m+[m[32m    margin: 18px 0 30px !important;[m
+[32m+[m[32m    font-size: 48px !important;[m
+[32m+[m[32m    line-height: 1.1;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Festivals landing page. */[m
+[32m+[m[32m  .festivals-page {[m
+[32m+[m[32m    padding-bottom: 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page > .relative > br {[m
+[32m+[m[32m    display: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-main-section {[m
+[32m+[m[32m    padding: 72px 48px 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-main-grid {[m
+[32m+[m[32m    max-width: 1200px;[m
+[32m+[m[32m    grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr) !important;[m
+[32m+[m[32m    gap: 56px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-upcoming-column > br {[m
+[32m+[m[32m    display: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-upcoming-column > div:first-child {[m
+[32m+[m[32m    margin-bottom: 32px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-upcoming-list {[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    height: auto;[m
+[32m+[m[32m    min-height: 280px;[m
+[32m+[m[32m    margin: 0 auto;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-archive-button-wrap {[m
+[32m+[m[32m    margin-top: 42px !important;[m
+[32m+[m[32m    text-align: center;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-archive-button {[m
+[32m+[m[32m    display: inline-flex;[m
+[32m+[m[32m    justify-content: center;[m
+[32m+[m[32m    margin-left: 0 !important;[m
+[32m+[m[32m    padding: 12px 22px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-archive-section {[m
+[32m+[m[32m    max-width: 1300px;[m
+[32m+[m[32m    margin-top: 104px !important;[m
+[32m+[m[32m    padding: 0 48px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-archive-section > div:first-child {[m
+[32m+[m[32m    margin-bottom: 64px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-archive-section > div:first-child br,[m
+[32m+[m[32m  .festivals-page .festivals-archive-grid > br {[m
+[32m+[m[32m    display: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-archive-section h2 {[m
+[32m+[m[32m    font-size: 42px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-archive-grid {[m
+[32m+[m[32m    gap: 64px 40px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Festivals archive and detail. */[m
+[32m+[m[32m  .festivals-archive-page .festivals-archive-container {[m
+[32m+[m[32m    width: min(1200px, 100%) !important;[m
+[32m+[m[32m    max-width: 1200px !important;[m
+[32m+[m[32m    margin: 0 auto !important;[m
+[32m+[m[32m    padding: 210px 48px 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-archive-page .festivals-archive-container > br,[m
+[32m+[m[32m  .festivals-archive-page .festivals-archive-header > br,[m
+[32m+[m[32m  .festivals-archive-page .festivals-archive-list > br {[m
+[32m+[m[32m    display: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-archive-page .festivals-archive-back {[m
+[32m+[m[32m    margin-bottom: 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-archive-page .festivals-archive-header {[m
+[32m+[m[32m    margin-bottom: 64px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-archive-page .festivals-archive-header p {[m
+[32m+[m[32m    margin-bottom: 16px !important;[m
+[32m+[m[32m    font-size: 13px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-archive-page .festivals-archive-header h1 {[m
+[32m+[m[32m    font-size: 46px !important;[m
+[32m+[m[32m    line-height: 1.1;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-archive-page .festivals-archive-filters {[m
+[32m+[m[32m    margin-bottom: 64px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festival-single-page .festival-single-back {[m
+[32m+[m[32m    width: min(1200px, 100%);[m
+[32m+[m[32m    max-width: 1200px;[m
+[32m+[m[32m    margin: 0 auto;[m
+[32m+[m[32m    padding: 210px 48px 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festival-single-page .festival-single-back a {[m
+[32m+[m[32m    position: static !important;[m
+[32m+[m[32m    inset: auto !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festival-single-page .festival-single-main {[m
+[32m+[m[32m    width: min(1200px, 100%) !important;[m
+[32m+[m[32m    max-width: 1200px !important;[m
+[32m+[m[32m    margin: 0 auto !important;[m
+[32m+[m[32m    padding: 72px 48px 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festival-single-page .festival-single-main > br,[m
+[32m+[m[32m  .festival-single-page .festival-single-text > br {[m
+[32m+[m[32m    display: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festival-single-page .festival-single-header h1 {[m
+[32m+[m[32m    margin-top: 18px !important;[m
+[32m+[m[32m    font-size: 46px !important;[m
+[32m+[m[32m    line-height: 1.1;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festival-single-page .festival-single-intro-grid {[m
+[32m+[m[32m    margin-top: 80px !important;[m
+[32m+[m[32m    gap: 64px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festival-single-page .festival-single-gallery {[m
+[32m+[m[32m    margin-top: 96px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Giveaways index and individual giveaway. */[m
+[32m+[m[32m  .giveaways-page {[m
+[32m+[m[32m    display: flex;[m
+[32m+[m[32m    align-items: center;[m
+[32m+[m[32m    padding: 190px 48px 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page > br,[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-content > br,[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-details > br {[m
+[32m+[m[32m    display: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-header {[m
+[32m+[m[32m    width: min(1100px, 100%);[m
+[32m+[m[32m    max-width: 1100px;[m
+[32m+[m[32m    margin: 0 auto 88px !important;[m
+[32m+[m[32m    text-align: center;[m
+[32m+[m[32m    translate: none !important;[m
+[32m+[m[32m    transform: none !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-header > p:first-child {[m
+[32m+[m[32m    margin-bottom: 16px !important;[m
+[32m+[m[32m    font-size: 13px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-header h1 {[m
+[32m+[m[32m    font-size: 55px !important;[m
+[32m+[m[32m    line-height: 1;[m
+[32m+[m[32m    letter-spacing: 0.15em !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-header > p:last-child {[m
+[32m+[m[32m    max-width: 680px;[m
+[32m+[m[32m    margin: 28px auto 0 !important;[m
+[32m+[m[32m    font-size: 17px !important;[m
+[32m+[m[32m    line-height: 1.7;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-list {[m
+[32m+[m[32m    width: min(1100px, 100%);[m
+[32m+[m[32m    max-width: 1100px;[m
+[32m+[m[32m    margin: 0 auto;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-card {[m
+[32m+[m[32m    gap: 72px !important;[m
+[32m+[m[32m    padding: 72px 0 !important;[m
+[32m+[m[32m    border-top: 1px solid rgba(255, 255, 255, 0.22);[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-card:last-child {[m
+[32m+[m[32m    border-bottom: 1px solid rgba(255, 255, 255, 0.22);[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-content > * + * {[m
+[32m+[m[32m    margin-top: 20px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-content h2 {[m
+[32m+[m[32m    font-size: 34px !important;[m
+[32m+[m[32m    line-height: 1.15;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-button-wrap {[m
+[32m+[m[32m    margin-top: 34px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page {[m
+[32m+[m[32m    display: flex;[m
+[32m+[m[32m    align-items: center;[m
+[32m+[m[32m    padding: 210px 48px 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page > br,[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-content br {[m
+[32m+[m[32m    display: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page :is([m
+[32m+[m[32m    .giveaway-single-back,[m
+[32m+[m[32m    .giveaway-single-header,[m
+[32m+[m[32m    .giveaway-single-content[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    width: min(1200px, 100%);[m
+[32m+[m[32m    max-width: 1200px;[m
+[32m+[m[32m    margin-left: auto;[m
+[32m+[m[32m    margin-right: auto;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-back {[m
+[32m+[m[32m    margin-bottom: 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-header {[m
+[32m+[m[32m    margin-bottom: 72px !important;[m
+[32m+[m[32m    text-align: center;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-header > p:first-child {[m
+[32m+[m[32m    margin-bottom: 16px !important;[m
+[32m+[m[32m    font-size: 13px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-header h1 {[m
+[32m+[m[32m    max-width: 900px;[m
+[32m+[m[32m    margin: 0 auto;[m
+[32m+[m[32m    font-size: 46px !important;[m
+[32m+[m[32m    line-height: 1.1;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-header > p:last-child {[m
+[32m+[m[32m    margin-top: 22px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-content {[m
+[32m+[m[32m    grid-template-columns: minmax(300px, 1.05fr) minmax(220px, 0.8fr) minmax(280px, 0.95fr) !important;[m
+[32m+[m[32m    gap: 56px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-info {[m
+[32m+[m[32m    padding-top: 24px;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-info > div + div {[m
+[32m+[m[32m    margin-top: 34px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-participation {[m
+[32m+[m[32m    padding-top: 24px;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-participation > div {[m
+[32m+[m[32m    padding: 32px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-participation > div > p {[m
+[32m+[m[32m    margin-bottom: 28px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-participation > p:last-child {[m
+[32m+[m[32m    margin-top: 24px !important;[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+ html{[m
+   scroll-behavior:smooth;[m
+ }[m
+[36m@@ -29,6 +553,143 @@[m [mbutton{[m
+   font:inherit;[m
+ }[m
+ [m
+[32m+[m[32m/* Dark editorial theme shared by the culture sections and every nested route. */[m
+[32m+[m[32m.culture-dark-theme {[m
+[32m+[m[32m  position: relative;[m
+[32m+[m[32m  min-height: 100vh;[m
+[32m+[m[32m  isolation: isolate;[m
+[32m+[m[32m  color: #ffffff;[m
+[32m+[m[32m  color-scheme: dark;[m
+[32m+[m[32m  background: #000000;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* Page surfaces stay solid black; imagery remains in real <img> elements. */[m
+[32m+[m[32m.culture-dark-theme :is(main, section, article) {[m
+[32m+[m[32m  background-color: #000000 !important;[m
+[32m+[m[32m  background-image: none !important;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.culture-dark-theme :is([m
+[32m+[m[32m  [class~="bg-white"],[m
+[32m+[m[32m  [class~="bg-white/5"],[m
+[32m+[m[32m  [class~="bg-white/10"],[m
+[32m+[m[32m  [class~="bg-white/20"],[m
+[32m+[m[32m  [class~="bg-white/30"],[m
+[32m+[m[32m  [class~="bg-white/70"],[m
+[32m+[m[32m  [class~="bg-white/90"],[m
+[32m+[m[32m  [class~="bg-[#F3D8D5]"],[m
+[32m+[m[32m  [class~="bg-[#F3DAD5]"],[m
+[32m+[m[32m  [class~="bg-[#F5E7E0]"],[m
+[32m+[m[32m  [class~="bg-[#FBF7F2]"],[m
+[32m+[m[32m  [class~="bg-[#FBF7F2]/40"][m
+[32m+[m[32m) {[m
+[32m+[m[32m  background-color: #000000 !important;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.culture-dark-theme [style*="background-image"],[m
+[32m+[m[32m.culture-dark-theme [style*="backgroundImage"] {[m
+[32m+[m[32m  background-image: none !important;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.culture-dark-theme :is([m
+[32m+[m[32m  [style*="background:#ffffff"],[m
+[32m+[m[32m  [style*="background: #ffffff"],[m
+[32m+[m[32m  [style*="background:#fdfdfd"],[m
+[32m+[m[32m  [style*="background: #fdfdfd"],[m
+[32m+[m[32m  [style*="background:#FBF7F3"],[m
+[32m+[m[32m  [style*="background: #FBF7F3"],[m
+[32m+[m[32m  [style*="background-color:#fdfdfd"],[m
+[32m+[m[32m  [style*="background-color: #fdfdfd"][m
+[32m+[m[32m) {[m
+[32m+[m[32m  background-color: #000000 !important;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* Convert the former light-theme ink colors to white. Brand reds are untouched. */[m
+[32m+[m[32m.culture-dark-theme :is([m
+[32m+[m[32m  [class~="text-black"],[m
+[32m+[m[32m  [class~="text-black/40"],[m
+[32m+[m[32m  [class~="text-black/50"],[m
+[32m+[m[32m  [class~="text-black/60"],[m
+[32m+[m[32m  [class~="text-black/65"],[m
+[32m+[m[32m  [class~="text-black/70"],[m
+[32m+[m[32m  [class~="text-black/75"],[m
+[32m+[m[32m  [class~="text-black/80"],[m
+[32m+[m[32m  [class~="text-black/85"],[m
+[32m+[m[32m  [class~="text-black/90"],[m
+[32m+[m[32m  [class~="!text-black"],[m
+[32m+[m[32m  [class~="!text-black/60"],[m
+[32m+[m[32m  [class~="text-[#111111]"],[m
+[32m+[m[32m  [class~="text-[#171717]"],[m
+[32m+[m[32m  [class~="text-[#202020]"],[m
+[32m+[m[32m  [class~="text-[#252321]"],[m
+[32m+[m[32m  [class~="text-[#2A2A2A]"],[m
+[32m+[m[32m  [class~="text-[#2B2B2B]"],[m
+[32m+[m[32m  [class~="text-[#303030]"],[m
+[32m+[m[32m  [class~="text-[#343434]"],[m
+[32m+[m[32m  [class~="text-[#4E4945]"],[m
+[32m+[m[32m  [class~="text-[#5F5751]"],[m
+[32m+[m[32m  [class~="text-[#6A6A6A]"],[m
+[32m+[m[32m  [class~="text-[#777]"],[m
+[32m+[m[32m  [class~="text-[#857B73]"],[m
+[32m+[m[32m  [class~="text-[#8A817A]"],[m
+[32m+[m[32m  [class~="text-[#8B8178]"][m
+[32m+[m[32m) {[m
+[32m+[m[32m  color: #ffffff !important;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.culture-dark-theme :is([m
+[32m+[m[32m  [style*="color:#000"],[m
+[32m+[m[32m  [style*="color: #000"],[m
+[32m+[m[32m  [style*="color:#252321"],[m
+[32m+[m[32m  [style*="color: #252321"],[m
+[32m+[m[32m  [style*="color:#474646"],[m
+[32m+[m[32m  [style*="color: #474646"],[m
+[32m+[m[32m  [style*="color:#857B73"],[m
+[32m+[m[32m  [style*="color: #857B73"][m
+[32m+[m[32m) {[m
+[32m+[m[32m  color: #ffffff !important;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* Neutral frames from the light theme become subtle white rules. */[m
+[32m+[m[32m.culture-dark-theme :is([m
+[32m+[m[32m  [class~="border-black"],[m
+[32m+[m[32m  [class~="border-black/3"],[m
+[32m+[m[32m  [class~="border-black/5"],[m
+[32m+[m[32m  [class~="border-black/10"],[m
+[32m+[m[32m  [class~="border-black/15"],[m
+[32m+[m[32m  [class~="border-black/20"],[m
+[32m+[m[32m  [class~="border-black/30"],[m
+[32m+[m[32m  [class~="border-[#252321]"],[m
+[32m+[m[32m  [class~="border-[#BBAEBD]"],[m
+[32m+[m[32m  [class~="border-[#BBAEBD]/10"],[m
+[32m+[m[32m  [class~="border-[#BFB4AA]"],[m
+[32m+[m[32m  [class~="border-[#D8CEC6]"],[m
+[32m+[m[32m  [class~="border-[#DCCFC5]"],[m
+[32m+[m[32m  [class~="border-[#E4DCD5]"],[m
+[32m+[m[32m  [class~="border-[#E9D8C8]"],[m
+[32m+[m[32m  [class~="border-[#E9D8C8]/70"],[m
+[32m+[m[32m  [class~="border-[#ece5e5]"][m
+[32m+[m[32m) {[m
+[32m+[m[32m  border-color: rgba(255, 255, 255, 0.3) !important;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* Calendar labels used to be hard-coded for the light cinema page. */[m
+[32m+[m[32m.culture-dark-theme .performart-calendar,[m
+[32m+[m[32m.culture-dark-theme .performart-calendar .rdp-month_caption,[m
+[32m+[m[32m.culture-dark-theme .performart-calendar .rdp-day {[m
+[32m+[m[32m  color: #ffffff;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.culture-dark-theme .performart-calendar .rdp-weekday,[m
+[32m+[m[32m.culture-dark-theme .performart-calendar .rdp-outside {[m
+[32m+[m[32m  color: rgba(255, 255, 255, 0.58);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.culture-dark-theme .performart-calendar .rdp-day:hover {[m
+[32m+[m[32m  color: #c2272d;[m
+[32m+[m[32m  background: #000000;[m
+[32m+[m[32m}[m
+[32m+[m
+ .font-editorial {[m
+   font-family: var(--font-cormorant);[m
+ }[m
+[36m@@ -280,4 +941,1543 @@[m [mfooter {[m
+     margin-left: 0 !important;[m
+   }[m
+ [m
+[31m-}[m
+\ No newline at end of file[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* =========================================================[m
+[32m+[m[32m   DESKTOP EDITORIAL POLISH[m
+[32m+[m[32m   Scoped to the dark culture routes so the homepage and the[m
+[32m+[m[32m   carefully tuned mobile layouts remain unchanged.[m
+[32m+[m[32m   ========================================================= */[m
+[32m+[m
+[32m+[m[32m@media (min-width: 1024px) {[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .editorial-back-button,[m
+[32m+[m[32m    .event-detail-back,[m
+[32m+[m[32m    .book-detail-back a[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    position: static !important;[m
+[32m+[m[32m    inset: auto !important;[m
+[32m+[m[32m    display: inline-flex !important;[m
+[32m+[m[32m    align-items: center;[m
+[32m+[m[32m    justify-content: center;[m
+[32m+[m[32m    min-height: 44px;[m
+[32m+[m[32m    padding: 12px 22px !important;[m
+[32m+[m[32m    border: 1px solid #c2272d !important;[m
+[32m+[m[32m    color: #ffffff !important;[m
+[32m+[m[32m    font-size: 12px !important;[m
+[32m+[m[32m    line-height: 1.2;[m
+[32m+[m[32m    letter-spacing: 0.18em !important;[m
+[32m+[m[32m    white-space: nowrap;[m
+[32m+[m[32m    translate: none !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Events: a calm ending before the footer on index and detail pages. */[m
+[32m+[m[32m  .events-index-page,[m
+[32m+[m[32m  .event-detail-page {[m
+[32m+[m[32m    padding-bottom: 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .event-detail-page > br {[m
+[32m+[m[32m    display: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .event-detail-page .event-detail-back-row {[m
+[32m+[m[32m    position: relative;[m
+[32m+[m[32m    min-height: 0;[m
+[32m+[m[32m    padding-top: 190px !important;[m
+[32m+[m[32m    padding-bottom: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .event-detail-page .event-detail-main {[m
+[32m+[m[32m    padding-top: 72px !important;[m
+[32m+[m[32m    padding-bottom: 96px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .event-detail-page .related-events-section {[m
+[32m+[m[32m    padding-top: 72px !important;[m
+[32m+[m[32m    padding-bottom: 24px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Interview archive: align header/grid and keep a generous final gutter. */[m
+[32m+[m[32m  .interviews-archive-page .interviews-archive-desktop {[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    max-width: none;[m
+[32m+[m[32m    padding: 190px 48px 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .interviews-archive-page .interviews-archive-desktop > br {[m
+[32m+[m[32m    display: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .interviews-archive-page .interviews-archive-back {[m
+[32m+[m[32m    left: auto !important;[m
+[32m+[m[32m    align-self: center;[m
+[32m+[m[32m    width: min(1200px, 100%);[m
+[32m+[m[32m    margin: 0 auto 64px !important;[m
+[32m+[m[32m    padding: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .interviews-archive-page .interviews-archive-desktop > header {[m
+[32m+[m[32m    margin-bottom: 80px !important;[m
+[32m+[m[32m    text-align: center;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .interviews-archive-page .interviews-archive-desktop > header br {[m
+[32m+[m[32m    display: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .interviews-archive-page .interviews-archive-desktop > header p {[m
+[32m+[m[32m    margin-bottom: 18px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Books index: centered composition with breathing room around the frame. */[m
+[32m+[m[32m  .books-page .books-desktop-shell {[m
+[32m+[m[32m    width: min(1200px, 100%);[m
+[32m+[m[32m    max-width: 1200px;[m
+[32m+[m[32m    min-height: auto;[m
+[32m+[m[32m    margin: 0 auto;[m
+[32m+[m[32m    padding: 190px 48px 160px !important;[m
+[32m+[m[32m    translate: none !important;[m
+[32m+[m[32m    transform: none !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-title {[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    text-align: center;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-title > div:first-child {[m
+[32m+[m[32m    margin-bottom: 14px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-title h1 {[m
+[32m+[m[32m    font-size: 55px !important;[m
+[32m+[m[32m    line-height: 1;[m
+[32m+[m[32m    letter-spacing: 0.15em !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-title > div:last-child {[m
+[32m+[m[32m    width: 64px;[m
+[32m+[m[32m    margin: 26px auto 0 !important;[m
+[32m+[m[32m    background: #c2272d !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-week-section {[m
+[32m+[m[32m    margin-top: 80px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-week-card {[m
+[32m+[m[32m    max-width: 1100px;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-week-grid {[m
+[32m+[m[32m    min-height: 500px;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-cover-column {[m
+[32m+[m[32m    padding: 52px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-info-column {[m
+[32m+[m[32m    align-items: center;[m
+[32m+[m[32m    padding: 56px 64px !important;[m
+[32m+[m[32m    text-align: center;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-info-column > div:first-child {[m
+[32m+[m[32m    margin-bottom: 20px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-info-column h2 {[m
+[32m+[m[32m    margin-top: 0 !important;[m
+[32m+[m[32m    font-size: 42px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-info-column > p {[m
+[32m+[m[32m    margin-top: 22px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-info-column > p:last-of-type {[m
+[32m+[m[32m    max-width: 520px;[m
+[32m+[m[32m    margin: 30px auto 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-info-column > div:last-child {[m
+[32m+[m[32m    margin-top: 40px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-bottom-section {[m
+[32m+[m[32m    margin-top: 104px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-bottom-section > div:first-child {[m
+[32m+[m[32m    background: #c2272d !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-bottom-section p {[m
+[32m+[m[32m    margin-top: 28px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-bottom-section > div:last-child {[m
+[32m+[m[32m    margin-top: 34px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Book detail: keep the back action clear of the fixed logo. */[m
+[32m+[m[32m  .book-detail-page .book-detail-shell {[m
+[32m+[m[32m    width: min(1200px, 100%);[m
+[32m+[m[32m    max-width: 1200px;[m
+[32m+[m[32m    margin: 0 auto;[m
+[32m+[m[32m    padding: 210px 48px 160px !important;[m
+[32m+[m[32m    translate: none !important;[m
+[32m+[m[32m    transform: none !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .book-detail-page .book-detail-back {[m
+[32m+[m[32m    margin-bottom: 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .book-detail-page .book-detail-header {[m
+[32m+[m[32m    align-items: center;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .book-detail-page .book-detail-header > div:last-child > * + * {[m
+[32m+[m[32m    margin-top: 20px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .book-detail-page .book-detail-header h1 {[m
+[32m+[m[32m    font-size: 48px !important;[m
+[32m+[m[32m    line-height: 1.1;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .book-detail-page .book-detail-header p:last-child {[m
+[32m+[m[32m    margin-top: 30px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .book-detail-page .book-detail-content {[m
+[32m+[m[32m    margin-top: 96px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .book-detail-page .book-detail-content > section + section {[m
+[32m+[m[32m    margin-top: 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .book-detail-page .book-detail-content > section {[m
+[32m+[m[32m    margin-bottom: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Music index: centered, larger twin panels with readable media/text. */[m
+[32m+[m[32m  .music-page .music-desktop-shell {[m
+[32m+[m[32m    width: min(1200px, 100%);[m
+[32m+[m[32m    max-width: 1200px;[m
+[32m+[m[32m    min-height: auto;[m
+[32m+[m[32m    margin: 0 auto;[m
+[32m+[m[32m    padding: 190px 48px 160px !important;[m
+[32m+[m[32m    translate: none !important;[m
+[32m+[m[32m    transform: none !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-title > div:first-child {[m
+[32m+[m[32m    margin-bottom: 14px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-title {[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    text-align: center;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-title > * {[m
+[32m+[m[32m    text-align: center !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-title h1 {[m
+[32m+[m[32m    font-size: 55px !important;[m
+[32m+[m[32m    line-height: 1;[m
+[32m+[m[32m    letter-spacing: 0.15em !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-title > div:last-child {[m
+[32m+[m[32m    width: 64px;[m
+[32m+[m[32m    margin: 26px auto 0 !important;[m
+[32m+[m[32m    background: #c2272d !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-sections {[m
+[32m+[m[32m    gap: 32px !important;[m
+[32m+[m[32m    margin-top: 88px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page :is(.music-releases, .music-artists) {[m
+[32m+[m[32m    display: flex;[m
+[32m+[m[32m    min-height: 480px;[m
+[32m+[m[32m    flex-direction: column;[m
+[32m+[m[32m    padding: 42px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page :is(.music-releases, .music-artists) > h2 {[m
+[32m+[m[32m    margin-bottom: 42px !important;[m
+[32m+[m[32m    font-size: 16px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page :is(.music-release-grid, .music-artists-grid) {[m
+[32m+[m[32m    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)) !important;[m
+[32m+[m[32m    gap: 30px !important;[m
+[32m+[m[32m    flex: 1;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page :is(.music-release-grid, .music-artists-grid) > div {[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    max-width: 205px;[m
+[32m+[m[32m    justify-self: center;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-release-grid > div > div:first-child {[m
+[32m+[m[32m    max-width: 200px;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-release-grid > div > p:nth-of-type(1) {[m
+[32m+[m[32m    margin-top: 18px !important;[m
+[32m+[m[32m    font-size: 16px !important;[m
+[32m+[m[32m    line-height: 1.3;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-release-grid > div > p:nth-of-type(2) {[m
+[32m+[m[32m    margin-top: 8px !important;[m
+[32m+[m[32m    font-size: 13px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-release-grid > div > p:nth-of-type(3) {[m
+[32m+[m[32m    margin-top: 7px !important;[m
+[32m+[m[32m    font-size: 12px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-artists-grid > div > div:first-child {[m
+[32m+[m[32m    width: 128px;[m
+[32m+[m[32m    height: 128px;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-artists-grid > div > p:first-of-type {[m
+[32m+[m[32m    margin-top: 20px !important;[m
+[32m+[m[32m    font-size: 17px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-artists-grid > div > p:last-of-type {[m
+[32m+[m[32m    margin-top: 8px !important;[m
+[32m+[m[32m    font-size: 12px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page :is(.music-releases, .music-artists) > div:last-child {[m
+[32m+[m[32m    margin-top: auto !important;[m
+[32m+[m[32m    padding-top: 42px;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-bottom-section {[m
+[32m+[m[32m    margin-top: 104px !important;[m
+[32m+[m[32m    padding-bottom: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-bottom-section > div {[m
+[32m+[m[32m    margin-top: 34px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Music list pages share one centered rhythm and heading scale. */[m
+[32m+[m[32m  .music-list-page .editorial-list-shell {[m
+[32m+[m[32m    width: min(1200px, 100%);[m
+[32m+[m[32m    max-width: 1200px;[m
+[32m+[m[32m    margin: 0 auto;[m
+[32m+[m[32m    padding: 210px 48px 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-list-header {[m
+[32m+[m[32m    margin-top: 72px !important;[m
+[32m+[m[32m    text-align: center;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-list-header > p {[m
+[32m+[m[32m    margin-bottom: 16px !important;[m
+[32m+[m[32m    font-size: 13px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-list-header h1 {[m
+[32m+[m[32m    margin-top: 0 !important;[m
+[32m+[m[32m    font-size: clamp(40px, 3vw, 46px) !important;[m
+[32m+[m[32m    line-height: 1.1;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-list-header > div:last-child {[m
+[32m+[m[32m    margin: 30px auto 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-list-grid {[m
+[32m+[m[32m    gap: 72px 40px !important;[m
+[32m+[m[32m    margin-top: 88px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-list-grid article h2 {[m
+[32m+[m[32m    margin-top: 22px !important;[m
+[32m+[m[32m    font-size: 30px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-list-grid article > p {[m
+[32m+[m[32m    margin-top: 12px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-list-grid article > a:last-child {[m
+[32m+[m[32m    margin-top: 26px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Individual music/artist pages follow the same safe header spacing. */[m
+[32m+[m[32m  :is(.music-detail-page, .artist-detail-page) .music-detail-shell {[m
+[32m+[m[32m    width: min(1200px, 100%);[m
+[32m+[m[32m    max-width: 1200px;[m
+[32m+[m[32m    margin: 0 auto;[m
+[32m+[m[32m    padding: 210px 48px 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  :is(.music-detail-page, .artist-detail-page) .music-detail-hero {[m
+[32m+[m[32m    margin-top: 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* Music archive pages did not have a mobile header offset, so their back[m
+[32m+[m[32m   actions used to sit underneath the fixed logo. */[m
+[32m+[m[32m@media (max-width: 1023px) {[m
+[32m+[m[32m  .music-list-page .editorial-list-shell {[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    max-width: 100%;[m
+[32m+[m[32m    margin: 0 auto;[m
+[32m+[m[32m    padding: 150px 24px 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-list-header {[m
+[32m+[m[32m    margin-top: 48px !important;[m
+[32m+[m[32m    text-align: center;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-list-header > p {[m
+[32m+[m[32m    margin-bottom: 14px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-list-header > div:last-child {[m
+[32m+[m[32m    margin: 24px auto 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-list-grid {[m
+[32m+[m[32m    gap: 56px !important;[m
+[32m+[m[32m    margin-top: 64px !important;[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* =========================================================[m
+[32m+[m[32m   RESPONSIVE CULTURE ALIGNMENT[m
+[32m+[m[32m   The Events page is the reference: 17vw content axis,[m
+[32m+[m[32m   title label at 72px and main title at roughly 116px.[m
+[32m+[m[32m   ========================================================= */[m
+[32m+[m
+[32m+[m[32m@media (min-width: 1024px) {[m
+[32m+[m[32m  .culture-dark-theme {[m
+[32m+[m[32m    --culture-axis: 17vw;[m
+[32m+[m[32m    --culture-width: 69vw;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* ---------- Landing-page shells and titles ---------- */[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-desktop-shell,[m
+[32m+[m[32m    .music-page .music-desktop-shell,[m
+[32m+[m[32m    .cinema-page .culture-hero-shell,[m
+[32m+[m[32m    .festivals-page .culture-hero-shell[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    width: var(--culture-width) !important;[m
+[32m+[m[32m    max-width: none !important;[m
+[32m+[m[32m    min-height: auto;[m
+[32m+[m[32m    margin: 0 0 0 var(--culture-axis) !important;[m
+[32m+[m[32m    padding: 72px 0 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-title,[m
+[32m+[m[32m    .music-page .music-title,[m
+[32m+[m[32m    .cinema-page .cinema-hero-title,[m
+[32m+[m[32m    .festivals-page .festival-hero-title[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    max-width: none;[m
+[32m+[m[32m    text-align: left !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-title,[m
+[32m+[m[32m    .music-page .music-title[m
+[32m+[m[32m  ) > * {[m
+[32m+[m[32m    text-align: left !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-title > div:first-child,[m
+[32m+[m[32m    .music-page .music-title > div:first-child,[m
+[32m+[m[32m    .cinema-page .cinema-hero-title > div,[m
+[32m+[m[32m    .festivals-page .festival-hero-title > div,[m
+[32m+[m[32m    .giveaways-page .giveaways-mobile-header > p:first-child[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    min-height: 20px;[m
+[32m+[m[32m    margin: 0 0 24px !important;[m
+[32m+[m[32m    font-size: 13px !important;[m
+[32m+[m[32m    line-height: 20px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-title h1,[m
+[32m+[m[32m    .music-page .music-title h1,[m
+[32m+[m[32m    .cinema-page .cinema-hero-title h1,[m
+[32m+[m[32m    .festivals-page .festival-hero-title h1,[m
+[32m+[m[32m    .giveaways-page .giveaways-mobile-header h1[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    margin: 0 !important;[m
+[32m+[m[32m    font-size: 55px !important;[m
+[32m+[m[32m    line-height: 1 !important;[m
+[32m+[m[32m    letter-spacing: 0.15em !important;[m
+[32m+[m[32m    text-align: left !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-title > div:last-child,[m
+[32m+[m[32m    .music-page .music-title > div:last-child[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    margin: 26px 0 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .culture-hero-shell,[m
+[32m+[m[32m  .festivals-page .culture-hero-shell {[m
+[32m+[m[32m    padding-bottom: 54px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .culture-hero-shell > div,[m
+[32m+[m[32m  .festivals-page .culture-hero-shell > div {[m
+[32m+[m[32m    display: block;[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    max-width: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .cinema-page .cinema-hero-title,[m
+[32m+[m[32m    .festivals-page .festival-hero-title[m
+[32m+[m[32m  ) p {[m
+[32m+[m[32m    margin-top: 26px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-week-card {[m
+[32m+[m[32m    margin-left: 0 !important;[m
+[32m+[m[32m    margin-right: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page {[m
+[32m+[m[32m    align-items: flex-start !important;[m
+[32m+[m[32m    padding: 72px 0 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page :is(.giveaways-mobile-header, .giveaways-mobile-list) {[m
+[32m+[m[32m    width: var(--culture-width) !important;[m
+[32m+[m[32m    max-width: none !important;[m
+[32m+[m[32m    margin-left: var(--culture-axis) !important;[m
+[32m+[m[32m    margin-right: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-header {[m
+[32m+[m[32m    margin-bottom: 72px !important;[m
+[32m+[m[32m    text-align: left !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-header > p:last-child {[m
+[32m+[m[32m    max-width: 680px;[m
+[32m+[m[32m    margin: 28px 0 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* ---------- Landing-page content follows the title axis ---------- */[m
+[32m+[m[32m  .cinema-page .cinema-main-section,[m
+[32m+[m[32m  .festivals-page .festivals-main-section {[m
+[32m+[m[32m    padding: 72px 0 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-main-grid,[m
+[32m+[m[32m  .festivals-page .festivals-main-grid {[m
+[32m+[m[32m    width: var(--culture-width) !important;[m
+[32m+[m[32m    max-width: none !important;[m
+[32m+[m[32m    margin: 0 0 0 var(--culture-axis) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-reviews-section {[m
+[32m+[m[32m    margin-top: 104px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-reviews {[m
+[32m+[m[32m    margin-top: 0 !important;[m
+[32m+[m[32m    padding: 80px 0 112px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-reviews-container {[m
+[32m+[m[32m    width: var(--culture-width) !important;[m
+[32m+[m[32m    max-width: none !important;[m
+[32m+[m[32m    margin: 0 0 0 var(--culture-axis) !important;[m
+[32m+[m[32m    translate: none !important;[m
+[32m+[m[32m    transform: none !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-reviews-header {[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    margin-bottom: 44px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-reviews-grid {[m
+[32m+[m[32m    margin-top: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-reviews-all-button {[m
+[32m+[m[32m    translate: none !important;[m
+[32m+[m[32m    transform: none !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-archive-section {[m
+[32m+[m[32m    width: var(--culture-width) !important;[m
+[32m+[m[32m    max-width: none !important;[m
+[32m+[m[32m    margin: 104px 0 0 var(--culture-axis) !important;[m
+[32m+[m[32m    padding: 0 !important;[m
+[32m+[m[32m    align-items: stretch !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-archive-section > div:first-child {[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    margin-bottom: 64px !important;[m
+[32m+[m[32m    text-align: left !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-archive-section h2 {[m
+[32m+[m[32m    text-align: left !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-archive-section > div:first-child > div {[m
+[32m+[m[32m    margin-left: 0 !important;[m
+[32m+[m[32m    margin-right: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-archive-grid {[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    max-width: none;[m
+[32m+[m[32m    margin: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-page .festivals-archive-grid article {[m
+[32m+[m[32m    justify-self: start;[m
+[32m+[m[32m    margin: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* ---------- Listing/archive subpages ---------- */[m
+[32m+[m[32m  .music-list-page .editorial-list-shell,[m
+[32m+[m[32m  .screenings-page .screenings-title-inner,[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-hero,[m
+[32m+[m[32m  .festivals-archive-page .festivals-archive-container {[m
+[32m+[m[32m    position: relative;[m
+[32m+[m[32m    width: var(--culture-width) !important;[m
+[32m+[m[32m    max-width: none !important;[m
+[32m+[m[32m    margin: 0 0 0 var(--culture-axis) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-list-shell,[m
+[32m+[m[32m  .festivals-archive-page .festivals-archive-container {[m
+[32m+[m[32m    padding: 72px 0 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .screenings-page .screenings-title-section,[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-hero {[m
+[32m+[m[32m    padding: 72px 0 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-list-header,[m
+[32m+[m[32m  .festivals-archive-page .festivals-archive-header {[m
+[32m+[m[32m    margin-top: 0 !important;[m
+[32m+[m[32m    text-align: left !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-list-header > p,[m
+[32m+[m[32m  .screenings-page .screenings-label,[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-kicker,[m
+[32m+[m[32m  .festivals-archive-page .festivals-archive-header > p {[m
+[32m+[m[32m    min-height: 20px;[m
+[32m+[m[32m    margin: 0 0 24px !important;[m
+[32m+[m[32m    font-size: 13px !important;[m
+[32m+[m[32m    line-height: 20px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .music-list-page .editorial-list-header h1,[m
+[32m+[m[32m    .screenings-page .screenings-title,[m
+[32m+[m[32m    .cinema-reviews-page .cinema-reviews-title,[m
+[32m+[m[32m    .festivals-archive-page .festivals-archive-header h1[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    margin: 0 !important;[m
+[32m+[m[32m    font-size: 46px !important;[m
+[32m+[m[32m    line-height: 1.1 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-list-page .editorial-back-button,[m
+[32m+[m[32m  .screenings-page .screenings-back,[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-back-wrap,[m
+[32m+[m[32m  .festivals-archive-page .festivals-archive-back {[m
+[32m+[m[32m    position: absolute !important;[m
+[32m+[m[32m    inset: 112px 0 auto auto !important;[m
+[32m+[m[32m    z-index: 20;[m
+[32m+[m[32m    width: auto !important;[m
+[32m+[m[32m    margin: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .screenings-page .screenings-back,[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-back-wrap {[m
+[32m+[m[32m    top: 40px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme .music-list-page .editorial-list-shell > .editorial-back-button {[m
+[32m+[m[32m    position: absolute !important;[m
+[32m+[m[32m    inset: 112px 0 auto auto !important;[m
+[32m+[m[32m    margin: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme .cinema-reviews-page .cinema-reviews-back-wrap {[m
+[32m+[m[32m    top: 112px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .screenings-page .screenings-filters-section,[m
+[32m+[m[32m  .screenings-page .screenings-content-section {[m
+[32m+[m[32m    padding-left: 0 !important;[m
+[32m+[m[32m    padding-right: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .screenings-page .screenings-filters,[m
+[32m+[m[32m  .screenings-page .screenings-content-inner,[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-list {[m
+[32m+[m[32m    width: var(--culture-width) !important;[m
+[32m+[m[32m    max-width: none !important;[m
+[32m+[m[32m    margin-left: var(--culture-axis) !important;[m
+[32m+[m[32m    margin-right: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-reviews-page .cinema-reviews-list {[m
+[32m+[m[32m    margin-top: 72px !important;[m
+[32m+[m[32m    padding: 0 0 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festivals-archive-page .festivals-archive-header {[m
+[32m+[m[32m    margin-bottom: 64px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* ---------- Individual content pages ---------- */[m
+[32m+[m[32m  .book-detail-page .book-detail-shell,[m
+[32m+[m[32m  :is(.music-detail-page, .artist-detail-page) .music-detail-shell,[m
+[32m+[m[32m  .cinema-detail-page .cinema-detail-shell {[m
+[32m+[m[32m    width: var(--culture-width) !important;[m
+[32m+[m[32m    max-width: none !important;[m
+[32m+[m[32m    margin: 0 0 0 var(--culture-axis) !important;[m
+[32m+[m[32m    padding: 72px 0 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .book-detail-page .book-detail-back,[m
+[32m+[m[32m  .cinema-detail-page .cinema-detail-shell > div:first-child {[m
+[32m+[m[32m    margin: 0 0 48px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  :is(.music-detail-page, .artist-detail-page) .editorial-back-button {[m
+[32m+[m[32m    margin-bottom: 48px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  :is(.music-detail-page, .artist-detail-page) .music-detail-hero {[m
+[32m+[m[32m    margin-top: 48px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .book-detail-page .book-detail-header,[m
+[32m+[m[32m  .book-detail-page .book-detail-header > div:last-child,[m
+[32m+[m[32m  :is(.music-detail-page, .artist-detail-page) .music-detail-hero > div:last-child {[m
+[32m+[m[32m    align-items: start;[m
+[32m+[m[32m    justify-content: flex-start;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .book-detail-page .book-detail-header h1,[m
+[32m+[m[32m  :is(.music-detail-page, .artist-detail-page) .music-detail-hero h1,[m
+[32m+[m[32m  .cinema-detail-page .cinema-detail-shell h1 {[m
+[32m+[m[32m    margin-top: 24px !important;[m
+[32m+[m[32m    font-size: 48px !important;[m
+[32m+[m[32m    line-height: 1.1 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festival-single-page .festival-single-back {[m
+[32m+[m[32m    width: var(--culture-width) !important;[m
+[32m+[m[32m    max-width: none !important;[m
+[32m+[m[32m    margin: 0 0 0 var(--culture-axis) !important;[m
+[32m+[m[32m    padding: 72px 0 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festival-single-page .festival-single-main {[m
+[32m+[m[32m    width: var(--culture-width) !important;[m
+[32m+[m[32m    max-width: none !important;[m
+[32m+[m[32m    margin: 0 0 0 var(--culture-axis) !important;[m
+[32m+[m[32m    padding: 48px 0 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .festival-single-page .festival-single-header h1 {[m
+[32m+[m[32m    margin-top: 24px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page {[m
+[32m+[m[32m    position: relative;[m
+[32m+[m[32m    align-items: flex-start !important;[m
+[32m+[m[32m    padding: 72px 0 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page :is([m
+[32m+[m[32m    .giveaway-single-back,[m
+[32m+[m[32m    .giveaway-single-header,[m
+[32m+[m[32m    .giveaway-single-content[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    width: var(--culture-width) !important;[m
+[32m+[m[32m    max-width: none !important;[m
+[32m+[m[32m    margin-left: var(--culture-axis) !important;[m
+[32m+[m[32m    margin-right: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-back {[m
+[32m+[m[32m    margin-bottom: 48px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-header {[m
+[32m+[m[32m    margin-bottom: 64px !important;[m
+[32m+[m[32m    text-align: left !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-header h1 {[m
+[32m+[m[32m    margin: 24px 0 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-review-detail-page {[m
+[32m+[m[32m    padding: 72px 0 160px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-review-detail-page .cinema-review-detail-back,[m
+[32m+[m[32m  .cinema-review-detail-page .cinema-review-detail-content {[m
+[32m+[m[32m    width: var(--culture-width) !important;[m
+[32m+[m[32m    max-width: none !important;[m
+[32m+[m[32m    margin-left: var(--culture-axis) !important;[m
+[32m+[m[32m    margin-right: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-review-detail-page .cinema-review-detail-back {[m
+[32m+[m[32m    margin-bottom: 48px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-review-detail-page .cinema-review-detail-copy h1 {[m
+[32m+[m[32m    margin-top: 24px !important;[m
+[32m+[m[32m    font-size: 48px !important;[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* Laptop widths: preserve the Events axis, but compact grids and imagery. */[m
+[32m+[m[32m@media (min-width: 1024px) and (max-width: 1599px) {[m
+[32m+[m[32m  .cinema-page .cinema-main-grid,[m
+[32m+[m[32m  .festivals-page .festivals-main-grid {[m
+[32m+[m[32m    grid-template-columns: minmax(0, 1.2fr) minmax(270px, 0.8fr) !important;[m
+[32m+[m[32m    gap: 40px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-sections {[m
+[32m+[m[32m    gap: 24px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page :is(.music-releases, .music-artists) {[m
+[32m+[m[32m    min-height: 440px;[m
+[32m+[m[32m    padding: 32px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-release-grid > div > div:first-child {[m
+[32m+[m[32m    max-width: 180px;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .music-page .music-artists-grid > div > div:first-child {[m
+[32m+[m[32m    width: 112px;[m
+[32m+[m[32m    height: 112px;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-card {[m
+[32m+[m[32m    gap: 48px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .book-detail-page .book-detail-header,[m
+[32m+[m[32m  :is(.music-detail-page, .artist-detail-page) .music-detail-hero,[m
+[32m+[m[32m  .cinema-detail-page .cinema-detail-shell > div:last-child,[m
+[32m+[m[32m  .cinema-review-detail-page .cinema-review-detail-content {[m
+[32m+[m[32m    gap: 48px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  :is(.music-detail-page, .artist-detail-page) .music-detail-hero {[m
+[32m+[m[32m    grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-content {[m
+[32m+[m[32m    gap: 36px !important;[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* =========================================================[m
+[32m+[m[32m   FLUID DESKTOP SCALE[m
+[32m+[m[32m   vmin follows the smaller viewport dimension, so OS display scaling,[m
+[32m+[m[32m   browser resizing and short laptop screens produce proportional layouts.[m
+[32m+[m[32m   ========================================================= */[m
+[32m+[m
+[32m+[m[32m:root {[m
+[32m+[m[32m  --fluid-header-height: clamp(84px, 10vmin, 110px);[m
+[32m+[m[32m  --fluid-page-top: clamp(118px, 16vmin, 176px);[m
+[32m+[m[32m  --fluid-display-title: clamp(34px, 4.6vmin, 55px);[m
+[32m+[m[32m  --fluid-section-title: clamp(32px, 4.1vmin, 48px);[m
+[32m+[m[32m  --fluid-body-large: clamp(16px, 2.1vmin, 24px);[m
+[32m+[m[32m  --fluid-copy-gap: clamp(34px, 7vmin, 82px);[m
+[32m+[m[32m  --fluid-grid-gap: clamp(16px, 2.2vmin, 28px);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m@media (min-width: 768px) {[m
+[32m+[m[32m  .hero-container {[m
+[32m+[m[32m    width: calc(100vw - 12vmin) !important;[m
+[32m+[m[32m    max-width: 1280px !important;[m
+[32m+[m[32m    margin-left: auto !important;[m
+[32m+[m[32m    margin-right: auto !important;[m
+[32m+[m[32m    padding-left: clamp(32px, 6vmin, 80px) !important;[m
+[32m+[m[32m    padding-right: clamp(32px, 6vmin, 80px) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .hero-copy {[m
+[32m+[m[32m    width: min(720px, 74vmin) !important;[m
+[32m+[m[32m    max-width: 100% !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .hero-title {[m
+[32m+[m[32m    font-size: var(--fluid-display-title) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .hero-description {[m
+[32m+[m[32m    width: min(430px, 40vmin) !important;[m
+[32m+[m[32m    margin-top: var(--fluid-copy-gap) !important;[m
+[32m+[m[32m    font-size: var(--fluid-body-large) !important;[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m@media (min-width: 1024px) {[m
+[32m+[m[32m  .culture-dark-theme {[m
+[32m+[m[32m    --culture-axis: 17vw;[m
+[32m+[m[32m    --culture-width: 69vw;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .events-page {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    padding-left: 17vw !important;[m
+[32m+[m[32m    padding-right: 14vw !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .events-page > section,[m
+[32m+[m[32m  .events-page > div {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-desktop-shell,[m
+[32m+[m[32m    .music-page .music-desktop-shell,[m
+[32m+[m[32m    .cinema-page .culture-hero-shell,[m
+[32m+[m[32m    .festivals-page .culture-hero-shell,[m
+[32m+[m[32m    .music-list-page .editorial-list-shell,[m
+[32m+[m[32m    .book-detail-page .book-detail-shell,[m
+[32m+[m[32m    .music-detail-page .music-detail-shell,[m
+[32m+[m[32m    .artist-detail-page .music-detail-shell,[m
+[32m+[m[32m    .cinema-detail-page .cinema-detail-shell,[m
+[32m+[m[32m    .festivals-archive-page .festivals-archive-container[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    padding-top: var(--fluid-page-top) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-title h1,[m
+[32m+[m[32m    .music-page .music-title h1,[m
+[32m+[m[32m    .cinema-page .cinema-hero-title h1,[m
+[32m+[m[32m    .festivals-page .festival-hero-title h1,[m
+[32m+[m[32m    .giveaways-page .giveaways-mobile-header h1[m
+[32m+[m[32m  ),[m
+[32m+[m[32m  .events-page .events-main-title,[m
+[32m+[m[32m  .interviews-page .interviews-hero-title h1 {[m
+[32m+[m[32m    font-size: var(--fluid-display-title) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .music-list-page .editorial-list-header h1,[m
+[32m+[m[32m    .screenings-page .screenings-title,[m
+[32m+[m[32m    .cinema-reviews-page .cinema-reviews-title,[m
+[32m+[m[32m    .festivals-archive-page .festivals-archive-header h1[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    font-size: var(--fluid-section-title) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme .giveaways-page,[m
+[32m+[m[32m  .culture-dark-theme .giveaway-single-page,[m
+[32m+[m[32m  .culture-dark-theme .cinema-review-detail-page,[m
+[32m+[m[32m  .culture-dark-theme .festival-single-page .festival-single-back,[m
+[32m+[m[32m  .culture-dark-theme .screenings-page .screenings-title-section,[m
+[32m+[m[32m  .culture-dark-theme .cinema-reviews-page .cinema-reviews-hero,[m
+[32m+[m[32m  .interviews-archive-page .interviews-archive-desktop,[m
+[32m+[m[32m  .interviews-page .interviews-hero-container {[m
+[32m+[m[32m    padding-top: var(--fluid-page-top) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-main-grid,[m
+[32m+[m[32m  .festivals-page .festivals-main-grid,[m
+[32m+[m[32m  .music-page .music-sections,[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-card,[m
+[32m+[m[32m  .book-detail-page .book-detail-header,[m
+[32m+[m[32m  :is(.music-detail-page, .artist-detail-page) .music-detail-hero,[m
+[32m+[m[32m  .cinema-detail-page .cinema-detail-shell > div:last-child,[m
+[32m+[m[32m  .cinema-review-detail-page .cinema-review-detail-content,[m
+[32m+[m[32m  .festival-single-page .festival-single-intro-grid,[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-content {[m
+[32m+[m[32m    gap: var(--fluid-grid-gap) !important;[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* Tablet / very small laptop layouts. */[m
+[32m+[m[32m@media (min-width: 768px) and (max-width: 1023px) {[m
+[32m+[m[32m  .culture-dark-theme {[m
+[32m+[m[32m    --culture-axis: 48px;[m
+[32m+[m[32m    --culture-width: calc(100vw - 96px);[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-desktop-shell,[m
+[32m+[m[32m    .music-page .music-desktop-shell,[m
+[32m+[m[32m    .cinema-page .culture-hero-shell,[m
+[32m+[m[32m    .festivals-page .culture-hero-shell,[m
+[32m+[m[32m    .music-list-page .editorial-list-shell,[m
+[32m+[m[32m    .book-detail-page .book-detail-shell,[m
+[32m+[m[32m    .music-detail-page .music-detail-shell,[m
+[32m+[m[32m    .artist-detail-page .music-detail-shell,[m
+[32m+[m[32m    .cinema-detail-page .cinema-detail-shell,[m
+[32m+[m[32m    .festivals-archive-page .festivals-archive-container[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    width: var(--culture-width) !important;[m
+[32m+[m[32m    max-width: none !important;[m
+[32m+[m[32m    margin: 0 0 0 var(--culture-axis) !important;[m
+[32m+[m[32m    padding: 140px 0 96px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .culture-hero-shell,[m
+[32m+[m[32m  .festivals-page .culture-hero-shell {[m
+[32m+[m[32m    padding-bottom: 64px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .culture-hero-shell > div,[m
+[32m+[m[32m  .festivals-page .culture-hero-shell > div {[m
+[32m+[m[32m    display: block;[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    max-width: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .books-title,[m
+[32m+[m[32m    .music-title,[m
+[32m+[m[32m    .cinema-hero-title,[m
+[32m+[m[32m    .festival-hero-title[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    width: 100%;[m
+[32m+[m[32m    max-width: none;[m
+[32m+[m[32m    text-align: left !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .books-title h1,[m
+[32m+[m[32m    .music-title h1,[m
+[32m+[m[32m    .cinema-hero-title h1,[m
+[32m+[m[32m    .festival-hero-title h1,[m
+[32m+[m[32m    .giveaways-mobile-header h1[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    font-size: 48px !important;[m
+[32m+[m[32m    line-height: 1.05 !important;[m
+[32m+[m[32m    text-align: left !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-main-section,[m
+[32m+[m[32m  .festivals-page .festivals-main-section {[m
+[32m+[m[32m    padding: 64px 0 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-main-grid,[m
+[32m+[m[32m  .festivals-page .festivals-main-grid,[m
+[32m+[m[32m  .cinema-page .cinema-reviews-container,[m
+[32m+[m[32m  .festivals-page .festivals-archive-section,[m
+[32m+[m[32m  .giveaways-page :is(.giveaways-mobile-header, .giveaways-mobile-list) {[m
+[32m+[m[32m    width: var(--culture-width) !important;[m
+[32m+[m[32m    max-width: none !important;[m
+[32m+[m[32m    margin-left: var(--culture-axis) !important;[m
+[32m+[m[32m    margin-right: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .cinema-page .cinema-reviews,[m
+[32m+[m[32m  .festivals-page .festivals-archive-section {[m
+[32m+[m[32m    padding-left: 0 !important;[m
+[32m+[m[32m    padding-right: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page {[m
+[32m+[m[32m    align-items: flex-start !important;[m
+[32m+[m[32m    padding: 140px 0 96px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaways-page .giveaways-mobile-header {[m
+[32m+[m[32m    text-align: left !important;[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* Mobile: compact headers, single-column flow and text-only white actions. */[m
+[32m+[m[32m@media (max-width: 767px) {[m
+[32m+[m[32m  html body .culture-dark-theme main :is(a, button) {[m
+[32m+[m[32m    border-color: transparent !important;[m
+[32m+[m[32m    outline: 0 !important;[m
+[32m+[m[32m    box-shadow: none !important;[m
+[32m+[m[32m    color: #ffffff !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme main :is(a, button) :is(span, p) {[m
+[32m+[m[32m    color: #ffffff !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-desktop-shell,[m
+[32m+[m[32m    .music-page .music-desktop-shell,[m
+[32m+[m[32m    .cinema-page .culture-hero-shell,[m
+[32m+[m[32m    .festivals-page .culture-hero-shell[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    max-width: 100% !important;[m
+[32m+[m[32m    margin: 0 !important;[m
+[32m+[m[32m    padding: 125px 20px 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-title,[m
+[32m+[m[32m    .music-page .music-title,[m
+[32m+[m[32m    .cinema-page .cinema-hero-title,[m
+[32m+[m[32m    .festivals-page .festival-hero-title,[m
+[32m+[m[32m    .giveaways-page .giveaways-mobile-header[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    max-width: 100% !important;[m
+[32m+[m[32m    margin-left: 0 !important;[m
+[32m+[m[32m    margin-right: 0 !important;[m
+[32m+[m[32m    text-align: center !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-title > div:first-child,[m
+[32m+[m[32m    .music-page .music-title > div:first-child,[m
+[32m+[m[32m    .cinema-page .cinema-hero-title > div,[m
+[32m+[m[32m    .festivals-page .festival-hero-title > div,[m
+[32m+[m[32m    .giveaways-page .giveaways-mobile-header > p:first-child[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    margin: 0 0 12px !important;[m
+[32m+[m[32m    font-size: 10px !important;[m
+[32m+[m[32m    line-height: 16px !important;[m
+[32m+[m[32m    text-align: center !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-title h1,[m
+[32m+[m[32m    .music-page .music-title h1,[m
+[32m+[m[32m    .cinema-page .cinema-hero-title h1,[m
+[32m+[m[32m    .festivals-page .festival-hero-title h1,[m
+[32m+[m[32m    .giveaways-page .giveaways-mobile-header h1[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    margin: 0 !important;[m
+[32m+[m[32m    font-size: 34px !important;[m
+[32m+[m[32m    line-height: 1.08 !important;[m
+[32m+[m[32m    letter-spacing: 0.08em !important;[m
+[32m+[m[32m    text-align: center !important;[m
+[32m+[m[32m    white-space: normal !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-title > div:last-child,[m
+[32m+[m[32m    .music-page .music-title > div:last-child[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    margin: 20px auto 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme .giveaways-page {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    max-width: 100% !important;[m
+[32m+[m[32m    align-items: stretch !important;[m
+[32m+[m[32m    padding: 125px 20px 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme .giveaways-page :is([m
+[32m+[m[32m    .giveaways-mobile-header,[m
+[32m+[m[32m    .giveaways-mobile-list[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    max-width: 100% !important;[m
+[32m+[m[32m    margin-left: 0 !important;[m
+[32m+[m[32m    margin-right: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme .giveaways-page .giveaways-mobile-header {[m
+[32m+[m[32m    margin-bottom: 52px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme .giveaways-page .giveaways-mobile-header > p:last-child {[m
+[32m+[m[32m    margin: 22px auto 0 !important;[m
+[32m+[m[32m    font-size: 14px !important;[m
+[32m+[m[32m    line-height: 1.6 !important;[m
+[32m+[m[32m    text-align: center !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme .cinema-page .cinema-main-section,[m
+[32m+[m[32m  html body .culture-dark-theme .festivals-page .festivals-main-section {[m
+[32m+[m[32m    padding-top: 48px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme .cinema-page .cinema-reviews-header {[m
+[32m+[m[32m    margin-bottom: 32px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Archive/list page shells. */[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .music-list-page .editorial-list-shell,[m
+[32m+[m[32m    .festivals-archive-page .festivals-archive-container[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    max-width: 100% !important;[m
+[32m+[m[32m    margin: 0 !important;[m
+[32m+[m[32m    padding: 125px 20px 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .music-list-page .editorial-back-button,[m
+[32m+[m[32m    .screenings-page .screenings-back,[m
+[32m+[m[32m    .cinema-reviews-page .cinema-reviews-back-wrap,[m
+[32m+[m[32m    .festivals-archive-page .festivals-archive-back[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    position: static !important;[m
+[32m+[m[32m    inset: auto !important;[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    margin: 0 0 36px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .music-list-page .editorial-list-header,[m
+[32m+[m[32m    .festivals-archive-page .festivals-archive-header[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    margin: 0 !important;[m
+[32m+[m[32m    text-align: center !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .music-list-page .editorial-list-header h1,[m
+[32m+[m[32m    .screenings-page .screenings-title,[m
+[32m+[m[32m    .cinema-reviews-page .cinema-reviews-title,[m
+[32m+[m[32m    .festivals-archive-page .festivals-archive-header h1[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    font-size: 32px !important;[m
+[32m+[m[32m    line-height: 1.12 !important;[m
+[32m+[m[32m    text-align: center !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Individual content-page shells. */[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .book-detail-page .book-detail-shell,[m
+[32m+[m[32m    .music-detail-page .music-detail-shell,[m
+[32m+[m[32m    .artist-detail-page .music-detail-shell,[m
+[32m+[m[32m    .cinema-detail-page .cinema-detail-shell[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    max-width: 100% !important;[m
+[32m+[m[32m    margin: 0 !important;[m
+[32m+[m[32m    padding: 125px 20px 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .book-detail-page .book-detail-back,[m
+[32m+[m[32m    .cinema-detail-page .cinema-detail-shell > div:first-child[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    margin-bottom: 36px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .music-detail-page,[m
+[32m+[m[32m    .artist-detail-page[m
+[32m+[m[32m  ) .editorial-back-button {[m
+[32m+[m[32m    position: static !important;[m
+[32m+[m[32m    margin-bottom: 36px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .music-detail-page,[m
+[32m+[m[32m    .artist-detail-page[m
+[32m+[m[32m  ) .music-detail-hero {[m
+[32m+[m[32m    margin-top: 36px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .book-detail-page,[m
+[32m+[m[32m    .music-detail-page,[m
+[32m+[m[32m    .artist-detail-page,[m
+[32m+[m[32m    .cinema-detail-page,[m
+[32m+[m[32m    .festival-single-page,[m
+[32m+[m[32m    .giveaway-single-page,[m
+[32m+[m[32m    .cinema-review-detail-page[m
+[32m+[m[32m  ) h1 {[m
+[32m+[m[32m    font-size: 32px !important;[m
+[32m+[m[32m    line-height: 1.12 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme .festival-single-page .festival-single-back {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    max-width: 100% !important;[m
+[32m+[m[32m    margin: 0 !important;[m
+[32m+[m[32m    padding: 125px 20px 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme .festival-single-page .festival-single-main {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    max-width: 100% !important;[m
+[32m+[m[32m    margin: 0 !important;[m
+[32m+[m[32m    padding: 36px 20px 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme .giveaway-single-page,[m
+[32m+[m[32m  html body .culture-dark-theme .cinema-review-detail-page {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    max-width: 100% !important;[m
+[32m+[m[32m    padding: 125px 20px 72px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .giveaway-single-page .giveaway-single-back,[m
+[32m+[m[32m    .cinema-review-detail-page .cinema-review-detail-back[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    margin-bottom: 36px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme :is([m
+[32m+[m[32m    .giveaway-single-page .giveaway-single-back,[m
+[32m+[m[32m    .giveaway-single-page .giveaway-single-header,[m
+[32m+[m[32m    .giveaway-single-page .giveaway-single-content,[m
+[32m+[m[32m    .cinema-review-detail-page .cinema-review-detail-back,[m
+[32m+[m[32m    .cinema-review-detail-page .cinema-review-detail-content[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    max-width: 100% !important;[m
+[32m+[m[32m    margin-left: 0 !important;[m
+[32m+[m[32m    margin-right: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  html body .culture-dark-theme main :is([m
+[32m+[m[32m    .editorial-back-button,[m
+[32m+[m[32m    .event-detail-back,[m
+[32m+[m[32m    .book-detail-back a,[m
+[32m+[m[32m    .giveaway-single-back a,[m
+[32m+[m[32m    .festival-single-back a,[m
+[32m+[m[32m    .festivals-archive-back a,[m
+[32m+[m[32m    .cinema-reviews-back,[m
+[32m+[m[32m    .screenings-back a[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    min-height: 0 !important;[m
+[32m+[m[32m    padding: 0 !important;[m
+[32m+[m[32m    border: 0 !important;[m
+[32m+[m[32m    background: transparent !important;[m
+[32m+[m[32m    color: #ffffff !important;[m
+[32m+[m[32m    font-size: 10px !important;[m
+[32m+[m[32m    line-height: 1.4 !important;[m
+[32m+[m[32m    letter-spacing: 0.12em !important;[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* =========================================================[m
+[32m+[m[32m   LAPTOP LAYOUT — 1024px to 1599px[m
+[32m+[m[32m   Keeps the established mobile and wide-desktop compositions intact.[m
+[32m+[m[32m   ========================================================= */[m
+[32m+[m
+[32m+[m[32m@media (min-width: 1024px) and (max-width: 1599px) {[m
+[32m+[m[32m  :root {[m
+[32m+[m[32m    --laptop-gutter: 17vw;[m
+[32m+[m[32m    --laptop-content: 69vw;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme {[m
+[32m+[m[32m    --culture-axis: var(--laptop-gutter);[m
+[32m+[m[32m    --culture-width: var(--laptop-content);[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Keep every editorial page clear of the fixed header. */[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-desktop-shell,[m
+[32m+[m[32m    .music-page .music-desktop-shell,[m
+[32m+[m[32m    .cinema-page .culture-hero-shell,[m
+[32m+[m[32m    .festivals-page .culture-hero-shell,[m
+[32m+[m[32m    .music-list-page .editorial-list-shell,[m
+[32m+[m[32m    .book-detail-page .book-detail-shell,[m
+[32m+[m[32m    .music-detail-page .music-detail-shell,[m
+[32m+[m[32m    .artist-detail-page .music-detail-shell,[m
+[32m+[m[32m    .cinema-detail-page .cinema-detail-shell,[m
+[32m+[m[32m    .festivals-archive-page .festivals-archive-container[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    padding-top: var(--fluid-page-top) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .books-page .books-title h1,[m
+[32m+[m[32m    .music-page .music-title h1,[m
+[32m+[m[32m    .cinema-page .cinema-hero-title h1,[m
+[32m+[m[32m    .festivals-page .festival-hero-title h1,[m
+[32m+[m[32m    .giveaways-page .giveaways-mobile-header h1[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    font-size: var(--fluid-display-title) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme :is([m
+[32m+[m[32m    .music-list-page .editorial-list-header h1,[m
+[32m+[m[32m    .screenings-page .screenings-title,[m
+[32m+[m[32m    .cinema-reviews-page .cinema-reviews-title,[m
+[32m+[m[32m    .festivals-archive-page .festivals-archive-header h1[m
+[32m+[m[32m  ) {[m
+[32m+[m[32m    font-size: var(--fluid-section-title) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme .giveaways-page,[m
+[32m+[m[32m  .culture-dark-theme .giveaway-single-page,[m
+[32m+[m[32m  .culture-dark-theme .cinema-review-detail-page {[m
+[32m+[m[32m    padding-top: var(--fluid-page-top) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .culture-dark-theme .festival-single-page .festival-single-back,[m
+[32m+[m[32m  .culture-dark-theme .screenings-page .screenings-title-section,[m
+[32m+[m[32m  .culture-dark-theme .cinema-reviews-page .cinema-reviews-hero {[m
+[32m+[m[32m    padding-top: var(--fluid-page-top) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .interviews-archive-page .interviews-archive-desktop {[m
+[32m+[m[32m    padding-top: var(--fluid-page-top) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  /* Events used viewport percentages that became too narrow on laptops. */[m
+[32m+[m[32m  .events-page {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    padding-left: 17vw !important;[m
+[32m+[m[32m    padding-right: 14vw !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .events-page > section,[m
+[32m+[m[32m  .events-page > div {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .events-index-page > br {[m
+[32m+[m[32m    display: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .events-index-page > section:first-of-type {[m
+[32m+[m[32m    padding-top: var(--fluid-page-top) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .events-page .events-main-title {[m
+[32m+[m[32m    font-size: var(--fluid-display-title) !important;[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m@media (min-width: 1024px) and (max-width: 1599px) and (max-height: 800px) {[m
+[32m+[m[32m  .hero-content {[m
+[32m+[m[32m    padding-bottom: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .hero-title {[m
+[32m+[m[32m    font-size: var(--fluid-display-title) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .hero-description {[m
+[32m+[m[32m    margin-top: var(--fluid-copy-gap) !important;[m
+[32m+[m[32m    font-size: var(--fluid-body-large) !important;[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* Small laptops need breathing room more than extra columns. */[m
+[32m+[m[32m@media (min-width: 1024px) and (max-width: 1199px) {[m
+[32m+[m[32m  .cinema-page .cinema-main-grid,[m
+[32m+[m[32m  .festivals-page .festivals-main-grid,[m
+[32m+[m[32m  .music-page .music-sections,[m
+[32m+[m[32m  .books-page .books-week-grid,[m
+[32m+[m[32m  .book-detail-page .book-detail-header,[m
+[32m+[m[32m  :is(.music-detail-page, .artist-detail-page) .music-detail-hero,[m
+[32m+[m[32m  .cinema-detail-page .cinema-detail-shell > div:last-child,[m
+[32m+[m[32m  .cinema-review-detail-page .cinema-review-detail-content,[m
+[32m+[m[32m  .festival-single-page .festival-single-intro-grid,[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-content,[m
+[32m+[m[32m  .interviews-page .interviews-featured-grid {[m
+[32m+[m[32m    grid-template-columns: minmax(0, 1fr) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-week-grid,[m
+[32m+[m[32m  .music-page :is(.music-releases, .music-artists) {[m
+[32m+[m[32m    min-height: 0 !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .books-page .books-cover-column {[m
+[32m+[m[32m    border-right: 0 !important;[m
+[32m+[m[32m    border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .book-detail-page .book-detail-header > div:first-child,[m
+[32m+[m[32m  :is(.music-detail-page, .artist-detail-page) .music-detail-hero > div:first-child,[m
+[32m+[m[32m  .cinema-detail-page .cinema-detail-shell > div:last-child > div:first-child,[m
+[32m+[m[32m  .cinema-review-detail-page .cinema-review-detail-content > div:first-child {[m
+[32m+[m[32m    width: min(440px, 100%) !important;[m
+[32m+[m[32m    margin-left: auto !important;[m
+[32m+[m[32m    margin-right: auto !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .giveaway-single-page .giveaway-single-content {[m
+[32m+[m[32m    gap: 48px !important;[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m@media (min-width: 1024px) and (max-width: 1599px) {[m
+[32m+[m[32m  .interviews-page > br {[m
+[32m+[m[32m    display: none;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .interviews-page .interviews-hero-container {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    max-width: none !important;[m
+[32m+[m[32m    min-height: 0 !important;[m
+[32m+[m[32m    padding: var(--fluid-page-top) 0 clamp(64px, 9vmin, 96px) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .interviews-page .interviews-hero-title {[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    max-width: 900px !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .interviews-page .interviews-hero-title h1 {[m
+[32m+[m[32m    font-size: var(--fluid-display-title) !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .interviews-page .interviews-featured-desktop {[m
+[32m+[m[32m    position: relative !important;[m
+[32m+[m[32m    left: auto !important;[m
+[32m+[m[32m    top: auto !important;[m
+[32m+[m[32m    width: 100% !important;[m
+[32m+[m[32m    max-width: 1180px !important;[m
+[32m+[m[32m    margin: 0 auto !important;[m
+[32m+[m[32m    padding: 0 0 96px !important;[m
+[32m+[m[32m    translate: none !important;[m
+[32m+[m[32m    transform: none !important;[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  .interviews-page .interviews-featured-desktop > div {[m
+[32m+[m[32m    max-width: 1180px !important;[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m

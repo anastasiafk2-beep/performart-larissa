@@ -1,10 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import TrackedLink from "@/components/analytics/TrackedLink";
 import NewsletterSignup from "@/components/newsletter/NewsletterSignup";
 import { usePathname } from "next/navigation";
-import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
-import { HiOutlineEnvelope, HiOutlinePhone } from "react-icons/hi2";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaTiktok,
+  FaYoutube,
+} from "react-icons/fa";
+import { HiOutlineEnvelope } from "react-icons/hi2";
 
 const socialLinks = [
   {
@@ -22,30 +28,42 @@ const socialLinks = [
     icon: FaTiktok,
     href: "https://www.tiktok.com/@performart_larissa?_r=1&_t=ZN-9857txAuBoE",
   },
+  {
+    name: "YouTube",
+    icon: FaYoutube,
+    href: "https://www.youtube.com/channel/UCteCf2l4nhOw63k7yrxFhNw",
+  },
 ];
 
 export default function Footer() {
   const pathname = usePathname();
-  const isOpinionsPage = pathname === "/opinions" || pathname.startsWith("/opinions/");
+  const isOpinionsPage =
+    pathname === "/opinions" || pathname.startsWith("/opinions/");
 
   return (
-    <footer className={`relative overflow-hidden ${isOpinionsPage ? "footer--opinions" : ""}`}>
+    <footer
+      className={`relative overflow-hidden ${
+        isOpinionsPage ? "footer--opinions" : ""
+      }`}
+    >
       <div className="footer-background absolute inset-0 bg-red-800">
         <div className="footer-overlay absolute inset-0 bg-black/40" />
       </div>
 
       <div className="footer-inner relative mx-auto">
         <NewsletterSignup />
+
         <div className="footer-main">
           <div className="footer-column footer-contact">
             <div className="footer-heading flex items-center gap-4">
               <span className="h-px w-8 bg-red-600" />
+
               <h3 className="text-[17px] font-bold uppercase tracking-[0.45em] text-white/90">
                 ΕΠΙΚΟΙΝΩΝΙΑ
               </h3>
             </div>
 
-            <div className="footer-contact-links">
+            <div className="footer-contact-links" data-nosnippet>
               <a
                 href="mailto:performart.lar@gmail.com"
                 className="group flex items-center justify-center gap-5 text-zinc-400 transition hover:text-white"
@@ -54,18 +72,10 @@ export default function Footer() {
                   size={22}
                   className="shrink-0 text-white transition group-hover:text-red-600"
                 />
-                <span className="text-white">performart.lar@gmail.com</span>
-              </a>
 
-              <a
-                href="tel:+306977948210"
-                className="group flex items-center justify-center gap-5 text-zinc-400 transition hover:text-white"
-              >
-                <HiOutlinePhone
-                  size={22}
-                  className="shrink-0 text-white transition group-hover:text-red-600"
-                />
-                <span className="text-white">+30 697 7948210</span>
+                <span className="text-white">
+                  performart.lar@gmail.com
+                </span>
               </a>
             </div>
           </div>
@@ -73,6 +83,7 @@ export default function Footer() {
           <div className="footer-column footer-social">
             <div className="footer-heading flex items-center gap-4">
               <span className="h-px w-8 bg-red-600" />
+
               <h3 className="text-[17px] font-bold uppercase tracking-[0.45em] text-white/90">
                 FOLLOW US
               </h3>
@@ -83,57 +94,69 @@ export default function Footer() {
                 const Icon = item.icon;
 
                 return (
-                  <Link
+                  <TrackedLink
                     key={item.name}
+                    eventName="social_click"
+                    eventParams={{
+                      platform: item.name.toLowerCase(),
+                      link_location: "footer",
+                      account_type: "performart",
+                    }}
                     href={item.href}
                     target="_blank"
                     className="group flex items-center justify-center gap-5 text-zinc-300 transition hover:text-white"
                   >
-                    <Icon size={22} className="transition group-hover:scale-110" />
-                    <span className="text-lg">{item.name}</span>
-                  </Link>
+                    <Icon
+                      size={22}
+                      className="transition group-hover:scale-110"
+                    />
+
+                    <span className="text-lg">
+                      {item.name}
+                    </span>
+                  </TrackedLink>
                 );
               })}
             </div>
           </div>
         </div>
 
-      <div className="footer-legal">
-  <Link href="/privacy">
-    Πολιτική Απορρήτου
-  </Link>
+        <div className="footer-legal">
+          <Link href="/privacy">
+            Πολιτική Απορρήτου
+          </Link>
 
-  <span>·</span>
+          <span>·</span>
 
-  <Link href="/cookies">
-    Πολιτική Cookies
-  </Link>
+          <Link href="/cookies">
+            Πολιτική Cookies
+          </Link>
 
-  <span>·</span>
+          <span>·</span>
 
-  <Link href="/terms">
-    Όροι Χρήσης
-  </Link>
+          <Link href="/terms">
+            Όροι Χρήσης
+          </Link>
 
-  <span>·</span>
+          <span>·</span>
 
-  <button
-    type="button"
-    onClick={() => {
-      window.dispatchEvent(
-        new Event("performart-open-cookie-settings")
-      );
-    }}
-  >
-    Ρυθμίσεις Cookies
-  </button>
-</div>
+          <button
+            type="button"
+            onClick={() => {
+              window.dispatchEvent(
+                new Event("performart-open-cookie-settings")
+              );
+            }}
+          >
+            Ρυθμίσεις Cookies
+          </button>
+        </div>
 
-<div className="footer-copyright">
-  <p className="text-center text-[11px] uppercase tracking-[0.45em] text-zinc-300">
-    © 2026 THE PERFORMART LARISSA
-  </p>
-</div>
+        <div className="footer-copyright">
+          <p className="text-center text-[11px] uppercase tracking-[0.45em] text-zinc-300">
+            © 2026 THE PERFORMART LARISSA
+          </p>
+        </div>
       </div>
 
       <style jsx>{`
@@ -169,7 +192,8 @@ export default function Footer() {
 
         .footer-inner {
           width: min(100%, 1400px);
-          padding: clamp(36px, 5vmin, 64px) clamp(20px, 4vw, 56px)
+          padding: clamp(36px, 5vmin, 64px)
+            clamp(20px, 4vw, 56px)
             clamp(24px, 3vmin, 40px);
         }
 
@@ -208,41 +232,41 @@ export default function Footer() {
           gap: clamp(12px, 1.8vmin, 20px);
         }
 
-.footer-legal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding-top: clamp(20px, 3vmin, 30px);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.75);
-}
+        .footer-legal {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 10px;
+          padding-top: clamp(20px, 3vmin, 30px);
+          font-size: 12px;
+          letter-spacing: 0.08em;
+          color: rgba(255, 255, 255, 0.75);
+        }
 
-.footer-legal :global(a),
-.footer-legal button {
-  color: rgba(255, 255, 255, 0.75);
-  transition: color 0.2s ease;
-}
+        .footer-legal :global(a),
+        .footer-legal button {
+          color: rgba(255, 255, 255, 0.75);
+          transition: color 0.2s ease;
+        }
 
-.footer-legal :global(a:hover),
-.footer-legal button:hover {
-  color: #ffffff;
-}
+        .footer-legal :global(a:hover),
+        .footer-legal button:hover {
+          color: #ffffff;
+        }
 
-.footer-legal button {
-  background: none;
-  border: 0;
-  padding: 0;
-  font: inherit;
-  letter-spacing: inherit;
-  cursor: pointer;
-}
+        .footer-legal button {
+          background: none;
+          border: 0;
+          padding: 0;
+          font: inherit;
+          letter-spacing: inherit;
+          cursor: pointer;
+        }
 
-.footer-legal span {
-  color: rgba(255, 255, 255, 0.4);
-}
+        .footer-legal span {
+          color: rgba(255, 255, 255, 0.4);
+        }
 
         .footer-copyright {
           padding-top: clamp(22px, 3vmin, 34px);
@@ -297,12 +321,12 @@ export default function Footer() {
             height: 19px !important;
           }
 
-.footer-legal {
-  gap: 8px;
-  padding-top: 20px;
-  font-size: 11px;
-  text-align: center;
-}
+          .footer-legal {
+            gap: 8px;
+            padding-top: 20px;
+            font-size: 11px;
+            text-align: center;
+          }
 
           .footer-copyright {
             padding-top: 24px;

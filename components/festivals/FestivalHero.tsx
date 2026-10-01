@@ -29,7 +29,7 @@ export default function CinemaHero() {
           flex
           min-h-[40vh]
           max-w-[1900px]
-          events-page
+          culture-hero-shell
           px-20
           pt-60
           pb-44
@@ -92,7 +92,7 @@ export default function CinemaHero() {
           }
 
           /* Ακυρώνουμε τα μεγάλα desktop margins/paddings */
-          .events-page {
+          .culture-hero-shell {
             width: 100% !important;
             max-width: 100% !important;
             min-width: 0 !important;
@@ -106,7 +106,7 @@ export default function CinemaHero() {
 
           /* Ακυρώνουμε το desktop grid/max-width που περιορίζει
              και μετακινεί τον τίτλο */
-          .events-page > div {
+          .culture-hero-shell > div {
             width: 100% !important;
             max-width: 100% !important;
             min-width: 0 !important;

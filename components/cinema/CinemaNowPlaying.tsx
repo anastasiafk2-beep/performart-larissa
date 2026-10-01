@@ -74,10 +74,10 @@ export default function CinemaNowPlaying() {
             text-[13px]
             uppercase
             tracking-[0.14em]
-            !text-black
+            !text-white
             transition
             hover:bg-[#B32025]
-            hover:!text-black
+            hover:!text-white
           "
         >
           ΔΕΙΤΕ ΟΛΕΣ ΤΙΣ ΠΡΟΒΟΛΕΣ

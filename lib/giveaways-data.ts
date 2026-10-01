@@ -91,7 +91,8 @@ function normalizeGiveaway(
     description:
       giveaway.description.trim(),
 
-    image: giveaway.image || "",
+    image:
+      giveaway.image || "/images/placeholder.png",
 
     participation: Array.isArray(
       giveaway.participation
@@ -112,6 +113,103 @@ function normalizeGiveaway(
   };
 }
 
+/* =========================================================
+   DATE SORTING
+   Υποστηρίζει:
+   - 2026-09-30
+   - 30/09/2026
+   - 30 ΣΕΠΤΕΜΒΡΙΟΥ 2026
+   - 30 Σεπτεμβρίου 2026
+   ========================================================= */
+
+const greekMonths: Record<string, number> = {
+  ΙΑΝΟΥΑΡΙΟΥ: 0,
+  ΦΕΒΡΟΥΑΡΙΟΥ: 1,
+  ΜΑΡΤΙΟΥ: 2,
+  ΑΠΡΙΛΙΟΥ: 3,
+  ΜΑΙΟΥ: 4,
+  ΙΟΥΝΙΟΥ: 5,
+  ΙΟΥΛΙΟΥ: 6,
+  ΑΥΓΟΥΣΤΟΥ: 7,
+  ΣΕΠΤΕΜΒΡΙΟΥ: 8,
+  ΟΚΤΩΒΡΙΟΥ: 9,
+  ΝΟΕΜΒΡΙΟΥ: 10,
+  ΔΕΚΕΜΒΡΙΟΥ: 11,
+};
+
+function getGiveawayDateTimestamp(date: string): number {
+  if (!date) return 0;
+
+  const trimmed = date.trim();
+
+  // ISO: 2026-09-30
+  const isoMatch = trimmed.match(
+    /^(\d{4})-(\d{1,2})-(\d{1,2})/
+  );
+
+  if (isoMatch) {
+    const [, year, month, day] = isoMatch;
+
+    return Date.UTC(
+      Number(year),
+      Number(month) - 1,
+      Number(day)
+    );
+  }
+
+  // 30/09/2026
+  const numericMatch = trimmed.match(
+    /^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/
+  );
+
+  if (numericMatch) {
+    const [, day, month, year] = numericMatch;
+
+    return Date.UTC(
+      Number(year),
+      Number(month) - 1,
+      Number(day)
+    );
+  }
+
+  // Αφαίρεση τόνων και μετατροπή σε κεφαλαία
+  const normalized = trimmed
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase();
+
+  // 30 ΣΕΠΤΕΜΒΡΙΟΥ 2026
+  const greekMatch = normalized.match(
+    /^(\d{1,2})\s+([Α-Ω]+)\s+(\d{4})$/
+  );
+
+  if (greekMatch) {
+    const [, day, monthName, year] = greekMatch;
+
+    const month = greekMonths[monthName];
+
+    if (month !== undefined) {
+      return Date.UTC(
+        Number(year),
+        month,
+        Number(day)
+      );
+    }
+  }
+
+  return 0;
+}
+
+function sortGiveawaysByDate(
+  giveaways: Giveaway[]
+): Giveaway[] {
+  return [...giveaways].sort(
+    (a, b) =>
+      getGiveawayDateTimestamp(b.date) -
+      getGiveawayDateTimestamp(a.date)
+  );
+}
+
 export async function getGiveaways(): Promise<
   Giveaway[]
 > {
@@ -125,7 +223,8 @@ export async function getGiveaways(): Promise<
 
     const mergedGiveaways = new Map(
       localGiveaways.map(
-        (giveaway) => [giveaway.id, giveaway] as const
+        (giveaway) =>
+          [giveaway.id, giveaway] as const
       )
     );
 
@@ -136,16 +235,23 @@ export async function getGiveaways(): Promise<
           giveaway !== null
       )
       .forEach((giveaway) =>
-        mergedGiveaways.set(giveaway.id, giveaway)
+        mergedGiveaways.set(
+          giveaway.id,
+          giveaway
+        )
       );
 
-    return Array.from(mergedGiveaways.values());
+    return sortGiveawaysByDate(
+      Array.from(mergedGiveaways.values())
+    );
   } catch (error) {
     console.error(
       "Unable to load Sanity giveaways:",
       error
     );
 
-    return localGiveaways;
+    return sortGiveawaysByDate(
+      localGiveaways
+    );
   }
 }

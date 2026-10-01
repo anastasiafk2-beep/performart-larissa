@@ -71,7 +71,7 @@ export default function ContactModal({
 <br></br>
 <br></br>
         {/* CONTACT INFORMATION */}
-        <div className="contact-modal-grid grid grid-cols-1 gap-1 md:grid-cols-2">
+        <div className="contact-modal-grid grid grid-cols-1 gap-1 md:grid-cols-1">
 
           {/* EMAIL */}
           <div className="text-center">
@@ -102,34 +102,7 @@ export default function ContactModal({
 
           </div>
 
-          {/* PHONE */}
-          <div className="text-center">
-
-            <p
-              className="
-                mb-5
-                text-2sm
-                uppercase
-                tracking-[0.45em]
-                text-[#C13B3A]
-              "
-            >
-              Τηλέφωνο
-            </p>
-
-            <a
-              href="tel:+306977948210"
-              className="
-                text-2xl
-                text-white
-                transition
-                hover:text-[#C13B3A]
-              "
-            >
-              +30 697 7948210
-            </a>
-
-          </div>
+         
 
         </div>
 
@@ -212,7 +185,7 @@ export default function ContactModal({
             box-sizing: border-box !important;
           }
 
-          /* EMAIL / PHONE */
+          /* EMAIL */
           .contact-modal-grid > div {
             width: 100% !important;
             max-width: 100% !important;

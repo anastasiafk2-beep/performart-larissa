@@ -1,5 +1,7 @@
 "use client";
 
+import ContentView from "@/components/analytics/ContentView";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -77,15 +79,16 @@ const relatedEvents = events
   .slice(0, 3);
 
   return (
-    <main className="min-h-screen events-page bg-white text-white">
+    <main className="event-detail-page min-h-screen events-page bg-white text-white">
+      <ContentView event="event_view" contentId={event.id} params={{ content_title: event.title, category: event.category }} ready={!isLoading} />
 
       {/* HEADER / BACK */}
 
-      <section className="px-8 md:px-12 pt-10">
+      <section className="event-detail-back-row px-8 md:px-12 pt-10">
 
         <Link
   href="/events"
-  className="absolute left-8 top-32 z-30 inline-flex border border-black/30 bg-red-800 px-4 py-2 text-[14px] uppercase tracking-[0.2em] text-black transition-all duration-300 hover:bg-black hover:text-white lg:left-[1550px] lg:top-30"
+  className="event-detail-back inline-flex border border-red-700 px-4 py-2 text-[14px] uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-red-800"
 >
   ← ΠΙΣΩ ΣΤΙΣ ΕΚΔΗΛΩΣΕΙΣ
 </Link>
@@ -98,7 +101,7 @@ const relatedEvents = events
 <br></br>
       {/* MAIN EVENT */}
 
-      <section className="max-w-7xl mx-auto px-8 md:px-12 py-16">
+      <section className="event-detail-main max-w-7xl mx-auto px-8 md:px-12 py-16">
 
         <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-20">
 
@@ -239,7 +242,7 @@ const relatedEvents = events
       {/* RELATED EVENTS */}
 
       {relatedEvents.length > 0 && (
-        <section className="max-w-7xl mx-auto px-8 md:px-12 pb-24">
+        <section className="related-events-section max-w-7xl mx-auto px-8 md:px-12 pb-24">
 
           <div>
 

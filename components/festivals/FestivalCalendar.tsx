@@ -104,10 +104,34 @@ export default function FestivalCalendar() {
     return result;
   }, [festivals]);
 
-  const today = new Date();
+  const [today, setToday] = useState(() => new Date());
 
-  const [month, setMonth] = useState(today.getMonth());
-  const [year, setYear] = useState(today.getFullYear());
+const [month, setMonth] = useState(() => new Date().getMonth());
+const [year, setYear] = useState(() => new Date().getFullYear());
+
+useEffect(() => {
+  function syncCalendarWithToday() {
+    const now = new Date();
+
+    setToday(now);
+    setMonth(now.getMonth());
+    setYear(now.getFullYear());
+  }
+
+  syncCalendarWithToday();
+
+  window.addEventListener("focus", syncCalendarWithToday);
+
+  const interval = window.setInterval(
+    syncCalendarWithToday,
+    60 * 60 * 1000
+  );
+
+  return () => {
+    window.removeEventListener("focus", syncCalendarWithToday);
+    window.clearInterval(interval);
+  };
+}, []);
 
   const calendar = useMemo(() => {
     const firstDay = new Date(year, month, 1);
@@ -154,7 +178,7 @@ export default function FestivalCalendar() {
   }
 
   return (
-    <div className="w-[600px] bg-black/2 border border-black/3 p-5">
+    <div className="festival-calendar w-[600px] bg-black/2 border border-black/3 p-5">
 
       {/* HEADER ΜΗΝΑ */}
       <div

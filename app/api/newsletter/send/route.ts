@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "next-sanity";
+import { timingSafeEqual } from "node:crypto";
+import { deliverNewsletter } from "@/lib/newsletter/deliver";
 
 export const runtime = "nodejs";
 
@@ -22,16 +24,6 @@ type PortableTextBlock = {
   listItem?: string;
   children?: PortableTextSpan[];
   markDefs?: MarkDef[];
-};
-
-type NewsletterPayload = {
-  _id?: string;
-  _rev?: string;
-  title?: string;
-  subject?: string;
-  previewText?: string;
-  body?: PortableTextBlock[];
-  sendStatus?: string;
 };
 
 function escapeHtml(value: string) {
@@ -155,199 +147,19 @@ function portableTextToHtml(
 
 export async function POST(request: NextRequest) {
   const secret = process.env.NEWSLETTER_WEBHOOK_SECRET;
-  const receivedSecret = request.headers.get(
-    "x-newsletter-secret"
-  );
-
-  if (
-    !secret ||
-    !receivedSecret ||
-    receivedSecret !== secret
-  ) {
-    return NextResponse.json(
-      { error: "Unauthorized" },
-      { status: 401 }
-    );
-  }
-
-  const apiKey = process.env.KIT_API_KEY;
-  const projectId =
-    process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-  const dataset =
-    process.env.NEXT_PUBLIC_SANITY_DATASET;
-  const sanityToken = process.env.SANITY_API_TOKEN;
-
-  if (
-    !apiKey ||
-    !projectId ||
-    !dataset ||
-    !sanityToken
-  ) {
-    return NextResponse.json(
-      { error: "Missing server configuration" },
-      { status: 500 }
-    );
-  }
-
-  let payload: NewsletterPayload;
-
+  const received = request.headers.get('x-newsletter-secret');
+  if (!secret || !received || Buffer.byteLength(secret) !== Buffer.byteLength(received) || !timingSafeEqual(Buffer.from(secret), Buffer.from(received)))
+    return NextResponse.json({error:'Unauthorized'},{status:401});
+  const {KIT_API_KEY, NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET, SANITY_API_TOKEN} = process.env;
+  if (!KIT_API_KEY || !NEXT_PUBLIC_SANITY_PROJECT_ID || !NEXT_PUBLIC_SANITY_DATASET || !SANITY_API_TOKEN)
+    return NextResponse.json({error:'Missing server configuration'},{status:500});
+  let payload;
+  try { payload = await request.json(); } catch { return NextResponse.json({error:'Invalid JSON'},{status:400}); }
+  const client = createClient({projectId:NEXT_PUBLIC_SANITY_PROJECT_ID,dataset:NEXT_PUBLIC_SANITY_DATASET,token:SANITY_API_TOKEN,apiVersion:'2025-02-19',useCdn:false});
   try {
-    payload = await request.json();
+    return await deliverNewsletter(payload,client,KIT_API_KEY,(blocks) => portableTextToHtml(blocks as PortableTextBlock[]),process.env.NEWSLETTER_SEND_ENABLED === 'true');
   } catch {
-    return NextResponse.json(
-      { error: "Invalid JSON" },
-      { status: 400 }
-    );
-  }
-
-  const {
-    _id,
-    _rev,
-    title,
-    subject,
-    previewText,
-    body,
-    sendStatus,
-  } = payload;
-
-  if (
-    !_id ||
-    !_rev ||
-    !subject ||
-    !Array.isArray(body) ||
-    sendStatus !== "ready"
-  ) {
-    return NextResponse.json(
-      { error: "Invalid newsletter payload" },
-      { status: 400 }
-    );
-  }
-
-  const sanityWriteClient = createClient({
-    projectId,
-    dataset,
-    apiVersion: "2026-08-31",
-    token: sanityToken,
-    useCdn: false,
-  });
-
-  /*
-   * Κλειδώνουμε το συγκεκριμένο revision.
-   * Αν το ίδιο webhook ξανατρέξει, δεν μπορεί
-   * να δημιουργήσει δεύτερη αποστολή.
-   */
-  try {
-    await sanityWriteClient
-      .patch(_id)
-      .ifRevisionId(_rev)
-      .set({
-        newsletterSending: true,
-      })
-      .commit();
-  } catch {
-    return NextResponse.json(
-      {
-        ok: true,
-        skipped: true,
-        reason: "Already processing",
-      },
-      { status: 200 }
-    );
-  }
-
-  const html = portableTextToHtml(body);
-  const now = new Date().toISOString();
-
-  try {
-    const kitResponse = await fetch(
-      "https://api.kit.com/v4/broadcasts",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Kit-Api-Key": apiKey,
-        },
-        body: JSON.stringify({
-          subject,
-          preview_text: previewText || "",
-          description:
-            title || `Sanity newsletter ${_id}`,
-          content: html,
-
-          // Δεν εμφανίζεται δημόσια σαν post στο Kit.
-          public: false,
-
-          // Αποστολή τώρα.
-          published_at: now,
-          send_at: now,
-        }),
-        cache: "no-store",
-      }
-    );
-
-    const kitResult = await kitResponse.json();
-
-    if (!kitResponse.ok) {
-      const errorMessage =
-        Array.isArray(kitResult?.errors)
-          ? kitResult.errors.join(" | ")
-          : "Kit broadcast creation failed";
-
-      await sanityWriteClient
-        .patch(_id)
-        .set({
-          sendStatus: "draft",
-          sendError: errorMessage,
-        })
-        .unset(["newsletterSending"])
-        .commit();
-
-      return NextResponse.json(
-        {
-          error: errorMessage,
-        },
-        { status: 502 }
-      );
-    }
-
-    const broadcastId =
-      kitResult?.broadcast?.id ?? null;
-
-    await sanityWriteClient
-      .patch(_id)
-      .set({
-        sendStatus: "sent",
-        sentAt: now,
-        kitBroadcastId: broadcastId,
-      })
-      .unset([
-        "newsletterSending",
-        "sendError",
-      ])
-      .commit();
-
-    return NextResponse.json({
-      ok: true,
-      broadcastId,
-    });
-  } catch (error) {
-    const message =
-      error instanceof Error
-        ? error.message
-        : "Unknown error";
-
-    await sanityWriteClient
-      .patch(_id)
-      .set({
-        sendStatus: "draft",
-        sendError: message,
-      })
-      .unset(["newsletterSending"])
-      .commit();
-
-    return NextResponse.json(
-      { error: message },
-      { status: 500 }
-    );
+    // Do not leak provider errors or credentials. Durable receipts prevent a second POST.
+    return NextResponse.json({error:'Newsletter processing failed; retry safely or inspect the delivery receipt'},{status:503});
   }
 }

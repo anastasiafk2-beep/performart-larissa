@@ -20,6 +20,8 @@ export default async function MusicReleasesPage() {
   return (
     <main
       className="
+        music-list-page
+        music-releases-page
         min-h-screen
         overflow-x-hidden
         bg-white
@@ -28,6 +30,7 @@ export default async function MusicReleasesPage() {
     >
       <div
         className="
+          editorial-list-shell
           mx-auto
           w-full
           max-w-[1300px]
@@ -46,6 +49,7 @@ export default async function MusicReleasesPage() {
           href="/music"
           className={`
             ${alegreya.className}
+            editorial-back-button
 
             inline-block
 
@@ -76,7 +80,7 @@ export default async function MusicReleasesPage() {
 
         {/* TITLE */}
 
-        <header className="mt-14">
+        <header className="editorial-list-header mt-14">
 
           <p
             className={`
@@ -125,6 +129,7 @@ export default async function MusicReleasesPage() {
 
         <section
           className="
+            editorial-list-grid
             mt-16
 
             grid

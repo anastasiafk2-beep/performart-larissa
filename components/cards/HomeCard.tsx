@@ -42,7 +42,8 @@ export default function HomeCard({
         hover:shadow-[0_0_30px_rgba(220,38,38,.18)]
       "
       style={{
-        height: "clamp(120px, 32vw, 170px)",
+        height: "clamp(120px, 18vmin, 190px)",
+        padding: "clamp(16px, 2.4vmin, 28px)",
         boxSizing: "border-box",
       }}
     >
@@ -74,6 +75,10 @@ export default function HomeCard({
       {/* Center */}
       <div className="relative z-10 flex flex-1 items-center justify-center">
         <Icon
+          style={{
+            width: "clamp(28px, 4vmin, 42px)",
+            height: "clamp(28px, 4vmin, 42px)",
+          }}
           className="
             -translate-y-3 sm:-translate-y-4
             h-7 w-8 sm:h-8 sm:w-10
@@ -105,7 +110,7 @@ export default function HomeCard({
             text-white
           "
           style={{
-            fontSize: "clamp(12px, 3.4vw, 16px)",
+            fontSize: "clamp(12px, 1.65vmin, 18px)",
             lineHeight: 1.2,
           }}
         >

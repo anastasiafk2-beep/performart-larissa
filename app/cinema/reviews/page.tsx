@@ -52,15 +52,15 @@ export default function CinemaReviewsPage() {
   }, []);
 
   const allReviews = [
-    ...reviews,
-    ...sanityReviews.map((review) => ({
-      id: review.id,
-      movie: review.movieTitle,
-      excerpt: review.excerpt,
-      rating: review.rating,
-      image: review.image || "",
-    })),
-  ];
+  ...sanityReviews.map((review) => ({
+    id: review.id,
+    movie: review.movieTitle,
+    excerpt: review.excerpt,
+    rating: review.rating,
+    image: review.image || "",
+  })),
+  ...reviews,
+];
 
   return (
     <main
@@ -80,11 +80,6 @@ export default function CinemaReviewsPage() {
         {/* HEADER / HERO */}
         <section
           className="cinema-reviews-hero mx-auto w-full max-w-[1200px] px-6 pt-20 md:px-10 md:pt-28"
-          style={{
-            position: "relative",
-            left: "260px",
-            top: "60px",
-          }}
         >
           <div className="cinema-reviews-hero-inner">
 
@@ -94,17 +89,10 @@ export default function CinemaReviewsPage() {
 
             <div
               className="cinema-reviews-back-wrap"
-              style={{
-                width: "25%",
-                marginLeft: "50%",
-                position: "relative",
-                top: "120px",
-                marginBottom: "0px",
-              }}
             >
               <a
                 href="/cinema"
-                className="cinema-reviews-back"
+                className="cinema-reviews-back editorial-back-button"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -134,11 +122,6 @@ export default function CinemaReviewsPage() {
         {/* ΚΡΙΤΙΚΕΣ */}
         <section
           className="cinema-reviews-list w-full max-w-[1200px] px-6 pb-24 md:px-10"
-          style={{
-            position: "relative",
-            left: "260px",
-            top: "100px",
-          }}
         >
           <div className="cinema-reviews-list-heading mb-8 flex items-end justify-between border-b border-black/10 pb-4">
             <div>

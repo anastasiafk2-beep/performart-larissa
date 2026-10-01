@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { trackEvent } from "@/lib/analytics";
 import {useState, type FormEvent} from "react";
 
 export default function NewsletterSignup() {
@@ -25,6 +26,9 @@ export default function NewsletterSignup() {
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Η εγγραφή δεν ολοκληρώθηκε. Δοκίμασε ξανά.");
+      if (!data.get("website") && result.ok === true) {
+        trackEvent("newsletter_signup", { form_location: "footer", signup_stage: "submitted" });
+      }
       setSuccess(true);
       setMessage(
   "Ευχαριστούμε! Έλεγξε το email σου και πάτησε τον σύνδεσμο επιβεβαίωσης για να ολοκληρώσεις την εγγραφή σου."

@@ -478,7 +478,7 @@ export default function CinemaCalendar() {
                             <Link
                               href={`/cinema/${event.target}`}
                               className="
-                                !text-black/60
+                                !text-white/70
 
                                 inline-flex
 

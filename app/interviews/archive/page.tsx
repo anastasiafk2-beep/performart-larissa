@@ -24,7 +24,7 @@ export default function InterviewsArchivePage() {
 
   return (
     <main
-      className="min-h-screen overflow-x-hidden bg-white text-[#111111]"
+      className="interviews-archive-page min-h-screen overflow-x-hidden bg-white text-[#111111]"
       style={{
         backgroundImage: "url('/backgrounds/cinema-bg.png')",
         backgroundSize: "cover",
@@ -42,7 +42,7 @@ export default function InterviewsArchivePage() {
           DESKTOP CONTENT
           ========================================================= */}
 
-      <div className="relative z-10 mx-auto hidden w-full max-w-[1950px] flex-col items-center bg-white px-6 pb-28 pt-40 md:flex md:px-10 lg:px-12">
+      <div className="interviews-archive-desktop relative z-10 mx-auto hidden w-full max-w-[1950px] flex-col items-center bg-white px-6 pb-28 pt-40 md:flex md:px-10 lg:px-12">
 
         <br />
         <br />
@@ -50,7 +50,7 @@ export default function InterviewsArchivePage() {
         {/* ΕΠΙΣΤΡΟΦΗ */}
 
         <div
-          className="relative mt-8 flex -left-137 justify-start px-6 text-lg"
+          className="interviews-archive-back relative mt-8 flex -left-137 justify-start px-6 text-lg"
           style={{
             padding: "25px 17px",
           }}
@@ -119,20 +119,26 @@ export default function InterviewsArchivePage() {
                 <div className="relative overflow-hidden bg-white">
 
                   {interview.image ? (
-                    <Image
-                      src={interview.image}
-                      alt={interview.title}
-                      width={800}
-                      height={500}
-                      className="block h-auto w-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex aspect-[2/3] w-full items-center justify-center bg-white">
-                      <span className="text-[10px] tracking-[0.3em] text-white">
-                        INTERVIEW STORIES
-                      </span>
-                    </div>
-                  )}
+  <Image
+    src={interview.image}
+    alt={interview.title}
+    width={800}
+    height={500}
+    className="block h-auto w-full object-cover"
+  />
+) : interview.youtubeId ? (
+  <img
+    src={`https://img.youtube.com/vi/${interview.youtubeId}/hqdefault.jpg`}
+    alt={interview.title}
+    className="block aspect-[8/5] w-full object-cover"
+  />
+) : (
+  <div className="flex aspect-[2/3] w-full items-center justify-center bg-white">
+    <span className="text-[10px] tracking-[0.3em] text-white">
+      INTERVIEW STORIES
+    </span>
+  </div>
+)}
 
                   {/* HOVER */}
 
@@ -177,7 +183,9 @@ export default function InterviewsArchivePage() {
                       paddingRight: "24px",
                     }}
                   >
-                    ΔΙΑΒΑΣΤΕ ΤΟ ΑΡΘΡΟ →
+                    {interview.type === "video"
+  ? "ΔΕΙΤΕ ΤΗ ΣΥΝΕΝΤΕΥΞΗ →"
+  : "ΔΙΑΒΑΣΤΕ ΤΟ ΑΡΘΡΟ →"}
                   </div>
 
                 </div>
@@ -246,18 +254,24 @@ export default function InterviewsArchivePage() {
                 <div className="interviews-archive-mobile-image">
 
                   {interview.image ? (
-                    <Image
-                      src={interview.image}
-                      alt={interview.title}
-                      width={800}
-                      height={500}
-                      className="interviews-archive-mobile-img"
-                    />
-                  ) : (
-                    <div className="interviews-archive-mobile-empty">
-                      INTERVIEW STORIES
-                    </div>
-                  )}
+  <Image
+    src={interview.image}
+    alt={interview.title}
+    width={800}
+    height={500}
+    className="interviews-archive-mobile-img"
+  />
+) : interview.youtubeId ? (
+  <img
+    src={`https://img.youtube.com/vi/${interview.youtubeId}/hqdefault.jpg`}
+    alt={interview.title}
+    className="interviews-archive-mobile-img"
+  />
+) : (
+  <div className="interviews-archive-mobile-empty">
+    INTERVIEW STORIES
+  </div>
+)}
 
                 </div>
 
@@ -275,7 +289,9 @@ export default function InterviewsArchivePage() {
                   </h2>
 
                   <span className={alegreya.className}>
-                    ΔΙΑΒΑΣΤΕ ΤΟ ΑΡΘΡΟ →
+                    {interview.type === "video"
+  ? "ΔΕΙΤΕ ΤΗ ΣΥΝΕΝΤΕΥΞΗ →"
+  : "ΔΙΑΒΑΣΤΕ ΤΟ ΑΡΘΡΟ →"}
                   </span>
 
                 </div>
@@ -315,7 +331,7 @@ export default function InterviewsArchivePage() {
   /* Αφήνουμε χώρο κάτω από το fixed Header/logo */
   padding: 125px 20px 100px 20px;
 
-  background: #ffffff;
+  background: #000000;
 
   box-sizing: border-box;
 }
@@ -348,9 +364,9 @@ export default function InterviewsArchivePage() {
 
   border: 1px solid #C13B3A;
 
-  background: #ffffff;
+  background: #000000;
 
-  color: #000000;
+  color: #ffffff;
 
   font-size: 8px;
   line-height: 1.2;
@@ -412,7 +428,7 @@ export default function InterviewsArchivePage() {
           margin: 0;
           padding: 0;
 
-          color: #000000;
+          color: #ffffff;
 
           font-size: 28px;
 
@@ -488,7 +504,7 @@ export default function InterviewsArchivePage() {
 
           border: 1px solid #BBAEBD;
 
-          background: #ffffff;
+          background: #000000;
 
           box-sizing: border-box;
         }
@@ -508,7 +524,7 @@ export default function InterviewsArchivePage() {
 
           overflow: hidden;
 
-          background: #ffffff;
+          background: #000000;
 
           box-sizing: border-box;
         }
@@ -540,7 +556,7 @@ export default function InterviewsArchivePage() {
           align-items: center;
           justify-content: center;
 
-          color: #000000;
+          color: #ffffff;
 
           font-size: 9px;
 
@@ -594,7 +610,7 @@ export default function InterviewsArchivePage() {
           margin: 10px 0 0 0;
           padding: 0;
 
-          color: #000000;
+          color: #ffffff;
 
           font-size: 18px;
 

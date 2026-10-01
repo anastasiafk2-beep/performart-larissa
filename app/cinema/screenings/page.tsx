@@ -165,7 +165,7 @@ export default function ScreeningsPage() {
   <div className="relative z-10">
         
         {/* ΤΙΤΛΟΣ */}
-        <section className="px-6 pb-20  pt-10 md:px-10">
+        <section className="screenings-title-section px-6 pb-20 pt-10 md:px-10">
           <div
             className="screenings-title-inner"
             style={{
@@ -186,6 +186,7 @@ export default function ScreeningsPage() {
 >
   <Link
     href="/cinema"
+    className="editorial-back-button"
     style={{
       display: "inline-flex",
       alignItems: "center",

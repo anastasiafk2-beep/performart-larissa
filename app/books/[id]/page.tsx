@@ -1,6 +1,14 @@
+import ContentView from "@/components/analytics/ContentView";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import JsonLd from "@/components/seo/JsonLd";
 import { getBooks } from "@/lib/books-data";
+import {
+  createArticleJsonLd,
+  createBreadcrumbJsonLd,
+  createPageMetadata,
+} from "@/lib/seo";
 import { Alegreya, Spectral } from "next/font/google";
 
 const alegreya = Alegreya({
@@ -18,6 +26,36 @@ type BookPageProps = {
     id: string;
   }>;
 };
+
+export async function generateMetadata({
+  params,
+}: BookPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const book = (await getBooks()).find((item) => item.id === id);
+  const path = `/books/${encodeURIComponent(id)}`;
+
+  if (!book) {
+    return createPageMetadata({
+      title: "Το βιβλίο δεν βρέθηκε",
+      description: "Η σελίδα βιβλίου που ζητήσατε δεν είναι διαθέσιμη.",
+      path,
+      noIndex: true,
+    });
+  }
+
+  return createPageMetadata({
+    title: book.title,
+    description:
+      book.excerpt ||
+      book.description ||
+      `Παρουσίαση του βιβλίου «${book.title}»${book.author ? ` του/της ${book.author}` : ""}.`,
+    path,
+    image: book.cover,
+    imageAlt: `Εξώφυλλο του βιβλίου ${book.title}`,
+    type: "article",
+    publishedTime: book.date,
+  });
+}
 
 export default async function BookPage({
   params,
@@ -59,6 +97,24 @@ export default async function BookPage({
         text-[#171717]
       "
     >
+      <ContentView event="article_view" contentId={book.id} params={{ content_title: book.title, content_type: "book" }} />
+      <JsonLd
+        data={[
+          createArticleJsonLd({
+            headline: book.title,
+            description: book.excerpt || book.description,
+            path: `/books/${encodeURIComponent(book.id)}`,
+            image: book.cover,
+            datePublished: book.date,
+            section: "Βιβλίο",
+          }),
+          createBreadcrumbJsonLd([
+            { name: "Αρχική", path: "/" },
+            { name: "Βιβλίο", path: "/books" },
+            { name: book.title, path: `/books/${encodeURIComponent(book.id)}` },
+          ]),
+        ]}
+      />
 
       {/* OVERLAY */}
 
@@ -71,6 +127,7 @@ export default async function BookPage({
 
       <div
         className="
+          book-detail-shell
           relative
           z-10
           mx-auto
@@ -84,13 +141,12 @@ export default async function BookPage({
           lg:px-12
           lg:pt-[180px]
           lg:pb-28
-          lg:translate-x-[360px]
         "
       >
 
         {/* BACK */}
 
-        <div className="mb-12">
+        <div className="book-detail-back mb-12">
 
           <Link
             href="/books"
@@ -133,6 +189,7 @@ export default async function BookPage({
 
         <header
           className="
+            book-detail-header
             grid
             grid-cols-1
             gap-10
@@ -317,6 +374,7 @@ export default async function BookPage({
 
         <div
           className="
+            book-detail-content
             mx-auto
             mt-16
             w-full

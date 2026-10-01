@@ -1,8 +1,16 @@
+import ContentView from "@/components/analytics/ContentView";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Alegreya, Spectral } from "next/font/google";
 
+import JsonLd from "@/components/seo/JsonLd";
 import { getMusic } from "@/lib/music-data";
+import {
+  createArticleJsonLd,
+  createBreadcrumbJsonLd,
+  createPageMetadata,
+} from "@/lib/seo";
 
 const alegreya = Alegreya({
   subsets: ["latin"],
@@ -19,6 +27,36 @@ type MusicPageProps = {
     id: string;
   }>;
 };
+
+export async function generateMetadata({
+  params,
+}: MusicPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const item = (await getMusic()).find((entry) => entry.id === id);
+  const path = `/music/${encodeURIComponent(id)}`;
+
+  if (!item) {
+    return createPageMetadata({
+      title: "Η μουσική κυκλοφορία δεν βρέθηκε",
+      description: "Η μουσική κυκλοφορία που ζητήσατε δεν είναι διαθέσιμη.",
+      path,
+      noIndex: true,
+    });
+  }
+
+  return createPageMetadata({
+    title: item.title,
+    description:
+      item.excerpt ||
+      item.description ||
+      `${item.title}${item.artist ? ` — ${item.artist}` : ""}.`,
+    path,
+    image: item.image,
+    imageAlt: item.title,
+    type: "article",
+    publishedTime: item.date,
+  });
+}
 
 export default async function MusicItemPage({
   params,
@@ -60,8 +98,30 @@ export default async function MusicItemPage({
         text-[#171717]
       "
     >
+      <ContentView event="article_view" contentId={item.id} params={{ content_title: item.title, content_type: "music" }} />
+      <JsonLd
+        data={[
+          createArticleJsonLd({
+            headline: item.title,
+            description: item.excerpt || item.description,
+            path: `/music/${encodeURIComponent(item.id)}`,
+            image: item.image,
+            datePublished: item.date,
+            section: "Μουσική",
+          }),
+          createBreadcrumbJsonLd([
+            { name: "Αρχική", path: "/" },
+            { name: "Μουσική", path: "/music" },
+            {
+              name: item.title,
+              path: `/music/${encodeURIComponent(item.id)}`,
+            },
+          ]),
+        ]}
+      />
       <div
         className="
+          music-detail-shell
           mx-auto
           w-full
           max-w-[1200px]
@@ -80,6 +140,7 @@ export default async function MusicItemPage({
           href="/music/releases"
           className={`
             ${alegreya.className}
+            editorial-back-button
 
             inline-block
 
@@ -112,6 +173,7 @@ export default async function MusicItemPage({
 
         <section
           className="
+            music-detail-hero
             mt-14
 
             grid

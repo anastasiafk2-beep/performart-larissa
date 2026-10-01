@@ -6,7 +6,7 @@ export default function HomePage() {
     <>
       <Hero />
 
-<section className="bg-black h-6" />
+<section id="home-content" className="bg-black h-6" />
 
 
      <HomeGrid />

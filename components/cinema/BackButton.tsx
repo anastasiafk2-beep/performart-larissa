@@ -10,6 +10,7 @@ export default function BackButton() {
       type="button"
       onClick={() => router.back()}
       className="
+        editorial-back-button
         inline-flex
         items-center
         gap-3

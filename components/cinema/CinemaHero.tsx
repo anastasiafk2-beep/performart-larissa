@@ -24,24 +24,22 @@ export default function CinemaHero() {
       <div className="absolute inset-0 -z-10 " />
 
       <div
-        className="
-          mx-auto
-          flex
-          min-h-[40vh]
-          max-w-[1900px]
-          events-page
-          px-20
-          pt-60
-          pb-44
-        "
-      >
+  className="
+    mx-auto
+    flex
+    max-w-[1900px]
+    culture-hero-shell
+    px-20
+    pt-40
+    pb-16
+  "
+>
+
         <div className="grid w-full max-w-[200px] grid-cols-[1fr_380px] gap-24">
 
           {/* ΤΙΤΛΟΣ CINEMA */}
           <div className="cinema-hero-title max-w-[900px]">
-            <br />
-            <br />
-            <br />
+           
 
             <div
               className={`${alegreya.className} mb-4 text-[15px] uppercase tracking-[0.35em] text-[#B32025]`}
@@ -75,7 +73,7 @@ export default function CinemaHero() {
         </div>
       </div>
 
-      {/* =========================================================
+ {/* =========================================================
           MOBILE ONLY
           Ακριβώς η ίδια λογική με το FestivalHero.
           Το desktop παραμένει όπως είναι.
@@ -93,7 +91,7 @@ export default function CinemaHero() {
           }
 
           /* Ακυρώνουμε τα μεγάλα desktop margins/paddings */
-          .events-page {
+          .culture-hero-shell {
             width: 100% !important;
             max-width: 100% !important;
             min-width: 0 !important;
@@ -107,7 +105,7 @@ export default function CinemaHero() {
 
           /* Ακυρώνουμε το desktop grid/max-width που περιορίζει
              και μετακινεί τον τίτλο */
-          .events-page > div {
+          .culture-hero-shell > div {
             width: 100% !important;
             max-width: 100% !important;
             min-width: 0 !important;
@@ -167,6 +165,7 @@ export default function CinemaHero() {
             text-align: center !important;
             white-space: nowrap !important;
 
+transform: translateX(-12px) !important;
             box-sizing: border-box !important;
           }
 
@@ -175,20 +174,23 @@ export default function CinemaHero() {
             width: 100% !important;
             max-width: 100% !important;
 
-            margin: 16px 0 0 !important;
+            margin: 14px 0 0 !important;
             padding: 0 !important;
 
-            font-size: 10px !important;
+            font-size: 7px !important;
             line-height: 1.5 !important;
             letter-spacing: 0.18em !important;
 
             text-align: center !important;
             white-space: nowrap !important;
 
+            transform: translateX(-12px) !important;
+
             box-sizing: border-box !important;
           }
         }
       `}</style>
+     
     </section>
   );
 }

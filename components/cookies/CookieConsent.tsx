@@ -4,7 +4,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { useEffect, useState } from "react";
 
-const CONSENT_KEY = "performart-cookie-consent";
+import { ANALYTICS_CONSENT_KEY as CONSENT_KEY, updateAnalyticsConsent } from "@/lib/analytics";
 
 type ConsentValue = "accepted" | "rejected" | null;
 
@@ -13,7 +13,9 @@ export default function CookieConsent() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-  const savedConsent = localStorage.getItem(CONSENT_KEY);
+  let savedConsent: string | null = null;
+  try { savedConsent = localStorage.getItem(CONSENT_KEY); } catch { /* Keep analytics off if storage is unavailable. */ }
+  updateAnalyticsConsent(savedConsent === "accepted");
 
   if (savedConsent === "accepted" || savedConsent === "rejected") {
     setConsent(savedConsent);
@@ -39,12 +41,14 @@ export default function CookieConsent() {
 }, []);
 
   function acceptCookies() {
-    localStorage.setItem(CONSENT_KEY, "accepted");
+    try { localStorage.setItem(CONSENT_KEY, "accepted"); } catch { return; }
+    updateAnalyticsConsent(true);
     setConsent("accepted");
   }
 
   function rejectCookies() {
-    localStorage.setItem(CONSENT_KEY, "rejected");
+    try { localStorage.setItem(CONSENT_KEY, "rejected"); } catch { /* Still disable the loaded tag. */ }
+    updateAnalyticsConsent(false);
     setConsent("rejected");
   }
 
@@ -54,23 +58,14 @@ export default function CookieConsent() {
 
   return (
     <>
-      {consent === "accepted" && (
+      {consent === "accepted" && process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
         <>
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
             strategy="afterInteractive"
           />
 
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}', {
-                anonymize_ip: true
-              });
-            `}
-          </Script>
+
         </>
       )}
 

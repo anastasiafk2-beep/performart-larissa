@@ -11,6 +11,7 @@ export type CinemaReview = {
   excerpt: string;
   rating: string;
   image?: string;
+  createdAt: string;
 };
 
 type SanityCinemaReview = {
@@ -20,16 +21,18 @@ type SanityCinemaReview = {
   excerpt?: string;
   rating?: string;
   image?: string;
+  createdAt?: string;
 };
 
 const CINEMA_REVIEWS_QUERY = defineQuery(`
-  *[_type == "cinemaReview"] {
+  *[_type == "cinemaReview"] | order(_createdAt desc) {
     "id": _id,
     movieTitle,
     title,
     excerpt,
     rating,
-    "image": image.asset->url
+    "image": image.asset->url,
+    "createdAt": _createdAt
   }
 `);
 
@@ -47,13 +50,14 @@ function normalizeCinemaReview(
   }
 
   return {
-    id: review.id,
-    movieTitle: review.movieTitle.trim(),
-    title: review.title.trim(),
-    excerpt: review.excerpt.trim(),
-    rating: review.rating.trim(),
-    image: review.image || undefined,
-  };
+  id: review.id,
+  movieTitle: review.movieTitle.trim(),
+  title: review.title.trim(),
+  excerpt: review.excerpt.trim(),
+  rating: review.rating.trim(),
+  image: review.image || undefined,
+  createdAt: review.createdAt || "",
+};
 }
 
 export async function getCinemaReviews(): Promise<CinemaReview[]> {
