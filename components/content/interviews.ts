@@ -27,6 +27,7 @@ export type Interview = {
   url?: string;
 
   introduction?: string;
+  body?: string;
 
   questions?: InterviewQuestion[];
 

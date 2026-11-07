@@ -398,7 +398,13 @@ const interviews = await getInterviews();
               Q&A INTERVIEW
               ================================================= */}
 
-          {interview.formats?.includes("qa") &&
+          {interview.body && (
+            <div className={`${alegreya.className} mt-10 whitespace-pre-line text-[16px] leading-[1.7] text-black/75 lg:mt-16 lg:text-[18px]`}>
+              {interview.introduction && <p className="mb-10">{interview.introduction}</p>}
+              <div>{interview.body}</div>
+            </div>
+          )}
+          {!interview.body && interview.formats?.includes("qa") &&
             interview.questions &&
             interview.questions.length > 0 && (
               <div

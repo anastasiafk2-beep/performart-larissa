@@ -36,6 +36,7 @@ type SanityInterview = {
   url?: string;
 
   introduction?: string;
+  body?: string;
 
   questions?: InterviewQuestion[];
 
@@ -73,6 +74,7 @@ const INTERVIEWS_QUERY = defineQuery(`
     url,
 
     introduction,
+    body,
 
     questions[] {
       question,
@@ -120,6 +122,7 @@ function getFormats(
   }
 
   if (
+    interview.body?.trim() ||
     Array.isArray(interview.questions) &&
     interview.questions.length > 0
   ) {
@@ -186,6 +189,8 @@ function normalizeInterview(
 
     introduction:
       interview.introduction?.trim() || undefined,
+
+    body: interview.body?.trim() || undefined,
 
     questions:
       Array.isArray(interview.questions)
