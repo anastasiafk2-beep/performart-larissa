@@ -23,7 +23,7 @@ export default function InterviewWrittenContent({
   return (
     <section className="interview-qa mt-10 w-full lg:mt-16">
       {introduction && (
-        <p className={`${bodyClassName} mb-10 whitespace-pre-line text-[16px] leading-[1.7] text-black/80 lg:mb-14 lg:text-[18px]`}>
+        <p className={`${bodyClassName} mb-10 whitespace-pre-line text-[16px] leading-[1.7] text-black/75 lg:mb-14 lg:text-[18px]`}>
           {introduction}
         </p>
       )}
@@ -48,7 +48,7 @@ export default function InterviewWrittenContent({
       )}
 
       {quote && (
-        <blockquote className={`${headingClassName} mt-10 border-l-2 border-[#C13B3A] pl-5 text-[22px] leading-[1.45] text-black lg:mt-14 lg:pl-8 lg:text-[28px]`}>
+        <blockquote className={`${bodyClassName} mt-8 border-l-2 border-[#C13B3A] pl-4 text-[16px] leading-[1.7] text-black/75 lg:mt-10 lg:pl-5 lg:text-[18px]`}>
           <p className="whitespace-pre-line break-words">{quote}</p>
         </blockquote>
       )}
