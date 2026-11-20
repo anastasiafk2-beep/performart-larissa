@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import JsonLd from "@/components/seo/JsonLd";
 import { getInterviews } from "@/lib/interviews-data";
+import InterviewWrittenContent from "@/components/interviews/InterviewWrittenContent";
 import {
   ORGANIZATION_ID,
   absoluteUrl,
@@ -82,7 +83,7 @@ const interviews = await getInterviews();
 
           <Link
             href="/interviews/archive"
-            className={`${alegreya.className} mt-8 inline-block border border-[#C13B3A] px-8 py-3 text-xs uppercase tracking-[0.25em] text-black`}
+            className={`site-back-button ${alegreya.className} mt-8 inline-block border border-[#C13B3A] px-8 py-3 text-xs uppercase tracking-[0.25em] text-black`}
           >
             ← ΠΙΣΩ ΣΤΙΣ ΣΥΝΕΝΤΕΥΞΕΙΣ
           </Link>
@@ -195,7 +196,7 @@ const interviews = await getInterviews();
 
           <Link
             href="/interviews/archive"
-            className={`
+            className={`site-back-button 
               ${alegreya.className}
 
               inline-block
@@ -398,78 +399,11 @@ const interviews = await getInterviews();
               Q&A INTERVIEW
               ================================================= */}
 
-          {interview.body && (
-            <div className={`${alegreya.className} mt-10 whitespace-pre-line text-[16px] leading-[1.7] text-black/75 lg:mt-16 lg:text-[18px]`}>
-              {interview.introduction && <p className="mb-10">{interview.introduction}</p>}
-              <div>{interview.body}</div>
-            </div>
-          )}
-          {!interview.body && interview.formats?.includes("qa") &&
-            interview.questions &&
-            interview.questions.length > 0 && (
-              <div
-                className="
-                  interview-qa
-                  mt-10
-                  w-full
-                  lg:mt-16
-                "
-              >
-                {interview.introduction && (
-                  <p
-                    className={`
-                      ${alegreya.className}
-                      mb-10
-                      text-[16px]
-                      leading-[1.65]
-                      text-black/80
-                      lg:mb-14
-                      lg:text-[18px]
-                    `}
-                  >
-                    {interview.introduction}
-                  </p>
-                )}
-
-                <div className="space-y-10 lg:space-y-14">
-                  {interview.questions.map(
-                    (item, index) => (
-                      <div
-                        key={`${item.question}-${index}`}
-                        className="interview-qa-item"
-                      >
-                        <h2
-                          className={`
-                            ${spectral.className}
-                            text-[19px]
-                            leading-[1.35]
-                            text-black
-                            lg:text-[22px]
-                          `}
-                        >
-                          {item.question}
-                        </h2>
-
-                        <p
-                          className={`
-                            ${alegreya.className}
-                            mt-4
-                            whitespace-pre-line
-                            text-[16px]
-                            leading-[1.7]
-                            text-black/75
-                            lg:mt-5
-                            lg:text-[18px]
-                          `}
-                        >
-                          {item.answer}
-                        </p>
-                      </div>
-                    )
-                  )}
-                </div>
-              </div>
-            )}
+          <InterviewWrittenContent
+            interview={interview}
+            bodyClassName={alegreya.className}
+            headingClassName={spectral.className}
+          />
 
           {/* =================================================
               ARTICLE
